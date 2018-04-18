@@ -11,3 +11,4 @@ npm-debug.log
 .idea
 variable.env
 variable.env.now
+tmp.js

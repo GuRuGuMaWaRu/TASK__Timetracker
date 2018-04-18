@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js",
+    "server": "nodemon start.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -19,11 +19,8 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
-    "debounce": "^1.1.0",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
-    "lodash": "^4.17.4",
-    "material-ui": "^1.0.0-beta.36",
-    "material-ui-icons": "^1.0.0-beta.36",
     "mongoose": "^4.13.4",
     "nodemon": "^1.12.1",
     "path-parser": "^3.0.1"

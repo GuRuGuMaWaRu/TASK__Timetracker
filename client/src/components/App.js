@@ -1,35 +1,36 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import * as actions from "../actions";
+import React, { Component } from "react";
+// import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import * as actions from "../actions";
 
-import Header from "./Header";
-import Landing from "./Landing";
-import Dashboard from "./Dashboard";
+const Header = () => {
+  return <div>Header</div>;
+};
+const Content = () => {
+  return <div>Content</div>;
+};
+const Footer = () => {
+  return <div>Footer</div>;
+};
 
-class App extends React.PureComponent {
-  componentDidMount() {
-    this.props.fetchUser();
-  }
-
+export default class App extends Component {
   render() {
-    const { auth } = this.props;
-
     return (
-      <div className="app">
+      <div>
         <Header />
-        {auth ? <Dashboard /> : <Landing />}
+        <Content />
+        <Footer />
       </div>
     );
   }
 }
 
-App.propTypes = {
-  auth: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
-};
+// App.propTypes = {
+//   auth: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
+// };
 
-const mapStateToProps = ({ auth }) => ({
-  auth
-});
+// const mapStateToProps = ({ auth }) => ({
+//   auth
+// });
 
-export default connect(mapStateToProps, actions)(App);
+// export default connect(mapStateToProps, actions)(App);
