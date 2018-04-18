@@ -1,18 +1,23 @@
 import axios from "axios";
-import {
-  FETCH_USER,
-  FETCH_EVENTS,
-  UPDATE_EVENT,
-  ADD_EVENT,
-  DELETE_EVENT,
-  UPDATE_FORM,
-  CLEAR_FORM,
-  FILL_FORM,
-  SHOW_ERRORS,
-  CLEAR_ERRORS
-} from "./types";
-import { getStartAndDuration } from "../utils/layoutHelpers";
+import { ADD_TASK } from "./types";
 
+//////////////////////////////////////////
+export const addTask = () => async dispatch => {
+  const taskData = {
+    year: 2014,
+    month: 11,
+    day: 4,
+    time: "02:29:11",
+    description: "Swimming"
+  };
+
+  const res = await axios.post("/tasks/addTask", taskData);
+
+  console.log(res);
+  dispatch({ type: ADD_TASK });
+};
+//////////////////////////////////////////
+/*
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
   dispatch({ type: FETCH_USER, payload: res.data });
@@ -83,3 +88,5 @@ export const showErrors = errors => ({
 export const clearErrors = () => ({
   type: CLEAR_ERRORS
 });
+
+*/

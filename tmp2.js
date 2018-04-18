@@ -1,36 +1,55 @@
 const mongoose = require("mongoose");
-const Task = mongoose.model("Task");
+const Store = mongoose.model("Store");
+const User = mongoose.model("User");
+const multer = require("multer");
+const jimp = require("jimp");
+const uuid = require("uuid");
 
-///////////////////////////////////////////////////
-exports.getMonth = async (req, res) => {
-  const [year, month] = req.params.date.split(",").map(parseFloat);
+const multerOptions = {
+  storage: multer.memoryStorage(),
+  fileFilter(req, file, next) {
+    const isPhoto = file.mimetype.startsWith("image/");
+    if (isPhoto) {
+      next(null, true);
+    } else {
+      next(
+        {
+          message: "That filetype isn't allowed!"
+        },
+        false
+      );
+    }
+  }
+};
 
-  const activeDays = await Task.find({
-    year,
-    month
+exports.homePage = (req, res) => {
+  res.render("index");
+};
+
+exports.addStore = (req, res) => {
+  res.render("editStore", {
+    title: "Add Store"
   });
-
-  res.send(activeDays);
 };
 
-exports.getDay = async (req, res) => {
-  const dayTasks = await Task.find();
+exports.upload = multer(multerOptions).single("photo");
 
-  res.send(dayTasks);
+exports.resize = async (req, res, next) => {
+  // check if there is no new file to resize
+  if (!req.file) {
+    next(); // skip to the next middleware
+    return;
+  }
+  const extension = req.file.mimetype.split("/")[1];
+  req.body.photo = `${uuid.v4()}.${extension}`;
+  // now we resize
+  const photo = await jimp.read(req.file.buffer);
+  await photo.resize(800, jimp.AUTO);
+  await photo.write(`./public/uploads/${req.body.photo}`);
+  // once we have written the photo to our filesyte, keep going!
+  next();
 };
 
-exports.searchTasks = async (req, res) => {
-  const tasks = await Task.find();
-
-  res.send(tasks);
-};
-
-exports.addTask = async (req, res) => {
-  const newTask = await new Task(req.body).save();
-
-  res.send(newTask);
-};
-///////////////////////////////////////////////////
 exports.createStore = async (req, res) => {
   req.body.author = req.user._id;
   const store = await new Store(req.body).save();

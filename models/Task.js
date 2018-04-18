@@ -6,8 +6,17 @@ const taskSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  year: {
+    type: Number
+  },
+  month: {
+    type: Number
+  },
+  day: {
+    type: Number
+  },
   time: {
-    type: Number,
+    type: String,
     required: "You must supply time!"
   },
   description: {
