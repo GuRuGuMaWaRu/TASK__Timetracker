@@ -16,7 +16,7 @@ const Footer = () => {
 
 class App extends Component {
   state = {
-    tasks: "no tasks",
+    tasks: [],
     days: []
   };
 
@@ -35,6 +35,28 @@ class App extends Component {
     });
   };
 
+  getDay = async () => {
+    const date = "2014,11,23";
+
+    const tasks = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
+
+    this.setState({
+      tasks: tasks.data
+    });
+  };
+
+  searchTasks = async () => {
+    const searchQuery = "Swim";
+
+    const tasks = await axios.get(
+      `http://localhost:5000/tasks/searchTasks/${searchQuery}`
+    );
+
+    this.setState({
+      tasks: tasks.data
+    });
+  };
+
   render() {
     const { addTask } = this.props;
 
@@ -45,11 +67,20 @@ class App extends Component {
         <Footer />
         <button onClick={addTask}>Add task</button>
         <button onClick={this.getMonth}>Get month</button>
+        <button onClick={this.getDay}>Get tasks for the date</button>
+        <button onClick={this.searchTasks}>Search for the tasks</button>
         <div>
           {this.state.days.map((day, index) => (
             <div key={`${day}-${index}`}>{day}</div>
           ))}
         </div>
+        <ul>
+          {this.state.tasks.map((task, index) => (
+            <li key={task._id}>
+              {task.time} - {task.description}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
