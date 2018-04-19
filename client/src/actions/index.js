@@ -1,20 +1,33 @@
 import axios from "axios";
-import { ADD_TASK, UPDATE_TIMER, CLEAR_TIMER } from "./types";
+import { ADD_TASK, UPDATE_TIMER, CLEAR_TIMER, SET_TIMER_ID } from "./types";
+import { timeFromString } from "../utils/timer";
 
 //////////////////////////////////////////
-export const addTask = () => async dispatch => {
+export const bookTime = data => async (dispatch, getState) => {
+  let { time, description, custom } = data;
+
+  if (!custom) {
+    time = getState().time;
+  } else {
+    time = timeFromString(time);
+  }
+
+  const currentDate = new Date();
+
   const taskData = {
-    year: 2014,
-    month: 11,
-    day: 4,
-    time: "02:29:11",
-    description: "Swimming"
+    year: currentDate.getFullYear(),
+    month: currentDate.getMonth(),
+    day: currentDate.getDate(),
+    time,
+    description
   };
 
   const res = await axios.post("/tasks/addTask", taskData);
 
-  dispatch({ type: ADD_TASK, payload: res.data });
+  dispatch({ type: ADD_TASK, payload: custom });
 };
+
+export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
 
 export const updateTimer = () => ({ type: UPDATE_TIMER });
 

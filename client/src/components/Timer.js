@@ -21,23 +21,17 @@ const styles = theme => ({
 });
 
 class Timer extends Component {
-  state = {
-    timerID: 0
-  };
-
   componentWillUnmount() {
-    window.clearInterval(this.state.timerID);
+    window.clearInterval(this.props.timerID);
   }
 
   startTimer = () => {
     const timerID = window.setInterval(this.props.updateTimer, 1000);
-    this.setState({
-      timerID
-    });
+    this.props.setTimerID(timerID);
   };
 
   clearTimer = () => {
-    window.clearInterval(this.state.timerID);
+    window.clearInterval(this.props.timerID);
     this.props.clearTimer();
   };
 
@@ -70,8 +64,9 @@ class Timer extends Component {
   }
 }
 
-const mapStateToProps = ({ time }) => ({
-  time
+const mapStateToProps = ({ time, timerID }) => ({
+  time,
+  timerID
 });
 
 export default withStyles(styles)(connect(mapStateToProps, actions)(Timer));

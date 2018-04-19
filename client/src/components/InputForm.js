@@ -57,6 +57,10 @@ class InputForm extends React.Component {
     errorTimeoutID: null
   };
 
+  componentWillUnmount() {
+    window.clearTimeout(this.state.errorTimeoutID);
+  }
+
   validateTime = () => {
     const timeToArr = this.state.time.split(":").map(parseFloat);
     return timeToArr.every(time => time === 0);
@@ -105,6 +109,23 @@ class InputForm extends React.Component {
 
   handleBookTime = () => {
     this.validateInput();
+
+    if (this.state.errorTime === 0 && this.state.errorDescription === 0) {
+      if (this.state.selectedTab === 0) {
+        window.clearInterval(this.props.timerID);
+      }
+
+      this.props.bookTime({
+        time: this.state.time,
+        description: this.state.description,
+        custom: this.state.selectedTab === 1 ? true : false
+      });
+
+      this.setState({
+        time: "00:00",
+        description: ""
+      });
+    }
   };
 
   handleClear = () => {
@@ -188,8 +209,9 @@ class InputForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ time }) => ({
-  time
+const mapStateToProps = ({ time, timerID }) => ({
+  time,
+  timerID
 });
 
 export default connect(mapStateToProps, actions)(withStyles(styles)(InputForm));

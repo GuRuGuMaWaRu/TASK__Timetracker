@@ -8,3 +8,10 @@ export const showTime = time => {
 
   return hours + minutes + seconds;
 };
+
+export const timeFromString = time => {
+  const timeToArr = time.split(":").map(parseFloat);
+  const timeInSeconds = timeToArr[0] * 3600 + timeToArr[1] * 60;
+
+  return showTime(timeInSeconds);
+};
