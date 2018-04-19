@@ -30,11 +30,12 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   formControl: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    width: 280
   },
   textField: {
     margin: theme.spacing.unit,
-    width: 182
+    width: 280
   }
 });
 
@@ -48,9 +49,42 @@ function TabContainer(props) {
 
 class InputForm extends React.Component {
   state = {
-    time: "",
+    time: "00:00",
     description: "",
-    selectedTab: 0
+    selectedTab: 0,
+    errorTime: 0,
+    errorDescription: 0,
+    errorTimeoutID: null
+  };
+
+  validateTime = () => {
+    const timeToArr = this.state.time.split(":").map(parseFloat);
+    return timeToArr.every(time => time === 0);
+  };
+
+  validateInput = () => {
+    window.clearTimeout(this.state.errorTimeoutID);
+
+    const timeError = this.validateTime();
+    const descriptionError = this.state.description.length === 0;
+
+    if (timeError || descriptionError) {
+      if (timeError) {
+        this.setState({ errorTime: 1 });
+      }
+      if (descriptionError) {
+        this.setState({ errorDescription: 1 });
+      }
+
+      const errorTimeout = window.setTimeout(() => {
+        this.setState({
+          errorTime: 0,
+          errorDescription: 0
+        });
+      }, 2000);
+
+      this.setState({ errorTimeoutID: errorTimeout });
+    }
   };
 
   handleChangeTab = (event, value) => {
@@ -69,6 +103,17 @@ class InputForm extends React.Component {
     });
   };
 
+  handleBookTime = () => {
+    this.validateInput();
+  };
+
+  handleClear = () => {
+    this.setState({
+      description: "",
+      time: "00:00"
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const { selectedTab } = this.state;
@@ -84,31 +129,40 @@ class InputForm extends React.Component {
             InputLabelProps={{
               shrink: true
             }}
-            helperText="Please enter time"
+            error={this.state.errorTime === 1}
+            helperText={this.state.errorTime === 1 ? "Please enter time" : ""}
             value={this.state.time}
             onChange={this.handleChangeTime}
           />
         )}
-        <FormControl
-          className={classes.formControl}
-          error
-          aria-describedby="description-error-text"
-        >
-          <InputLabel focused>Description</InputLabel>
-          <Input
-            id="description-error"
-            value={this.state.description}
-            onChange={this.handleChangeDescription}
-          />
-          <FormHelperText id="description-error-text">
-            Please enter description
-          </FormHelperText>
-        </FormControl>
+        <TextField
+          id="description"
+          type="string"
+          label="Description"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true
+          }}
+          error={this.state.errorDescription === 1}
+          helperText={
+            this.state.errorDescription === 1 ? "Please enter description" : ""
+          }
+          value={this.state.description}
+          onChange={this.handleChangeDescription}
+        />
         <div>
-          <Button color="primary" className={classes.button}>
+          <Button
+            color="primary"
+            className={classes.button}
+            onClick={this.handleBookTime}
+          >
             Book Time
           </Button>
-          <Button color="secondary" className={classes.button}>
+          <Button
+            color="secondary"
+            className={classes.button}
+            onClick={this.handleClear}
+          >
             Clear
           </Button>
         </div>
