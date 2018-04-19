@@ -7,7 +7,7 @@ import * as actions from "../actions";
 import Header from "./Header";
 import Timer from "./Timer";
 import InputForm from "./InputForm";
-import TaskList from "./TaskList";
+import Tasks from "./Tasks";
 class App extends Component {
   state = {
     tasks: [],
@@ -60,7 +60,7 @@ class App extends Component {
         <Header />
         <Timer />
         <InputForm />
-        <TaskList />
+        <Tasks />
         <button onClick={addTask}>Add task</button>
         <button onClick={this.getMonth}>Get month</button>
         <button onClick={this.getDay}>Get tasks for the date</button>

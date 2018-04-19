@@ -6,13 +6,13 @@ import {
   CLEAR_TIMER,
   SET_TIMER_ID
 } from "./types";
-import { timeFromString } from "../utils/timer";
+import { showTime, timeFromString } from "../utils/timer";
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time, description, custom } = data;
 
   if (!custom) {
-    time = getState().time;
+    time = showTime(getState().time);
   } else {
     time = timeFromString(time);
   }
@@ -39,7 +39,6 @@ export const updateTimer = () => ({ type: UPDATE_TIMER });
 export const clearTimer = () => ({ type: CLEAR_TIMER });
 
 export const searchTasks = searchQuery => async dispatch => {
-  console.log(searchQuery);
   const res = await axios.get(
     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
   );
