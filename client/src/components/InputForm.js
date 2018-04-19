@@ -5,8 +5,6 @@ import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
-import Input, { InputLabel } from "material-ui/Input";
-import { FormControl, FormHelperText } from "material-ui/Form";
 import TextField from "material-ui/TextField";
 import Tabs, { Tab } from "material-ui/Tabs";
 

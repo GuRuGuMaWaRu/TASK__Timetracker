@@ -7,14 +7,7 @@ import * as actions from "../actions";
 import Header from "./Header";
 import Timer from "./Timer";
 import InputForm from "./InputForm";
-
-const Content = () => {
-  return <div>Content</div>;
-};
-const Footer = () => {
-  return <div>Footer</div>;
-};
-
+import TaskList from "./TaskList";
 class App extends Component {
   state = {
     tasks: [],
@@ -47,12 +40,13 @@ class App extends Component {
   };
 
   searchTasks = async () => {
-    const searchQuery = "Swim";
+    const searchQuery = "Cod";
 
     const tasks = await axios.get(
       `http://localhost:5000/tasks/searchTasks/${searchQuery}`
     );
 
+    console.log(tasks.data);
     this.setState({
       tasks: tasks.data
     });
@@ -66,7 +60,7 @@ class App extends Component {
         <Header />
         <Timer />
         <InputForm />
-        <Footer />
+        <TaskList />
         <button onClick={addTask}>Add task</button>
         <button onClick={this.getMonth}>Get month</button>
         <button onClick={this.getDay}>Get tasks for the date</button>
@@ -91,9 +85,5 @@ class App extends Component {
 // App.propTypes = {
 //   auth: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
 // };
-
-// const mapStateToProps = ({ auth }) => ({
-//   auth
-// });
 
 export default connect(null, actions)(App);
