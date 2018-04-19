@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 import * as actions from "../actions";
+import Header from "./Header";
 import Timer from "./Timer";
+import InputForm from "./InputForm";
 
-const Header = () => {
-  return <div>Header</div>;
-};
 const Content = () => {
   return <div>Content</div>;
 };
@@ -66,7 +65,7 @@ class App extends Component {
       <div>
         <Header />
         <Timer />
-        <Content />
+        <InputForm />
         <Footer />
         <button onClick={addTask}>Add task</button>
         <button onClick={this.getMonth}>Get month</button>

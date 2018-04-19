@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_TASK } from "./types";
+import { ADD_TASK, UPDATE_TIMER, CLEAR_TIMER } from "./types";
 
 //////////////////////////////////////////
 export const addTask = () => async dispatch => {
@@ -13,9 +13,13 @@ export const addTask = () => async dispatch => {
 
   const res = await axios.post("/tasks/addTask", taskData);
 
-  console.log(res);
-  dispatch({ type: ADD_TASK });
+  dispatch({ type: ADD_TASK, payload: res.data });
 };
+
+export const updateTimer = () => ({ type: UPDATE_TIMER });
+
+export const clearTimer = () => ({ type: CLEAR_TIMER });
+
 //////////////////////////////////////////
 /*
 export const fetchUser = () => async dispatch => {
