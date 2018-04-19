@@ -2,7 +2,9 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
+
 import * as actions from "../actions";
+import Timer from "./Timer";
 
 const Header = () => {
   return <div>Header</div>;
@@ -63,6 +65,7 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <Timer />
         <Content />
         <Footer />
         <button onClick={addTask}>Add task</button>
