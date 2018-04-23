@@ -17,6 +17,10 @@ export const bookTime = data => async (dispatch, getState) => {
     time = timeFromString(time);
   }
 
+  if (time.length === 7) {
+    time = "0" + time;
+  }
+
   const currentDate = new Date();
 
   const taskData = {
@@ -42,6 +46,12 @@ export const searchTasks = searchQuery => async dispatch => {
   const res = await axios.get(
     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
   );
+
+  dispatch({ type: GET_TASKS, payload: res.data });
+};
+
+export const getAllTasks = () => async dispatch => {
+  const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
 
   dispatch({ type: GET_TASKS, payload: res.data });
 };

@@ -30,14 +30,8 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
-// error handlers
-// app.use(errorHandlers.notFound);
-
-// if (app.get("env") === "development") {
-//   app.use(errorHandlers.developmentErrors);
-// }
-
-// app.use(errorHandlers.productionErrors);
+// error handler
+app.use(errorHandlers.notFound);
 
 // done! we export it so we can start the site in start.js
 module.exports = app;

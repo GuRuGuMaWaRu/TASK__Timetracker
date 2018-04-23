@@ -1,13 +1,12 @@
 import { ADD_TASK, CLEAR_TIMER, SET_TIMER_ID } from "../actions/types";
 
-export default function(state = null, action) {
+export default function(state = 0, action) {
   switch (action.type) {
     case SET_TIMER_ID:
       return action.payload;
     case CLEAR_TIMER:
-      return null;
     case ADD_TASK:
-      return null;
+      return 0;
     default:
       return state;
   }

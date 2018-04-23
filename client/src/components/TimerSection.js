@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
-
-import SearchField from "./SearchField";
-import TaskList from "./TaskList";
+import Timer from "./Timer";
+import InputForm from "./InputForm";
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -15,17 +14,17 @@ const styles = theme => ({
   })
 });
 
-const Tasks = ({ classes }) => {
+const TimerSection = ({ classes }) => {
   return (
     <Paper className={classes.root} elevation={4}>
-      <SearchField />
-      <TaskList />
+      <Timer />
+      <InputForm />
     </Paper>
   );
 };
 
-Tasks.propTypes = {
+TimerSection.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Tasks);
+export default withStyles(styles)(TimerSection);

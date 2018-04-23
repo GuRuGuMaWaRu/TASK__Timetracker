@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withStyles } from "material-ui/styles";
-import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 
@@ -9,12 +9,6 @@ import * as actions from "../actions";
 import { showTime } from "../utils/timer";
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
-    textAlign: "center"
-  }),
   button: {
     margin: theme.spacing.unit
   }
@@ -38,7 +32,7 @@ class Timer extends Component {
   render() {
     const { time, classes } = this.props;
     return (
-      <Paper className={classes.root} elevation={4}>
+      <div>
         <Typography variant="headline" component="h3">
           {showTime(time)}
         </Typography>
@@ -59,10 +53,19 @@ class Timer extends Component {
             Clear
           </Button>
         </div>
-      </Paper>
+      </div>
     );
   }
 }
+
+Timer.propTypes = {
+  classes: PropTypes.object.isRequired,
+  time: PropTypes.number.isRequired,
+  timerID: PropTypes.number.isRequired,
+  updateTimer: PropTypes.func.isRequired,
+  setTimerID: PropTypes.func.isRequired,
+  clearTimer: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ time, timerID }) => ({
   time,

@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withStyles } from "material-ui/styles";
-import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
@@ -11,13 +10,6 @@ import Tabs, { Tab } from "material-ui/Tabs";
 import * as actions from "../actions";
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
-    flexGrow: 1,
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
-    textAlign: "center"
-  }),
   button: {
     margin: theme.spacing.unit
   },
@@ -60,8 +52,12 @@ class InputForm extends React.Component {
   }
 
   validateTime = () => {
-    const timeToArr = this.state.time.split(":").map(parseFloat);
-    return timeToArr.every(time => time === 0);
+    if (this.state.selectedTab === 1) {
+      const timeToArr = this.state.time.split(":").map(parseFloat);
+      return timeToArr.every(time => time === 0);
+    } else {
+      return this.props.time < 1;
+    }
   };
 
   validateInput = () => {
@@ -86,7 +82,11 @@ class InputForm extends React.Component {
       }, 2000);
 
       this.setState({ errorTimeoutID: errorTimeout });
+
+      return true;
     }
+
+    return false;
   };
 
   handleChangeTab = (event, value) => {
@@ -106,9 +106,9 @@ class InputForm extends React.Component {
   };
 
   handleBookTime = () => {
-    this.validateInput();
+    const error = this.validateInput();
 
-    if (this.state.errorTime === 0 && this.state.errorDescription === 0) {
+    if (!error) {
       if (this.state.selectedTab === 0) {
         window.clearInterval(this.props.timerID);
       }
@@ -168,6 +168,7 @@ class InputForm extends React.Component {
           }
           value={this.state.description}
           onChange={this.handleChangeDescription}
+          multiline={true}
         />
         <div>
           <Button
@@ -189,7 +190,7 @@ class InputForm extends React.Component {
     );
 
     return (
-      <Paper className={classes.root}>
+      <div>
         <Tabs
           value={this.state.selectedTab}
           onChange={this.handleChangeTab}
@@ -202,10 +203,17 @@ class InputForm extends React.Component {
         </Tabs>
         {selectedTab === 0 && <TabContainer>{timerInput}</TabContainer>}
         {selectedTab === 1 && <TabContainer>{timerInput}</TabContainer>}
-      </Paper>
+      </div>
     );
   }
 }
+
+InputForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+  time: PropTypes.number.isRequired,
+  timerID: PropTypes.number.isRequired,
+  bookTime: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ time, timerID }) => ({
   time,

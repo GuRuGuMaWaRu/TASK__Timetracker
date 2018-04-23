@@ -1,4 +1,3 @@
-export const FETCH_USER = "fetch_user";
 export const ADD_TASK = "add_task";
 export const GET_TASKS = "get_tasks";
 export const UPDATE_TIMER = "update_timer";
