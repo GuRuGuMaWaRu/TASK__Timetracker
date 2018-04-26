@@ -55,13 +55,13 @@ class Calendar extends Component {
   };
 
   componentDidMount() {
-    const currentDate = new Date();
-
     this.setState({
       year: moment().format("YYYY"),
       month: moment().format("MMMM"),
       day: moment().format("D")
     });
+
+
   }
 
   handleChange = name => event => {
