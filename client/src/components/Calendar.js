@@ -7,6 +7,7 @@ import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 import { daysOfWeek } from "../utils/dateData";
+import "./Calendar.css";
 
 const daysOfWeekFn = () => daysOfWeek.map(day => <div key={day}>{day}</div>);
 
@@ -90,9 +91,7 @@ class Calendar extends Component {
       <Typography component="div" className={classes.calendar}>
         <DateSelector dateType={year} />
         <DateSelector dateType={month} />
-        <section className="month-dates">
-          <div className="month-dates__weekdays">{daysOfWeekFn()}</div>
-        </section>
+        <section className="month-dates">{daysOfWeekFn()}</section>
       </Typography>
     );
   }
