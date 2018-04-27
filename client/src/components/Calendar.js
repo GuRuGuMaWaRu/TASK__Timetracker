@@ -9,7 +9,12 @@ import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import { daysOfWeek } from "../utils/dateData";
 import "./Calendar.css";
 
-const daysOfWeekFn = () => daysOfWeek.map(day => <div key={day}>{day}</div>);
+const daysOfWeekFn = () =>
+  daysOfWeek.map(day => (
+    <div key={day} className="month-dates--weekdays">
+      {day}
+    </div>
+  ));
 
 const DateSelectorStyles = theme => ({
   selector: {
@@ -56,17 +61,22 @@ class Calendar extends Component {
     year: 2025,
     month: "February",
     day: 26,
-    leapYear: false
+    leapYear: false,
+    firstWeekday: 1
   };
 
   componentDidMount = () => {
-    this.setState({
-      year: moment().format("YYYY"),
-      month: moment().format("MMMM"),
-      day: moment().format("D")
-    });
-
-    this.isLeapYear();
+    this.setState(
+      {
+        year: moment().format("YYYY"),
+        month: moment().format("MMMM"),
+        day: moment().format("D")
+      },
+      () => {
+        this.isLeapYear();
+        this.findFirstWeekday();
+      }
+    );
   };
 
   isLeapYear = () => {
@@ -77,6 +87,14 @@ class Calendar extends Component {
 
     this.setState({
       leapYear
+    });
+  };
+
+  findFirstWeekday = () => {
+    const date = new Date(`${this.state.month} 1, ${this.state.year}`);
+
+    this.setState({
+      firstWeekday: date.getDay()
     });
   };
 
