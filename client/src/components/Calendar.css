@@ -1,0 +1,7 @@
+.month-dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 90%;
+  margin: 10px auto;
+  text-align: center;
+}
