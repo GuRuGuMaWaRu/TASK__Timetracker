@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
 import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import moment from "moment";
+
+import { daysOfWeek } from "../utils/dateData";
+
+const daysOfWeekFn = () => daysOfWeek.map(day => <div key={day}>{day}</div>);
 
 const DateSelectorStyles = theme => ({
   selector: {
@@ -78,12 +82,17 @@ class Calendar extends Component {
   render() {
     const { classes } = this.props;
     const { year, month, day } = this.state;
+    const days = () => {
+      return <div />;
+    };
 
     return (
       <Typography component="div" className={classes.calendar}>
         <DateSelector dateType={year} />
         <DateSelector dateType={month} />
-        <div>Days</div>
+        <section className="month-dates">
+          <div className="month-dates__weekdays">{daysOfWeekFn()}</div>
+        </section>
       </Typography>
     );
   }
