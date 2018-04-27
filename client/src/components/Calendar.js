@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import TextField from "material-ui/TextField";
 import Typography from "material-ui/Typography";
 import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
@@ -51,30 +50,35 @@ class Calendar extends Component {
   state = {
     year: 2025,
     month: "February",
-    day: 26
+    day: 26,
+    leapYear: false
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.setState({
       year: moment().format("YYYY"),
       month: moment().format("MMMM"),
       day: moment().format("D")
     });
 
+    this.isLeapYear();
+  };
 
-  }
+  isLeapYear = () => {
+    const leapYear =
+      this.state.year % 100 === 0
+        ? this.state.year % 400 === 0
+        : this.state.year % 4 === 0;
 
-  handleChange = name => event => {
     this.setState({
-      [name]: event.target.value
+      leapYear
     });
   };
 
   render() {
     const { classes } = this.props;
-    const { year, month, day, currentDate } = this.state;
+    const { year, month, day } = this.state;
 
-    console.log(day);
     return (
       <Typography component="div" className={classes.calendar}>
         <DateSelector dateType={year} />
