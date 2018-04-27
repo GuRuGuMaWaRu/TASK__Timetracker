@@ -5,3 +5,7 @@
   margin: 10px auto;
   text-align: center;
 }
+
+.month-dates--weekdays {
+  font-weight: 500;
+}
