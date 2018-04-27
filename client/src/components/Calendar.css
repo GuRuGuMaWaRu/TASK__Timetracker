@@ -2,10 +2,15 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   width: 90%;
-  margin: 10px auto;
-  text-align: center;
+  margin: 10px 10% 0 0;
+  text-align: right;
 }
 
 .month-dates--weekdays {
   font-weight: 500;
+}
+
+.month-dates--prev,
+.month-dates--next {
+  color: lightslategrey;
 }

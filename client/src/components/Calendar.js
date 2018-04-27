@@ -6,15 +6,50 @@ import Typography from "material-ui/Typography";
 import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
-import { daysOfWeek } from "../utils/dateData";
+import { weekdays, months, daysInMonths } from "../utils/dateData";
 import "./Calendar.css";
 
-const daysOfWeekFn = () =>
-  daysOfWeek.map(day => (
+const showWeekdays = () =>
+  weekdays.map(day => (
     <div key={day} className="month-dates--weekdays">
       {day}
     </div>
   ));
+
+const showDays = (
+  prevMonthStartingDay,
+  prevMonthMaxDays,
+  currMonthMaxDays,
+  nextMonthMaxDays
+) => {
+  let days = [];
+
+  for (let i = prevMonthStartingDay; i <= prevMonthMaxDays; i++) {
+    days.push(
+      <div key={`prev-${i}`} className="month-dates--prev">
+        {i}
+      </div>
+    );
+  }
+
+  for (let i = 1; i <= currMonthMaxDays; i++) {
+    days.push(
+      <div key={`curr-${i}`} className="month-dates--curr">
+        {i}
+      </div>
+    );
+  }
+
+  for (let i = 1; i <= nextMonthMaxDays; i++) {
+    days.push(
+      <div key={`next-${i}`} className="month-dates--next">
+        {i}
+      </div>
+    );
+  }
+
+  return days;
+};
 
 const DateSelectorStyles = theme => ({
   selector: {
@@ -59,57 +94,64 @@ const CalendarStyles = theme => ({
 class Calendar extends Component {
   state = {
     year: 2025,
-    month: "February",
+    month: "January",
     day: 26,
-    leapYear: false,
-    firstWeekday: 1
+    leapYear: false
   };
 
   componentDidMount = () => {
-    this.setState(
-      {
-        year: moment().format("YYYY"),
-        month: moment().format("MMMM"),
-        day: moment().format("D")
-      },
-      () => {
-        this.isLeapYear();
-        this.findFirstWeekday();
-      }
-    );
+    this.setState({
+      year: moment().format("YYYY"),
+      month: moment().format("MMMM"),
+      day: moment().format("D"),
+      leapYear: this.isLeapYear()
+    });
   };
 
   isLeapYear = () => {
-    const leapYear =
-      this.state.year % 100 === 0
-        ? this.state.year % 400 === 0
-        : this.state.year % 4 === 0;
-
-    this.setState({
-      leapYear
-    });
+    return this.state.year % 100 === 0
+      ? this.state.year % 400 === 0
+      : this.state.year % 4 === 0;
   };
 
   findFirstWeekday = () => {
     const date = new Date(`${this.state.month} 1, ${this.state.year}`);
 
-    this.setState({
-      firstWeekday: date.getDay()
-    });
+    return date.getDay();
+  };
+
+  displayDaysInMonth = () => {
+    const weekdays = showWeekdays();
+    const firstWeekday = this.findFirstWeekday();
+    const prevMonth =
+      months[months.indexOf(this.state.month) - 1] || months[11];
+    const prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1;
+    // const nextMonth = months[months.indexOf(this.state.month) + 1] || months[0];
+    const nextMonthEndingDay =
+      42 - firstWeekday - daysInMonths[this.state.month];
+    const days = showDays(
+      prevMonthStartingDay,
+      daysInMonths[prevMonth],
+      daysInMonths[this.state.month],
+      nextMonthEndingDay
+    );
+    const calendarView = [...weekdays, ...days];
+
+    console.log(firstWeekday);
+    return calendarView;
   };
 
   render() {
     const { classes } = this.props;
-    const { year, month, day } = this.state;
-    const days = () => {
-      return <div />;
-    };
+    const { year, month } = this.state;
+
+    this.displayDaysInMonth();
 
     return (
       <Typography component="div" className={classes.calendar}>
         <DateSelector dateType={year} />
         <DateSelector dateType={month} />
-        <section className="month-dates">{daysOfWeekFn()}</section>
+        <section className="month-dates">{this.displayDaysInMonth()}</section>
       </Typography>
     );
   }
