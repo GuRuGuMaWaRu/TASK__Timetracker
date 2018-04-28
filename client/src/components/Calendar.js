@@ -63,15 +63,25 @@ const DateSelectorStyles = theme => ({
   icon: {
     cursor: "pointer",
     color: "#0E0E0E"
+  },
+  disabled: {
+    cursor: "not-allowed",
+    color: "#cdd1d6"
   }
 });
 
-let DateSelector = ({ classes, dateType }) => {
+let DateSelector = ({ classes, dateType, isMax, isMin }) => {
   return (
     <div className={classes.selector}>
-      <ArrowLeft className={classes.icon} style={{ fontSize: 40 }} />
+      <ArrowLeft
+        className={isMin ? classes.disabled : classes.icon}
+        style={{ fontSize: 40 }}
+      />
       <span>{dateType}</span>
-      <ArrowRight className={classes.icon} style={{ fontSize: 40 }} />
+      <ArrowRight
+        className={isMax ? classes.disabled : classes.icon}
+        style={{ fontSize: 40 }}
+      />
     </div>
   );
 };
@@ -153,14 +163,29 @@ class Calendar extends Component {
 
   render() {
     const { classes } = this.props;
-    const { currentYear, currentMonth } = this.state;
+    const {
+      currentYear,
+      currentMonth,
+      maxYear,
+      maxMonth,
+      minYear,
+      minMonth
+    } = this.state;
 
     this.displayDaysInMonth();
 
     return (
       <Typography component="div" className={classes.calendar}>
-        <DateSelector dateType={currentYear} />
-        <DateSelector dateType={currentMonth} />
+        <DateSelector
+          dateType={currentYear}
+          isMax={currentYear === maxYear}
+          isMin={currentYear === minYear}
+        />
+        <DateSelector
+          dateType={currentMonth}
+          isMax={currentMonth === maxMonth}
+          isMin={currentMonth === minMonth}
+        />
         <section className="month-dates">{this.displayDaysInMonth()}</section>
       </Typography>
     );
