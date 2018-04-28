@@ -70,17 +70,27 @@ const DateSelectorStyles = theme => ({
   }
 });
 
-let DateSelector = ({ classes, dateType, isMax, isMin }) => {
+let DateSelector = ({
+  classes,
+  dateValue,
+  dateType,
+  isMax,
+  isMin,
+  handleIncreaseDate,
+  handleDecreaseDate
+}) => {
   return (
     <div className={classes.selector}>
       <ArrowLeft
         className={isMin ? classes.disabled : classes.icon}
         style={{ fontSize: 40 }}
+        onClick={() => handleDecreaseDate(dateType)}
       />
-      <span>{dateType}</span>
+      <span>{dateValue}</span>
       <ArrowRight
         className={isMax ? classes.disabled : classes.icon}
         style={{ fontSize: 40 }}
+        onClick={() => handleIncreaseDate(dateType)}
       />
     </div>
   );
@@ -142,23 +152,55 @@ class Calendar extends Component {
   };
 
   displayDaysInMonth = () => {
-    const weekdays = showWeekdays();
-    const firstWeekday = this.findFirstWeekday();
-    const prevMonth =
-      months[months.indexOf(this.state.currentMonth) - 1] || months[11];
-    const prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1;
-    // const nextMonth = months[months.indexOf(this.state.month) + 1] || months[0];
-    const nextMonthEndingDay =
-      42 - firstWeekday - daysInMonths[this.state.currentMonth];
-    const days = showDays(
-      prevMonthStartingDay,
-      daysInMonths[prevMonth],
-      daysInMonths[this.state.currentMonth],
-      nextMonthEndingDay
-    );
-    const calendarView = [...weekdays, ...days];
+    const firstWeekday = this.findFirstWeekday(),
+      prevMonth =
+        months[months.indexOf(this.state.currentMonth) - 1] || months[11],
+      prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1,
+      nextMonthEndingDay =
+        42 - firstWeekday - daysInMonths[this.state.currentMonth],
+      days = showDays(
+        prevMonthStartingDay,
+        daysInMonths[prevMonth],
+        daysInMonths[this.state.currentMonth],
+        nextMonthEndingDay
+      ),
+      calendarView = [...showWeekdays(), ...days];
 
     return calendarView;
+  };
+
+  handleIncreaseDate = dateType => {
+    if (dateType === "year" && this.state.currentYear !== this.state.maxYear) {
+      this.setState({
+        currentYear: this.state.currentYear + 1
+      });
+    }
+    if (
+      dateType === "month" &&
+      this.state.currentMonth !== this.state.maxMonth
+    ) {
+      this.setState({
+        currentMonth:
+          months[months.indexOf(this.state.currentMonth) + 1] || months[0]
+      });
+    }
+  };
+
+  handleDecreaseDate = dateType => {
+    if (dateType === "year" && this.state.currentYear !== this.state.minYear) {
+      this.setState({
+        currentYear: this.state.currentYear - 1
+      });
+    }
+    if (
+      dateType === "month" &&
+      this.state.currentMonth !== this.state.minMonth
+    ) {
+      this.setState({
+        currentMonth:
+          months[months.indexOf(this.state.currentMonth) - 1] || months[11]
+      });
+    }
   };
 
   render() {
@@ -177,14 +219,20 @@ class Calendar extends Component {
     return (
       <Typography component="div" className={classes.calendar}>
         <DateSelector
-          dateType={currentYear}
+          dateType={"year"}
+          dateValue={currentYear}
           isMax={currentYear === maxYear}
           isMin={currentYear === minYear}
+          handleIncreaseDate={this.handleIncreaseDate}
+          handleDecreaseDate={this.handleDecreaseDate}
         />
         <DateSelector
-          dateType={currentMonth}
+          dateType={"month"}
+          dateValue={currentMonth}
           isMax={currentMonth === maxMonth}
           isMin={currentMonth === minMonth}
+          handleIncreaseDate={this.handleIncreaseDate}
+          handleDecreaseDate={this.handleDecreaseDate}
         />
         <section className="month-dates">{this.displayDaysInMonth()}</section>
       </Typography>
