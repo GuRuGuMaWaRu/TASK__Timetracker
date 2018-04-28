@@ -137,7 +137,6 @@ class Calendar extends Component {
     );
     const calendarView = [...weekdays, ...days];
 
-    console.log(firstWeekday);
     return calendarView;
   };
 
