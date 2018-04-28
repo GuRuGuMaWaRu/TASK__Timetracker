@@ -93,29 +93,40 @@ const CalendarStyles = theme => ({
 
 class Calendar extends Component {
   state = {
-    year: 2025,
-    month: "January",
-    day: 26,
+    currentYear: 2025,
+    currentMonth: "January",
+    currentDay: 26,
+    maxYear: 2025,
+    maxMonth: "January",
+    minYear: 2018,
+    minMonth: "January",
     leapYear: false
   };
 
   componentDidMount = () => {
+    const thisYear = moment().format("YYYY"),
+      thisMonth = moment().format("MMMM");
+
     this.setState({
-      year: moment().format("YYYY"),
-      month: moment().format("MMMM"),
-      day: moment().format("D"),
+      currentYear: thisYear,
+      currentMonth: thisMonth,
+      currentDay: moment().format("D"),
+      maxYear: thisYear,
+      maxMonth: thisMonth,
       leapYear: this.isLeapYear()
     });
   };
 
   isLeapYear = () => {
-    return this.state.year % 100 === 0
-      ? this.state.year % 400 === 0
-      : this.state.year % 4 === 0;
+    return this.state.currentYear % 100 === 0
+      ? this.state.currentYear % 400 === 0
+      : this.state.currentYear % 4 === 0;
   };
 
   findFirstWeekday = () => {
-    const date = new Date(`${this.state.month} 1, ${this.state.year}`);
+    const date = new Date(
+      `${this.state.currentMonth} 1, ${this.state.currentYear}`
+    );
 
     return date.getDay();
   };
@@ -124,33 +135,32 @@ class Calendar extends Component {
     const weekdays = showWeekdays();
     const firstWeekday = this.findFirstWeekday();
     const prevMonth =
-      months[months.indexOf(this.state.month) - 1] || months[11];
+      months[months.indexOf(this.state.currentMonth) - 1] || months[11];
     const prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1;
     // const nextMonth = months[months.indexOf(this.state.month) + 1] || months[0];
     const nextMonthEndingDay =
-      42 - firstWeekday - daysInMonths[this.state.month];
+      42 - firstWeekday - daysInMonths[this.state.currentMonth];
     const days = showDays(
       prevMonthStartingDay,
       daysInMonths[prevMonth],
-      daysInMonths[this.state.month],
+      daysInMonths[this.state.currentMonth],
       nextMonthEndingDay
     );
     const calendarView = [...weekdays, ...days];
 
-    console.log(firstWeekday);
     return calendarView;
   };
 
   render() {
     const { classes } = this.props;
-    const { year, month } = this.state;
+    const { currentYear, currentMonth } = this.state;
 
     this.displayDaysInMonth();
 
     return (
       <Typography component="div" className={classes.calendar}>
-        <DateSelector dateType={year} />
-        <DateSelector dateType={month} />
+        <DateSelector dateType={currentYear} />
+        <DateSelector dateType={currentMonth} />
         <section className="month-dates">{this.displayDaysInMonth()}</section>
       </Typography>
     );
