@@ -113,18 +113,18 @@ const CalendarStyles = theme => ({
 
 class Calendar extends Component {
   state = {
-    currentYear: 2025,
+    currentYear: 2018,
     currentMonth: "January",
     currentDay: 26,
     maxYear: 2025,
     maxMonth: "January",
-    minYear: 2018,
+    minYear: 2017,
     minMonth: "January",
     leapYear: false
   };
 
   componentDidMount = () => {
-    const thisYear = moment().format("YYYY"),
+    const thisYear = +moment().format("YYYY"),
       thisMonth = moment().format("MMMM");
 
     this.setState({
@@ -215,6 +215,9 @@ class Calendar extends Component {
     } = this.state;
 
     this.displayDaysInMonth();
+
+    console.log("currentYear", currentYear);
+    console.log("minYear", minYear);
 
     return (
       <Typography component="div" className={classes.calendar}>
