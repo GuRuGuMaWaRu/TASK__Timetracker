@@ -151,17 +151,28 @@ class Calendar extends Component {
     return date.getDay();
   };
 
+  getDaysInCurrentMonth = () => {
+    if (
+      this.state.currentMonth === "February" &&
+      this.isLeapYear(this.state.currentYear)
+    ) {
+      return daysInMonths[this.state.currentMonth] + 1;
+    }
+
+    return daysInMonths[this.state.currentMonth];
+  };
+
   displayDaysInMonth = () => {
     const firstWeekday = this.findFirstWeekday(),
       prevMonth =
         months[months.indexOf(this.state.currentMonth) - 1] || months[11],
       prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1,
-      nextMonthEndingDay =
-        42 - firstWeekday - daysInMonths[this.state.currentMonth],
+      daysInCurrentMonth = this.getDaysInCurrentMonth(),
+      nextMonthEndingDay = 42 - firstWeekday - daysInCurrentMonth,
       days = showDays(
         prevMonthStartingDay,
         daysInMonths[prevMonth],
-        daysInMonths[this.state.currentMonth],
+        daysInCurrentMonth,
         nextMonthEndingDay
       ),
       calendarView = [...showWeekdays(), ...days];
@@ -213,11 +224,6 @@ class Calendar extends Component {
       minYear,
       minMonth
     } = this.state;
-
-    this.displayDaysInMonth();
-
-    console.log("currentYear", currentYear);
-    console.log("minYear", minYear);
 
     return (
       <Typography component="div" className={classes.calendar}>
