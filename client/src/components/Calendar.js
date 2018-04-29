@@ -180,37 +180,66 @@ class Calendar extends Component {
     return calendarView;
   };
 
+  increaseYear = () => {
+    this.setState({
+      currentYear: this.state.currentYear + 1
+    });
+  };
+
+  decreaseYear = () => {
+    this.setState({
+      currentYear: this.state.currentYear - 1
+    });
+  };
+
+  increaseMonth = () => {
+    this.setState({
+      currentMonth:
+        months[months.indexOf(this.state.currentMonth) + 1] || months[0]
+    });
+  };
+
+  decreaseMonth = () => {
+    this.setState({
+      currentMonth:
+        months[months.indexOf(this.state.currentMonth) - 1] || months[11]
+    });
+  };
+
   handleIncreaseDate = dateType => {
     if (dateType === "year" && this.state.currentYear !== this.state.maxYear) {
-      this.setState({
-        currentYear: this.state.currentYear + 1
-      });
+      this.increaseYear();
     }
     if (
       dateType === "month" &&
       this.state.currentMonth !== this.state.maxMonth
     ) {
-      this.setState({
-        currentMonth:
-          months[months.indexOf(this.state.currentMonth) + 1] || months[0]
-      });
+      this.increaseMonth();
     }
   };
 
   handleDecreaseDate = dateType => {
     if (dateType === "year" && this.state.currentYear !== this.state.minYear) {
-      this.setState({
-        currentYear: this.state.currentYear - 1
-      });
+      this.decreaseYear();
     }
-    if (
-      dateType === "month" &&
-      this.state.currentMonth !== this.state.minMonth
-    ) {
-      this.setState({
-        currentMonth:
-          months[months.indexOf(this.state.currentMonth) - 1] || months[11]
-      });
+    if (dateType === "month") {
+      if (
+        this.state.currentYear === this.state.minYear &&
+        this.state.currentMonth !== "January"
+      ) {
+        /* do not decrease Month past January if this is the minimum Year */
+        this.decreaseMonth();
+      } else if (
+        this.state.currentYear !== this.state.minYear &&
+        this.state.currentMonth === "January"
+      ) {
+        /* if current Year is not the minimum Year and we decrease Month past January, we should switch to December of the previous Year*/
+        this.decreaseMonth();
+        this.decreaseYear();
+      } else if (this.state.currentYear !== this.state.minYear) {
+        /* handle all normal Month decrease actions */
+        this.decreaseMonth();
+      }
     }
   };
 
