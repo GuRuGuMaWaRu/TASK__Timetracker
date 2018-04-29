@@ -268,7 +268,7 @@ class Calendar extends Component {
           dateType={"month"}
           dateValue={currentMonth}
           isMax={currentMonth === maxMonth}
-          isMin={currentMonth === minMonth}
+          isMin={currentMonth === minMonth && currentYear === minYear}
           handleIncreaseDate={this.handleIncreaseDate}
           handleDecreaseDate={this.handleDecreaseDate}
         />
