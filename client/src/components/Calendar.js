@@ -118,7 +118,7 @@ class Calendar extends Component {
     currentDay: 26,
     maxYear: 2025,
     maxMonth: "January",
-    minYear: 2017,
+    minYear: 2016,
     minMonth: "January",
     leapYear: false
   };
