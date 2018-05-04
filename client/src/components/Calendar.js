@@ -210,10 +210,25 @@ class Calendar extends Component {
     if (dateType === "year" && this.state.currentYear !== this.state.maxYear) {
       this.increaseYear();
     }
-    if (
-      dateType === "month" &&
-      this.state.currentMonth !== this.state.maxMonth
-    ) {
+    if (dateType === "month") {
+      /* do not increase month past maxMonth if this is the maxYear */
+      if (
+        this.state.currentMonth === this.state.maxMonth &&
+        this.state.currentYear === this.state.maxYear
+      ) {
+        return;
+      }
+
+      /* increase year when moving from December to January */
+      if (
+        this.state.currentYear !== this.state.maxYear &&
+        this.state.currentMonth === "December"
+      ) {
+        this.increaseMonth();
+        this.increaseYear();
+      }
+
+      /* handle normal month increase */
       this.increaseMonth();
     }
   };
@@ -227,7 +242,7 @@ class Calendar extends Component {
         this.state.currentYear === this.state.minYear &&
         this.state.currentMonth !== "January"
       ) {
-        /* do not decrease Month past January if this is the minimum Year */
+        /* do not decrease month past January if this is the minimum Year */
         this.decreaseMonth();
       } else if (
         this.state.currentYear !== this.state.minYear &&
