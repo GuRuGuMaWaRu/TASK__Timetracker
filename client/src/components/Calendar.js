@@ -22,10 +22,12 @@ const showDays = (
   prevMonthStartingDay,
   prevMonthMaxDays,
   currMonthMaxDays,
-  nextMonthMaxDays
+  nextMonthMaxDays,
+  daysWithTasks
 ) => {
   let days = [];
 
+  // show days from previous month
   for (let i = prevMonthStartingDay; i <= prevMonthMaxDays; i++) {
     days.push(
       <div key={`prev-${i}`} className="month-dates--prev">
@@ -34,14 +36,21 @@ const showDays = (
     );
   }
 
+  // show days from current month
   for (let i = 1; i <= currMonthMaxDays; i++) {
     days.push(
-      <div key={`curr-${i}`} className="month-dates--curr">
+      <div
+        key={`curr-${i}`}
+        className={`month-dates--curr ${
+          daysWithTasks.includes(i) ? "with-tasks" : ""
+        }`}
+      >
         {i}
       </div>
     );
   }
 
+  // show days from next month
   for (let i = 1; i <= nextMonthMaxDays; i++) {
     days.push(
       <div key={`next-${i}`} className="month-dates--next">
@@ -178,7 +187,8 @@ class Calendar extends Component {
         prevMonthStartingDay,
         daysInMonths[prevMonth],
         daysInCurrentMonth,
-        nextMonthEndingDay
+        nextMonthEndingDay,
+        this.props.dates
       ),
       calendarView = [...showWeekdays(), ...days];
 
@@ -274,7 +284,7 @@ class Calendar extends Component {
       minMonth
     } = this.state;
 
-    console.log(dates);
+    // console.log(dates);
 
     return (
       <Typography component="div" className={classes.calendar}>

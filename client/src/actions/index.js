@@ -60,6 +60,12 @@ export const getAllTasks = () => async dispatch => {
 export const getMonthTasks = date => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getMonth/${date}`);
 
-  console.log(res.data);
-  dispatch({ type: GET_MONTH, payload: res.data });
+  const datesWithTasks = res.data.reduce((dates, task) => {
+    if (!dates.includes(task.day)) {
+      return [...dates, task.day];
+    }
+    return dates;
+  }, []);
+
+  dispatch({ type: GET_MONTH, payload: datesWithTasks });
 };
