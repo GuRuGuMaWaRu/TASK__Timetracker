@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import moment from "moment";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
@@ -7,6 +8,7 @@ import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 import { weekdays, months, daysInMonths } from "../utils/dateData";
+import * as actions from "../actions";
 import "./Calendar.css";
 
 const showWeekdays = () =>
@@ -135,6 +137,9 @@ class Calendar extends Component {
       maxMonth: thisMonth,
       leapYear: this.isLeapYear()
     });
+
+    // get dates with tasks for the current month
+    this.props.getMonthTasks("2018, 3");
   };
 
   isLeapYear = () => {
@@ -259,7 +264,7 @@ class Calendar extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, dates } = this.props;
     const {
       currentYear,
       currentMonth,
@@ -268,6 +273,8 @@ class Calendar extends Component {
       minYear,
       minMonth
     } = this.state;
+
+    console.log(dates);
 
     return (
       <Typography component="div" className={classes.calendar}>
@@ -294,7 +301,13 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  dates: PropTypes.arrayOf(PropTypes.number),
+  getMonthTasks: PropTypes.func.isRequired
 };
 
-export default withStyles(CalendarStyles)(Calendar);
+const mapStateToProps = ({ dates }) => ({ dates });
+
+export default withStyles(CalendarStyles)(
+  connect(mapStateToProps, actions)(Calendar)
+);

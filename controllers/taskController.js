@@ -9,7 +9,7 @@ exports.addTask = async (req, res) => {
 
 exports.getMonth = async (req, res) => {
   const [year, month] = req.params.date.split(",").map(parseFloat);
-
+  console.log(`year: ${year}, month: ${month}`);
   const activeDays = await Task.find({
     year,
     month
