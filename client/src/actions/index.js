@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   ADD_TASK,
   GET_TASKS,
+  GET_MONTH,
   UPDATE_TIMER,
   CLEAR_TIMER,
   SET_TIMER_ID
@@ -54,4 +55,11 @@ export const getAllTasks = () => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
 
   dispatch({ type: GET_TASKS, payload: res.data });
+};
+
+export const getMonthTasks = date => async dispatch => {
+  const res = await axios.get(`http://localhost:5000/tasks/getMonth/${date}`);
+
+  console.log(res.data);
+  dispatch({ type: GET_MONTH, payload: res.data });
 };
