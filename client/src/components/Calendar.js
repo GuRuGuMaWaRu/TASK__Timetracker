@@ -148,7 +148,9 @@ class Calendar extends Component {
     });
 
     // get dates with tasks for the current month
-    this.props.getMonthTasks("2018, 3");
+    this.props.getMonthTasks(
+      `${this.state.currentYear},${months.indexOf(thisMonth)}`
+    );
   };
 
   isLeapYear = () => {
