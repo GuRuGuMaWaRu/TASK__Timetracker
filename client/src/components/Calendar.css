@@ -26,5 +26,9 @@
   color: #fff;
   background-color: #f50057;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: transform 0.3s;
+}
+
+.with-tasks:hover {
+  transform: translateX(10%);
 }

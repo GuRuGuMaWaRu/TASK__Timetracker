@@ -276,7 +276,7 @@ class Calendar extends Component {
   };
 
   render() {
-    const { classes, dates } = this.props;
+    const { classes } = this.props;
     const {
       currentYear,
       currentMonth,
@@ -285,8 +285,6 @@ class Calendar extends Component {
       minYear,
       minMonth
     } = this.state;
-
-    // console.log(dates);
 
     return (
       <Typography component="div" className={classes.calendar}>
