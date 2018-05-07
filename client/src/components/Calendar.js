@@ -190,7 +190,7 @@ class Calendar extends Component {
         daysInMonths[prevMonth],
         daysInCurrentMonth,
         nextMonthEndingDay,
-        this.props.dates
+        this.props.monthTasks
       ),
       calendarView = [...showWeekdays(), ...days];
 
@@ -314,11 +314,11 @@ class Calendar extends Component {
 
 Calendar.propTypes = {
   classes: PropTypes.object.isRequired,
-  dates: PropTypes.arrayOf(PropTypes.number),
+  monthTasks: PropTypes.arrayOf(PropTypes.number),
   getMonthTasks: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ dates }) => ({ dates });
+const mapStateToProps = ({ monthTasks }) => ({ monthTasks });
 
 export default withStyles(CalendarStyles)(
   connect(mapStateToProps, actions)(Calendar)
