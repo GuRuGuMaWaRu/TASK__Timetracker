@@ -178,10 +178,9 @@ class Calendar extends Component {
     return daysInMonths[this.state.currentMonth];
   };
 
-  displayDaysInMonth = () => {
+  displayDaysInMonth = (currentMonth, months, daysInMonths, monthTasks) => {
     const firstWeekday = this.findFirstWeekday(),
-      prevMonth =
-        months[months.indexOf(this.state.currentMonth) - 1] || months[11],
+      prevMonth = months[months.indexOf(currentMonth) - 1] || months[11],
       prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1,
       daysInCurrentMonth = this.getDaysInCurrentMonth(),
       nextMonthEndingDay = 42 - firstWeekday - daysInCurrentMonth,
@@ -190,7 +189,7 @@ class Calendar extends Component {
         daysInMonths[prevMonth],
         daysInCurrentMonth,
         nextMonthEndingDay,
-        this.props.monthTasks
+        monthTasks
       ),
       calendarView = [...showWeekdays(), ...days];
 
@@ -276,7 +275,7 @@ class Calendar extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, monthTasks } = this.props;
     const {
       currentYear,
       currentMonth,
@@ -304,7 +303,14 @@ class Calendar extends Component {
           handleIncreaseDate={this.handleIncreaseDate}
           handleDecreaseDate={this.handleDecreaseDate}
         />
-        <section className="month-dates">{this.displayDaysInMonth()}</section>
+        <section className="month-dates">
+          {this.displayDaysInMonth(
+            currentMonth,
+            months,
+            daysInMonths,
+            monthTasks
+          )}
+        </section>
       </Typography>
     );
   }
