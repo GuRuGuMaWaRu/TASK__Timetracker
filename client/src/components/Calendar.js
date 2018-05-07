@@ -178,7 +178,7 @@ class Calendar extends Component {
     return daysInMonths[this.state.currentMonth];
   };
 
-  displayDaysInMonth = (currentMonth, months, daysInMonths, monthTasks) => {
+  displayDaysInMonth = (currentMonth, months, daysInMonths) => {
     const firstWeekday = this.findFirstWeekday(),
       prevMonth = months[months.indexOf(currentMonth) - 1] || months[11],
       prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1,
@@ -189,7 +189,7 @@ class Calendar extends Component {
         daysInMonths[prevMonth],
         daysInCurrentMonth,
         nextMonthEndingDay,
-        monthTasks
+        this.props.monthTasks
       ),
       calendarView = [...showWeekdays(), ...days];
 
@@ -224,6 +224,11 @@ class Calendar extends Component {
 
   handleIncreaseDate = dateType => {
     if (dateType === "year" && this.state.currentYear !== this.state.maxYear) {
+      this.props.getMonthTasks(
+        `${this.state.currentYear + 1},${months.indexOf(
+          this.state.currentMonth
+        )}`
+      );
       this.increaseYear();
     }
     if (dateType === "month") {
@@ -240,17 +245,31 @@ class Calendar extends Component {
         this.state.currentYear !== this.state.maxYear &&
         this.state.currentMonth === "December"
       ) {
+        this.props.getMonthTasks(
+          `${this.state.currentYear + 1},${months.indexOf(
+            this.state.currentMonth
+          ) + 1 || months[0]}`
+        );
         this.increaseMonth();
         this.increaseYear();
       }
 
       /* handle normal month increase */
+      this.props.getMonthTasks(
+        `${this.state.currentYear},${months.indexOf(this.state.currentMonth) +
+          1 || months[0]}`
+      );
       this.increaseMonth();
     }
   };
 
   handleDecreaseDate = dateType => {
     if (dateType === "year" && this.state.currentYear !== this.state.minYear) {
+      this.props.getMonthTasks(
+        `${this.state.currentYear - 1},${months.indexOf(
+          this.state.currentMonth
+        )}`
+      );
       this.decreaseYear();
     }
     if (dateType === "month") {
@@ -259,16 +278,29 @@ class Calendar extends Component {
         this.state.currentMonth !== "January"
       ) {
         /* do not decrease month past January if this is the minimum Year */
+        this.props.getMonthTasks(
+          `${this.state.currentYear},${months.indexOf(this.state.currentMonth) -
+            1 || months[11]}`
+        );
         this.decreaseMonth();
       } else if (
         this.state.currentYear !== this.state.minYear &&
         this.state.currentMonth === "January"
       ) {
         /* if current Year is not the minimum Year and we decrease Month past January, we should switch to December of the previous Year*/
+        this.props.getMonthTasks(
+          `${this.state.currentYear - 1},${months.indexOf(
+            this.state.currentMonth
+          ) - 1 || months[11]}`
+        );
         this.decreaseMonth();
         this.decreaseYear();
       } else if (this.state.currentYear !== this.state.minYear) {
         /* handle all normal Month decrease actions */
+        this.props.getMonthTasks(
+          `${this.state.currentYear},${months.indexOf(this.state.currentMonth) -
+            1 || months[11]}`
+        );
         this.decreaseMonth();
       }
     }
@@ -304,12 +336,7 @@ class Calendar extends Component {
           handleDecreaseDate={this.handleDecreaseDate}
         />
         <section className="month-dates">
-          {this.displayDaysInMonth(
-            currentMonth,
-            months,
-            daysInMonths,
-            monthTasks
-          )}
+          {this.displayDaysInMonth(currentMonth, months, daysInMonths)}
         </section>
       </Typography>
     );
