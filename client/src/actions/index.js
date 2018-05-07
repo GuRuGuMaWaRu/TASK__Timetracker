@@ -67,6 +67,5 @@ export const getMonthTasks = date => async dispatch => {
     return dates;
   }, []);
 
-  console.log(date);
   dispatch({ type: GET_MONTH, payload: datesWithTasks });
 };
