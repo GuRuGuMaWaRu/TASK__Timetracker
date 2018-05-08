@@ -41,6 +41,7 @@ const showDays = (
     days.push(
       <div
         key={`curr-${i}`}
+        data-date={i}
         className={`month-dates--curr ${
           daysWithTasks.includes(i) ? "with-tasks" : ""
         }`}
@@ -306,6 +307,18 @@ class Calendar extends Component {
     }
   };
 
+  handleDateSelect = e => {
+    const date = +e.target.getAttribute("data-date");
+
+    if (this.props.monthTasks.includes(date)) {
+      this.props.getDateTasks(
+        `${this.state.currentYear},${months.indexOf(
+          this.state.currentMonth
+        )},${date}`
+      );
+    }
+  };
+
   render() {
     const { classes, monthTasks } = this.props;
     const {
@@ -335,7 +348,7 @@ class Calendar extends Component {
           handleIncreaseDate={this.handleIncreaseDate}
           handleDecreaseDate={this.handleDecreaseDate}
         />
-        <section className="month-dates">
+        <section className="month-dates" onClick={this.handleDateSelect}>
           {this.displayDaysInMonth(currentMonth, months, daysInMonths)}
         </section>
       </Typography>
@@ -346,7 +359,8 @@ class Calendar extends Component {
 Calendar.propTypes = {
   classes: PropTypes.object.isRequired,
   monthTasks: PropTypes.arrayOf(PropTypes.number),
-  getMonthTasks: PropTypes.func.isRequired
+  getMonthTasks: PropTypes.func.isRequired,
+  getDateTasks: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ monthTasks }) => ({ monthTasks });
