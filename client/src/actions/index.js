@@ -69,3 +69,9 @@ export const getMonthTasks = date => async dispatch => {
 
   dispatch({ type: GET_MONTH, payload: datesWithTasks });
 };
+
+export const getDateTasks = date => async dispatch => {
+  const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
+
+  dispatch({ type: GET_TASKS, payload: res.data });
+};
