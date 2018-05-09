@@ -320,7 +320,7 @@ class Calendar extends Component {
   };
 
   render() {
-    const { classes, monthTasks } = this.props;
+    const { classes } = this.props;
     const {
       currentYear,
       currentMonth,

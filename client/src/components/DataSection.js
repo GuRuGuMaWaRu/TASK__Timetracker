@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Card, { CardActions, CardContent } from "material-ui/Card";
+import Card from "material-ui/Card";
 // import Calendar from "react-calendar-material";
 
 import SearchField from "./SearchField";
