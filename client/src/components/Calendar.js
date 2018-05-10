@@ -180,19 +180,19 @@ class Calendar extends Component {
   };
 
   displayDaysInMonth = (currentMonth, months, daysInMonths) => {
-    const firstWeekday = this.findFirstWeekday(),
-      prevMonth = months[months.indexOf(currentMonth) - 1] || months[11],
-      prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1,
-      daysInCurrentMonth = this.getDaysInCurrentMonth(),
-      nextMonthEndingDay = 42 - firstWeekday - daysInCurrentMonth,
-      days = showDays(
-        prevMonthStartingDay,
-        daysInMonths[prevMonth],
-        daysInCurrentMonth,
-        nextMonthEndingDay,
-        this.props.monthTasks
-      ),
-      calendarView = [...showWeekdays(), ...days];
+    const firstWeekday = this.findFirstWeekday();
+    const prevMonth = months[months.indexOf(currentMonth) - 1] || months[11];
+    const prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1;
+    const daysInCurrentMonth = this.getDaysInCurrentMonth();
+    const nextMonthEndingDay = 42 - firstWeekday - daysInCurrentMonth;
+    const days = showDays(
+      prevMonthStartingDay,
+      daysInMonths[prevMonth],
+      daysInCurrentMonth,
+      nextMonthEndingDay,
+      this.props.monthTasks
+    );
+    const calendarView = [...showWeekdays(), ...days];
 
     return calendarView;
   };
