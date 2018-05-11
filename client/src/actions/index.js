@@ -77,14 +77,21 @@ export const getDateTasks = date => async dispatch => {
   dispatch({ type: GET_TASKS, payload: res.data });
 };
 
-export const handleChangeDate = (operation, dateType) => async (
+export const changeDate = (operation, dateType) => async (
   dispatch,
   getState
 ) => {
+  // 0. get displayedDate
+
+  // 1. change date
+  if (operation === "increase") {
+  } else if (operation === "decrease") {
+  }
+  // 2. use new date to request month tasks
+  // 3. use month tasks to create an array representation
+  //    of a new month
+  // 4. dispatch action to update displayedDate and displayedMonth
   console.log(operation, dateType);
-  // TODOs
-  // 1. change displayed Date
-  // 2. make a network request to get month tasks and save them
   dispatch({
     type: CHANGE_DATE
   });
