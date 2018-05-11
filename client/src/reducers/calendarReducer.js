@@ -1,3 +1,5 @@
+import { CHANGE_DATE } from "../actions/types";
+
 const INIT = {
   monthRepresentation: [],
   currentDate: {
@@ -16,6 +18,7 @@ const INIT = {
 
 export default function(state = INIT, action) {
   switch (action.type) {
+    case CHANGE_DATE:
     default:
       return state;
   }

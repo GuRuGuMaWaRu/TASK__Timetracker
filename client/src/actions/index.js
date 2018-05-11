@@ -5,7 +5,8 @@ import {
   GET_MONTH,
   UPDATE_TIMER,
   CLEAR_TIMER,
-  SET_TIMER_ID
+  SET_TIMER_ID,
+  CHANGE_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
 
@@ -74,4 +75,17 @@ export const getDateTasks = date => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
 
   dispatch({ type: GET_TASKS, payload: res.data });
+};
+
+export const handleChangeDate = (operation, dateType) => async (
+  dispatch,
+  getState
+) => {
+  console.log(operation, dateType);
+  // TODOs
+  // 1. change displayed Date
+  // 2. make a network request to get month tasks and save them
+  dispatch({
+    type: CHANGE_DATE
+  });
 };

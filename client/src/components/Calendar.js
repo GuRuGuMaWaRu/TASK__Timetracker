@@ -8,6 +8,7 @@ import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 import { weekdays, months, daysInMonths } from "../utils/dateData";
+import DateSelectorTest from "./Calendar/DateSelector";
 import * as actions from "../actions";
 import "./Calendar.css";
 
@@ -351,6 +352,8 @@ class Calendar extends Component {
         <section className="month-dates" onClick={this.handleDateSelect}>
           {this.displayDaysInMonth(currentMonth, months, daysInMonths)}
         </section>
+        <DateSelectorTest dateType={"year"} />
+        <DateSelectorTest dateType={"month"} />
       </Typography>
     );
   }
