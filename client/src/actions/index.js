@@ -77,13 +77,19 @@ export const getDateTasks = date => async dispatch => {
   dispatch({ type: GET_TASKS, payload: res.data });
 };
 
-export const changeDate = (
-  operation,
-  dateType,
-  displayedDate
-) => async dispatch => {
+export const changeDate = (operation, dateType) => async (
+  dispatch,
+  getState
+) => {
+  const currentDate = getState().currentDate;
+  const displayedDate = getState().displayedDate;
+  const minDate = getState().minDate;
+
+  let newDate;
   // 1. change date
   if (operation === "increase") {
+    // increaseYear();
+    // increaseMonth();
   } else if (operation === "decrease") {
   }
   // 2. use new date to request month tasks
