@@ -36,15 +36,32 @@ let DateSelector = ({
 }) => {
   const isMinimum = displayedDate[dateType] === minDate[dateType];
   const isMaximum = displayedDate[dateType] === currentDate[dateType];
+  const isMinYear = displayedDate.year === minDate.year;
+  const isMaxYear = displayedDate.year === currentDate.year;
 
   const handleChangeDate = operationType => {
-    if (
-      (operationType == "decrease" && !isMinimum) ||
-      (operationType == "increase" && !isMaximum)
-    ) {
-      changeDate(operationType, dateType, displayedDate);
+    // change year
+    if (dateType == "year") {
+      if (
+        (operationType == "decrease" && !isMinYear) ||
+        (operationType == "increase" && !isMaxYear)
+      ) {
+        changeDate(operationType, dateType);
+      }
+      // cannot change
+      return;
     }
-    return;
+
+    // change month
+    if (
+      (operationType == "decrease" && (isMinYear && isMinimum)) ||
+      (operationType == "increase" && (isMaximum && isMaximum))
+    ) {
+      // cannot change
+      return;
+    }
+
+    changeDate(operationType, dateType);
   };
 
   return (
