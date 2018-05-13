@@ -42,7 +42,7 @@ let DateSelector = ({
       (operationType == "decrease" && !isMinimum) ||
       (operationType == "increase" && !isMaximum)
     ) {
-      changeDate(operationType, dateType);
+      changeDate(operationType, dateType, displayedDate);
     }
     return;
   };
@@ -73,10 +73,10 @@ DateSelector.propTypes = {
   changeDate: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ calendar }) => ({
-  currentDate: calendar.currentDate,
-  minDate: calendar.minDate,
-  displayedDate: calendar.displayedDate
+const mapStateToProps = ({ currentDate, displayedDate, minDate }) => ({
+  currentDate,
+  displayedDate,
+  minDate
 });
 
 export default connect(mapStateToProps, actions)(
