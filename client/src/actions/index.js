@@ -77,12 +77,11 @@ export const getDateTasks = date => async dispatch => {
   dispatch({ type: GET_TASKS, payload: res.data });
 };
 
-export const changeDate = (operation, dateType) => async (
-  dispatch,
-  getState
-) => {
-  // 0. get displayedDate
-
+export const changeDate = (
+  operation,
+  dateType,
+  displayedDate
+) => async dispatch => {
   // 1. change date
   if (operation === "increase") {
   } else if (operation === "decrease") {
