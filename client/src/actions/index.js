@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import {
   ADD_TASK,
   GET_TASKS,
@@ -6,7 +7,8 @@ import {
   UPDATE_TIMER,
   CLEAR_TIMER,
   SET_TIMER_ID,
-  CHANGE_DATE
+  CHANGE_DATE,
+  SET_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
 
@@ -75,6 +77,19 @@ export const getDateTasks = date => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
 
   dispatch({ type: GET_TASKS, payload: res.data });
+};
+
+export const getCurrentDate = () => {
+  const year = moment().format("YYYY");
+  const month = moment().format("MMMM");
+
+  return {
+    type: SET_DATE,
+    payload: {
+      year,
+      month
+    }
+  };
 };
 
 export const changeDate = (operation, dateType) => async (

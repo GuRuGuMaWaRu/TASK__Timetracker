@@ -58,13 +58,13 @@ let DateSelector = ({
       <ArrowLeft
         className={isMinimum ? classes.disabled : classes.icon}
         style={{ fontSize: 40 }}
-        onClick={() => changeDate("decrease", dateType, isMinimum)}
+        onClick={() => handleChangeDate("decrease", dateType, isMinimum)}
       />
       <span>{displayedDate[dateType]}</span>
       <ArrowRight
         className={isMaximum ? classes.disabled : classes.icon}
         style={{ fontSize: 40 }}
-        onClick={() => changeDate("increase", dateType, isMaximum)}
+        onClick={() => handleChangeDate("increase", dateType, isMaximum)}
       />
     </div>
   );
@@ -73,9 +73,9 @@ let DateSelector = ({
 DateSelector.propTypes = {
   classes: PropTypes.object.isRequired,
   dateType: PropTypes.string.isRequired,
-  currentDate: PropTypes.objectOf(PropTypes.string),
+  currentDate: PropTypes.objectOf(PropTypes.string.isRequired),
   minDate: PropTypes.objectOf(PropTypes.string),
-  displayedDate: PropTypes.objectOf(PropTypes.string),
+  displayedDate: PropTypes.objectOf(PropTypes.string.isRequired),
   changeDate: PropTypes.func.isRequired
 };
 
