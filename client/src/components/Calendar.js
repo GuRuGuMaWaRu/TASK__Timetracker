@@ -137,8 +137,8 @@ class Calendar extends Component {
   };
 
   componentDidMount = () => {
-    const thisYear = +moment().format("YYYY"),
-      thisMonth = moment().format("MMMM");
+    const thisYear = +moment().format("YYYY");
+    const thisMonth = moment().format("MMMM");
 
     this.setState({
       currentYear: thisYear,
@@ -153,6 +153,8 @@ class Calendar extends Component {
     this.props.getMonthTasks(
       `${this.state.currentYear},${months.indexOf(thisMonth)}`
     );
+
+    this.props.getCurrentDate();
   };
 
   isLeapYear = () => {
@@ -363,7 +365,8 @@ Calendar.propTypes = {
   classes: PropTypes.object.isRequired,
   monthTasks: PropTypes.arrayOf(PropTypes.number),
   getMonthTasks: PropTypes.func.isRequired,
-  getDateTasks: PropTypes.func.isRequired
+  getDateTasks: PropTypes.func.isRequired,
+  getCurrentDate: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ monthTasks }) => ({ monthTasks });
