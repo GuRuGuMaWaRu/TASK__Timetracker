@@ -11,6 +11,7 @@ import {
   SET_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
+import { weekdays, months, daysInMonths } from "../utils/dateData";
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time, description, custom } = data;
@@ -107,7 +108,18 @@ export const changeDate = (operation, dateType) => async (
     newYear = +displayedDate.year + 1 + "";
   } else if (operation === "decrease" && dateType === "year") {
     newYear = +displayedDate.year - 1 + "";
+  } else if (operation === "increase" && dateType === "month") {
+    if (
+      displayedDate.year !== currentDate.year &&
+      displayedDate.month === "December"
+    ) {
+      newYear = +displayedDate.year + 1 + "";
+      newMonth = "January";
+    } else {
+      newMonth = months[months.indexOf(displayedDate.month) + 1];
+    }
   }
+
   // 2. use new date to request month tasks
   // 3. use month tasks to create an array representation
   //    of a new month
