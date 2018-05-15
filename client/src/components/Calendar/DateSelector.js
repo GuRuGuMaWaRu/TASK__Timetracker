@@ -46,29 +46,10 @@ let DateSelector = ({
       : displayedDate.year === currentDate.year &&
         displayedDate.month === currentDate.month;
 
-  const isMinYear = displayedDate.year === minDate.year;
-  const isMaxYear = displayedDate.year === currentDate.year;
-
-  const handleChangeDate = operationType => {
-    if (dateType === "year") {
-      // change year
-      if (
-        (operationType === "decrease" && !isMinYear) ||
-        (operationType === "increase" && !isMaxYear)
-      ) {
-        changeDate(operationType, dateType);
-      }
-    } else if (dateType === "month") {
-      // change month
-      if (
-        (operationType === "decrease" && !(isMinYear && isMinimum)) ||
-        (operationType === "increase" && !(isMaximum && isMaximum))
-      ) {
-        changeDate(operationType, dateType);
-      }
+  const handleChangeDate = (operationType, dateType, isDisabled) => {
+    if (!isDisabled) {
+      changeDate(operationType, dateType);
     }
-
-    // cannot change
     return;
   };
 
@@ -77,13 +58,13 @@ let DateSelector = ({
       <ArrowLeft
         className={isMinimum ? classes.disabled : classes.icon}
         style={{ fontSize: 40 }}
-        onClick={() => handleChangeDate("decrease")}
+        onClick={() => changeDate("decrease", dateType, isMinimum)}
       />
       <span>{displayedDate[dateType]}</span>
       <ArrowRight
         className={isMaximum ? classes.disabled : classes.icon}
         style={{ fontSize: 40 }}
-        onClick={() => handleChangeDate("increase")}
+        onClick={() => changeDate("increase", dateType, isMaximum)}
       />
     </div>
   );
