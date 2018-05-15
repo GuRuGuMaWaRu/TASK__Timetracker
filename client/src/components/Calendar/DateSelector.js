@@ -34,34 +34,42 @@ let DateSelector = ({
   minDate,
   changeDate
 }) => {
-  const isMinimum = displayedDate[dateType] === minDate[dateType];
-  const isMaximum = displayedDate[dateType] === currentDate[dateType];
+  const isMinimum =
+    dateType === "year"
+      ? displayedDate.year === minDate.year
+      : displayedDate.year === minDate.year &&
+        displayedDate.month === minDate.month;
+
+  const isMaximum =
+    dateType === "year"
+      ? displayedDate.year === currentDate.year
+      : displayedDate.year === currentDate.year &&
+        displayedDate.month === currentDate.month;
+
   const isMinYear = displayedDate.year === minDate.year;
   const isMaxYear = displayedDate.year === currentDate.year;
 
   const handleChangeDate = operationType => {
-    // change year
-    if (dateType == "year") {
+    if (dateType === "year") {
+      // change year
       if (
-        (operationType == "decrease" && !isMinYear) ||
-        (operationType == "increase" && !isMaxYear)
+        (operationType === "decrease" && !isMinYear) ||
+        (operationType === "increase" && !isMaxYear)
       ) {
         changeDate(operationType, dateType);
       }
-      // cannot change
-      return;
+    } else if (dateType === "month") {
+      // change month
+      if (
+        (operationType === "decrease" && !(isMinYear && isMinimum)) ||
+        (operationType === "increase" && !(isMaximum && isMaximum))
+      ) {
+        changeDate(operationType, dateType);
+      }
     }
 
-    // change month
-    if (
-      (operationType == "decrease" && (isMinYear && isMinimum)) ||
-      (operationType == "increase" && (isMaximum && isMaximum))
-    ) {
-      // cannot change
-      return;
-    }
-
-    changeDate(operationType, dateType);
+    // cannot change
+    return;
   };
 
   return (
