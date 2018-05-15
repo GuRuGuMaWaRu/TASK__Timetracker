@@ -1,4 +1,4 @@
-import { CHANGE_DATE, SET_DATE } from "../actions/types";
+import { SET_DATE } from "../actions/types";
 
 export default function(
   state = {
