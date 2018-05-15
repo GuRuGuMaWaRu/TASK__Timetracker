@@ -2,8 +2,8 @@ import { CHANGE_DATE } from "../actions/types";
 
 export default function(
   state = {
-    year: "---",
-    month: "---"
+    year: "2015",
+    month: "January"
   },
   action
 ) {

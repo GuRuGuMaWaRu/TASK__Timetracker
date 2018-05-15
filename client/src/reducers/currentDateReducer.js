@@ -13,7 +13,6 @@ export default function(
         year: action.payload.year,
         month: action.payload.month
       };
-    case CHANGE_DATE:
     default:
       return state;
   }
