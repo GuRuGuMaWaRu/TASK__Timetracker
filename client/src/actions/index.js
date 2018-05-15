@@ -99,20 +99,24 @@ export const changeDate = (operation, dateType) => async (
   const currentDate = getState().currentDate;
   const displayedDate = getState().displayedDate;
   const minDate = getState().minDate;
+  let newYear = displayedDate.year;
+  let newMonth = displayedDate.month;
 
   let newDate;
-  // 1. change date
-  if (operation === "increase") {
-    // increaseYear();
-    // increaseMonth();
-  } else if (operation === "decrease") {
+  if (operation === "increase" && dateType === "year") {
+    newYear = +displayedDate.year + 1 + "";
+  } else if (operation === "decrease" && dateType === "year") {
+    newYear = +displayedDate.year - 1 + "";
   }
   // 2. use new date to request month tasks
   // 3. use month tasks to create an array representation
   //    of a new month
   // 4. dispatch action to update displayedDate and displayedMonth
-  console.log(operation, dateType);
   dispatch({
-    type: CHANGE_DATE
+    type: CHANGE_DATE,
+    payload: {
+      year: newYear,
+      month: newMonth
+    }
   });
 };

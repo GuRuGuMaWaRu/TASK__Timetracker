@@ -9,11 +9,11 @@ export default function(
 ) {
   switch (action.type) {
     case SET_DATE:
+    case CHANGE_DATE:
       return {
         year: action.payload.year,
         month: action.payload.month
       };
-    case CHANGE_DATE:
     default:
       return state;
   }
