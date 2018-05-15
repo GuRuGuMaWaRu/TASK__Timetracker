@@ -128,7 +128,7 @@ class Calendar extends Component {
   state = {
     currentYear: 2018,
     currentMonth: "January",
-    currentDay: 26,
+    // currentDay: 26,
     maxYear: 2025,
     maxMonth: "January",
     minYear: 2016,
@@ -143,7 +143,7 @@ class Calendar extends Component {
     this.setState({
       currentYear: thisYear,
       currentMonth: thisMonth,
-      currentDay: moment().format("D"),
+      // currentDay: moment().format("D"),
       maxYear: thisYear,
       maxMonth: thisMonth,
       leapYear: this.isLeapYear()
