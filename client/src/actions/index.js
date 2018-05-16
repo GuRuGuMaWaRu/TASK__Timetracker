@@ -107,7 +107,7 @@ export const changeDate = (operation, dateType) => async (
     newYear = +displayedDate.year + 1 + "";
   } else if (operation === "decrease" && dateType === "year") {
     newYear = +displayedDate.year - 1 + "";
-    // if year is decreased month should not be earlier than min month
+    // if year is decreased, month should not be set earlier than min month
     if (
       newYear === minDate.year &&
       months.indexOf(minDate.month) > months.indexOf(displayedDate.month)
@@ -123,6 +123,13 @@ export const changeDate = (operation, dateType) => async (
       newMonth = "January";
     } else {
       newMonth = months[months.indexOf(displayedDate.month) + 1];
+    }
+  } else if (operation === "decrease" && dateType === "month") {
+    if (displayedDate.month === "January") {
+      newYear = +displayedDate.year - 1 + "";
+      newMonth = "December";
+    } else {
+      newMonth = months[months.indexOf(displayedDate.month) - 1];
     }
   }
 
