@@ -11,7 +11,8 @@ import {
   SET_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
-import { weekdays, months, daysInMonths, months2 } from "../utils/dateData";
+import { weekdays, daysInMonths, months2 } from "../utils/dateData";
+import changeDateHelper from "../utils/changeDateHelper";
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time, description, custom } = data;
@@ -100,38 +101,13 @@ export const changeDate = (operation, dateType) => async (
   const currentDate = getState().currentDate;
   const displayedDate = getState().displayedDate;
   const minDate = getState().minDate;
-  let newYear = displayedDate.year;
-  let newMonth = displayedDate.month;
-
-  if (operation === "increase" && dateType === "year") {
-    newYear = +displayedDate.year + 1 + "";
-  } else if (operation === "decrease" && dateType === "year") {
-    newYear = +displayedDate.year - 1 + "";
-    // if year is decreased, month should not be set earlier than min month
-    if (
-      newYear === minDate.year &&
-      months.indexOf(minDate.month) > months.indexOf(displayedDate.month)
-    ) {
-      newMonth = minDate.month;
-    }
-  } else if (operation === "increase" && dateType === "month") {
-    if (
-      displayedDate.year !== currentDate.year &&
-      displayedDate.month === "December"
-    ) {
-      newYear = +displayedDate.year + 1 + "";
-      newMonth = "January";
-    } else {
-      newMonth = months[months.indexOf(displayedDate.month) + 1];
-    }
-  } else if (operation === "decrease" && dateType === "month") {
-    if (displayedDate.month === "January") {
-      newYear = +displayedDate.year - 1 + "";
-      newMonth = "December";
-    } else {
-      newMonth = months[months.indexOf(displayedDate.month) - 1];
-    }
-  }
+  const { newYear, newMonth } = changeDateHelper({
+    operation,
+    dateType,
+    displayedDate,
+    minDate,
+    currentDate
+  });
 
   // 2. use new date to request month tasks
   // 3. use month tasks to create an array representation
