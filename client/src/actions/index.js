@@ -11,7 +11,7 @@ import {
   SET_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
-import { weekdays, months, daysInMonths } from "../utils/dateData";
+import { weekdays, months, daysInMonths, months2 } from "../utils/dateData";
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time, description, custom } = data;
@@ -103,11 +103,17 @@ export const changeDate = (operation, dateType) => async (
   let newYear = displayedDate.year;
   let newMonth = displayedDate.month;
 
-  let newDate;
   if (operation === "increase" && dateType === "year") {
     newYear = +displayedDate.year + 1 + "";
   } else if (operation === "decrease" && dateType === "year") {
     newYear = +displayedDate.year - 1 + "";
+    // if year is decreased month should not be earlier than min month
+    if (
+      newYear === minDate.year &&
+      months.indexOf(minDate.month) > months.indexOf(displayedDate.month)
+    ) {
+      newMonth = minDate.month;
+    }
   } else if (operation === "increase" && dateType === "month") {
     if (
       displayedDate.year !== currentDate.year &&

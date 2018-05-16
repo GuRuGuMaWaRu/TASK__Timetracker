@@ -3,7 +3,7 @@ import { CHANGE_DATE } from "../actions/types";
 export default function(
   state = {
     year: "2015",
-    month: "January"
+    month: "June"
   },
   action
 ) {
