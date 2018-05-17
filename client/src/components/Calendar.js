@@ -154,7 +154,7 @@ class Calendar extends Component {
       `${this.state.currentYear},${months.indexOf(thisMonth)}`
     );
 
-    this.props.getCurrentDate();
+    this.props.getDate();
   };
 
   isLeapYear = () => {
@@ -366,7 +366,7 @@ Calendar.propTypes = {
   monthTasks: PropTypes.arrayOf(PropTypes.number),
   getMonthTasks: PropTypes.func.isRequired,
   getDateTasks: PropTypes.func.isRequired,
-  getCurrentDate: PropTypes.func.isRequired
+  getDate: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ monthTasks }) => ({ monthTasks });
