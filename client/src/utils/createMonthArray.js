@@ -29,14 +29,16 @@ const createMonthArray = (datesWithTasks, newYear, newMonth) => {
 
   const weekdayArray = weekdays2.map(weekday => ({
     value: weekday,
-    className: "month-dates--weekdays"
+    className: "month-dates--weekdays",
+    withTasks: false
   }));
 
   const prevMonthArray = [
     ...Array(daysInMonths[prevMonth] - prevMonthStartingDay + 1)
   ].map((day, index) => ({
     value: prevMonthStartingDay + index,
-    className: "month-dates--prev"
+    className: "month-dates--prev",
+    withTasks: false
   }));
 
   const currMonthArray = [...Array(daysInCurrentMonth)].map((day, index) => ({
@@ -47,7 +49,8 @@ const createMonthArray = (datesWithTasks, newYear, newMonth) => {
 
   const nextMonthArray = [...Array(nextMonthEndingDay)].map((day, index) => ({
     value: index + 1,
-    className: "month-dates--next"
+    className: "month-dates--next",
+    withTasks: false
   }));
 
   return [
