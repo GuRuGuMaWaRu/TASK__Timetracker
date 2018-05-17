@@ -11,8 +11,9 @@ import {
   SET_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
-import { weekdays, daysInMonths, months2 } from "../utils/dateData";
+import { weekdays, daysInMonths, months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
+import createMonthArray from "../utils/createMonthArray";
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time, description, custom } = data;
@@ -101,6 +102,7 @@ export const changeDate = (operation, dateType) => async (
   const currentDate = getState().currentDate;
   const displayedDate = getState().displayedDate;
   const minDate = getState().minDate;
+  // 1. get new date
   const { newYear, newMonth } = changeDateHelper({
     operation,
     dateType,
@@ -110,8 +112,22 @@ export const changeDate = (operation, dateType) => async (
   });
 
   // 2. use new date to request month tasks
-  // 3. use month tasks to create an array representation
-  //    of a new month
+  const res = await axios.get(
+    `http://localhost:5000/tasks/getMonth/${newYear},${months.indexOf(
+      newMonth
+    )}`
+  );
+
+  const datesWithTasks = res.data.reduce((dates, task) => {
+    if (!dates.includes(task.day)) {
+      return [...dates, task.day];
+    }
+    return dates;
+  }, []);
+
+  // 3. use month tasks to create a month array representation
+  const monthArray = createMonthArray(datesWithTasks, newYear, newMonth);
+
   // 4. dispatch action to update displayedDate and displayedMonth
   dispatch({
     type: CHANGE_DATE,
