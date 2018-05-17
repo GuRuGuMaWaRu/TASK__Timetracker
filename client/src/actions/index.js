@@ -82,20 +82,34 @@ export const getDateTasks = date => async dispatch => {
   dispatch({ type: GET_TASKS, payload: res.data });
 };
 
-export const getCurrentDate = () => {
+export const getDate = () => async dispatch => {
   const year = moment().format("YYYY");
   const month = moment().format("MMMM");
 
-  return {
+  const res = await axios.get(
+    `http://localhost:5000/tasks/getMonth/${year},${months.indexOf(month)}`
+  );
+
+  const datesWithTasks = res.data.reduce((dates, task) => {
+    if (!dates.includes(task.day)) {
+      return [...dates, task.day];
+    }
+    return dates;
+  }, []);
+
+  const monthArray = createMonthArray(datesWithTasks, year, month);
+
+  dispatch({
     type: SET_DATE,
     payload: {
       year,
-      month
+      month,
+      monthArray
     }
-  };
+  });
 };
 
-export const changeDate = (operation, dateType) => async (
+export const changeDate = (operationType, dateType) => async (
   dispatch,
   getState
 ) => {
@@ -103,8 +117,8 @@ export const changeDate = (operation, dateType) => async (
   const displayedDate = getState().displayedDate;
   const minDate = getState().minDate;
   // 1. get new date
-  const { newYear, newMonth } = changeDateHelper({
-    operation,
+  const { newYear: year, newMonth: month } = changeDateHelper({
+    operationType,
     dateType,
     displayedDate,
     minDate,
@@ -113,9 +127,7 @@ export const changeDate = (operation, dateType) => async (
 
   // 2. use new date to request month tasks
   const res = await axios.get(
-    `http://localhost:5000/tasks/getMonth/${newYear},${months.indexOf(
-      newMonth
-    )}`
+    `http://localhost:5000/tasks/getMonth/${year},${months.indexOf(month)}`
   );
 
   const datesWithTasks = res.data.reduce((dates, task) => {
@@ -126,15 +138,15 @@ export const changeDate = (operation, dateType) => async (
   }, []);
 
   // 3. use month tasks to create a month array representation
-  const monthArray = createMonthArray(datesWithTasks, newYear, newMonth);
+  const monthArray = createMonthArray(datesWithTasks, year, month);
 
-  console.log(monthArray);
   // 4. dispatch action to update displayedDate and displayedMonth
   dispatch({
     type: CHANGE_DATE,
     payload: {
-      year: newYear,
-      month: newMonth
+      year,
+      month,
+      monthArray
     }
   });
 };

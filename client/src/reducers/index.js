@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import currentDateReducer from "./currentDateReducer";
 import displayedDateReducer from "./displayedDateReducer";
 import minDateReducer from "./minDateReducer";
-import monthRepReducer from "./monthRepReducer";
+import displayedMonthReducer from "./displayedMonthReducer";
 import monthTasksReducer from "./monthTasksReducer";
 import timeReducer from "./timeReducer";
 import idReducer from "./idReducer";
@@ -12,7 +12,7 @@ export default combineReducers({
   currentDate: currentDateReducer,
   displayedDate: displayedDateReducer,
   minDate: minDateReducer,
-  monthRepresentation: monthRepReducer,
+  displayedMonth: displayedMonthReducer,
   monthTasks: monthTasksReducer,
   time: timeReducer,
   timerID: idReducer,

@@ -1,7 +1,7 @@
 import { months } from "./dateData";
 
 const changeDateHelper = ({
-  operation,
+  operationType,
   dateType,
   displayedDate,
   minDate,
@@ -10,9 +10,16 @@ const changeDateHelper = ({
   let newYear = displayedDate.year;
   let newMonth = displayedDate.month;
 
-  if (operation === "increase" && dateType === "year") {
+  if (operationType === "increase" && dateType === "year") {
     newYear = `${+displayedDate.year + 1}`;
-  } else if (operation === "decrease" && dateType === "year") {
+    // if year is increased, month should not be set later than max month
+    if (
+      newYear === currentDate.year &&
+      months.indexOf(newMonth) > months.indexOf(currentDate.month)
+    ) {
+      newMonth = currentDate.month;
+    }
+  } else if (operationType === "decrease" && dateType === "year") {
     newYear = `${+displayedDate.year - 1}`;
     // if year is decreased, month should not be set earlier than min month
     if (
@@ -21,7 +28,7 @@ const changeDateHelper = ({
     ) {
       newMonth = minDate.month;
     }
-  } else if (operation === "increase" && dateType === "month") {
+  } else if (operationType === "increase" && dateType === "month") {
     if (
       displayedDate.year !== currentDate.year &&
       displayedDate.month === "December"
@@ -31,7 +38,7 @@ const changeDateHelper = ({
     } else {
       newMonth = months[months.indexOf(displayedDate.month) + 1];
     }
-  } else if (operation === "decrease" && dateType === "month") {
+  } else if (operationType === "decrease" && dateType === "month") {
     if (displayedDate.month === "January") {
       newYear = `${+displayedDate.year - 1}`;
       newMonth = "December";
