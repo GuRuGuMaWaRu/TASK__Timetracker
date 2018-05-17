@@ -34,8 +34,6 @@ let DateSelector = ({
   minDate,
   changeDate
 }) => {
-  console.log("minDate", minDate);
-  console.log("displayedDate", displayedDate);
   const isMinimum =
     dateType === "year"
       ? displayedDate.year === minDate.year
