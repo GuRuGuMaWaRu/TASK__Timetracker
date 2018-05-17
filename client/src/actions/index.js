@@ -128,6 +128,7 @@ export const changeDate = (operation, dateType) => async (
   // 3. use month tasks to create a month array representation
   const monthArray = createMonthArray(datesWithTasks, newYear, newMonth);
 
+  console.log(monthArray);
   // 4. dispatch action to update displayedDate and displayedMonth
   dispatch({
     type: CHANGE_DATE,
