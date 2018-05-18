@@ -6,6 +6,7 @@ import Typography from "material-ui/Typography";
 
 import DateSelector from "./DateSelector";
 import * as actions from "../../actions";
+import { months } from "../../utils/dateData";
 import "./Calendar.css";
 
 const CalendarStyles = theme => ({
@@ -20,10 +21,10 @@ const CalendarStyles = theme => ({
 export class Calendar extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    displayedDate: PropTypes.objectOf(PropTypes.string),
-    currentDate: PropTypes.objectOf(PropTypes.string),
-    minDate: PropTypes.objectOf(PropTypes.string),
-    displayedMonth: PropTypes.array,
+    displayedDate: PropTypes.objectOf(PropTypes.string).isRequired,
+    currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+    minDate: PropTypes.objectOf(PropTypes.string).isRequired,
+    displayedMonth: PropTypes.array.isRequired,
     getDateTasks: PropTypes.func.isRequired,
     getDate: PropTypes.func.isRequired
   };
@@ -43,6 +44,18 @@ export class Calendar extends Component {
         </div>
       );
     });
+  };
+
+  handleDateSelect = e => {
+    const element = e.target;
+
+    if (element.classList.contains("with-tasks")) {
+      this.props.getDateTasks(
+        `${this.props.displayedDate.year},${months.indexOf(
+          this.props.displayedDate.month
+        )},${element.textContent}`
+      );
+    }
   };
 
   render() {

@@ -11,7 +11,7 @@ import {
   SET_DATE
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
-import { weekdays, daysInMonths, months } from "../utils/dateData";
+import { months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
 import createMonthArray from "../utils/createMonthArray";
 
