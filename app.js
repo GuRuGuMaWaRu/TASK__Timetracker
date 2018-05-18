@@ -1,9 +1,14 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const routes = require("./routes/index");
 const errorHandlers = require("./handlers/errorHandlers");
 
 // create express app
 const app = express();
+
+// take raw requests and turn them into usable properties on req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // handle CORS
 app.use((req, res, next) => {
