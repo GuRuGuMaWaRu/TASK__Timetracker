@@ -60,7 +60,7 @@ export class Calendar extends Component {
 
   render() {
     const { classes, displayedDate, currentDate, minDate } = this.props;
-
+    console.log("rendering...");
     return (
       <Typography component="div" className={classes.calendar}>
         <DateSelector
