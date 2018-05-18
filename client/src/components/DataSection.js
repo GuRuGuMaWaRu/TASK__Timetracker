@@ -7,7 +7,7 @@ import Card from "material-ui/Card";
 import SearchField from "./SearchField";
 import TaskList from "./TaskList";
 // import Calendar from "./Calendar";
-import CalendarNEW from "./Calendar/CalendarNEW";
+import Calendar from "./Calendar/Calendar";
 
 const styles = {
   dataSection: {
@@ -31,7 +31,7 @@ class DataSection extends Component {
           <TaskList />
         </Card>
         <Card className={classes.card}>
-          <CalendarNEW />
+          <Calendar />
         </Card>
       </div>
     );
