@@ -31,7 +31,9 @@ class SearchField extends Component {
     searchQuery: ""
   };
 
-  handleSearch = () => {
+  handleSearch = e => {
+    e.preventDefault();
+
     if (this.state.searchQuery.length > 0) {
       this.props.searchTasks(this.state.searchQuery);
     }
@@ -48,7 +50,7 @@ class SearchField extends Component {
     const { searchQuery } = this.state;
 
     return (
-      <div>
+      <form onSubmit={this.handleSearch}>
         <TextField
           id="search-field"
           label="Search tasks by description"
@@ -61,7 +63,7 @@ class SearchField extends Component {
           className={classes.button}
           variant="raised"
           color="secondary"
-          onClick={this.handleSearch}
+          type="submit"
         >
           Search
           <Search className={classes.searchIcon} />
@@ -74,7 +76,7 @@ class SearchField extends Component {
           Show All
           <ArrowDownward className={classes.arrowDownwardIcon} />
         </Button>
-      </div>
+      </form>
     );
   }
 }
