@@ -20,7 +20,7 @@ const getDaysInCurrentMonth = (month, year) => {
   return daysInMonths[month];
 };
 
-const createMonthArray = (datesWithTasks, newYear, newMonth) => {
+const createMonthArrayHelper = (datesWithTasks, newYear, newMonth) => {
   const firstWeekday = findFirstWeekday(newMonth, newYear);
   const prevMonth = months[months.indexOf(newMonth) - 1] || months[11];
   const prevMonthStartingDay = daysInMonths[prevMonth] - firstWeekday + 1;
@@ -61,4 +61,4 @@ const createMonthArray = (datesWithTasks, newYear, newMonth) => {
   ];
 };
 
-export default createMonthArray;
+export default createMonthArrayHelper;

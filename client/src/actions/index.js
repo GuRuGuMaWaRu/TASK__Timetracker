@@ -3,7 +3,6 @@ import moment from "moment";
 import {
   ADD_TASK,
   GET_TASKS,
-  GET_MONTH,
   UPDATE_TIMER,
   CLEAR_TIMER,
   SET_TIMER_ID,
@@ -13,7 +12,22 @@ import {
 import { showTime, timeFromString } from "../utils/timer";
 import { months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
-import createMonthArray from "../utils/createMonthArray";
+import createMonthArrayHelper from "../utils/createMonthArrayHelper";
+
+const createMonthArray = async (year, month) => {
+  const res = await axios.get(
+    `http://localhost:5000/tasks/getMonth/${year},${months.indexOf(month)}`
+  );
+
+  const datesWithTasks = res.data.reduce((dates, task) => {
+    if (!dates.includes(task.day)) {
+      return [...dates, task.day];
+    }
+    return dates;
+  }, []);
+
+  return createMonthArrayHelper(datesWithTasks, year, month);
+};
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time, description, custom } = data;
@@ -29,18 +43,35 @@ export const bookTime = data => async (dispatch, getState) => {
   }
 
   const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const day = currentDate.getDate();
 
   const taskData = {
-    year: currentDate.getFullYear(),
-    month: currentDate.getMonth(),
-    day: currentDate.getDate(),
+    year,
+    month,
+    day,
     time,
     description
   };
 
+  // save new task
   await axios.post("/tasks/addTask", taskData);
+  // get updated tasks
+  const allTasksResponse = await axios.get(
+    `http://localhost:5000/tasks/getAllTasks`
+  );
+  // get updated month representation
+  const monthArray = await createMonthArray(year, months[month]);
 
-  dispatch({ type: ADD_TASK, payload: custom });
+  dispatch({
+    type: ADD_TASK,
+    payload: {
+      custom,
+      allTasks: allTasksResponse.data,
+      monthArray
+    }
+  });
 };
 
 export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
@@ -63,18 +94,18 @@ export const getAllTasks = () => async dispatch => {
   dispatch({ type: GET_TASKS, payload: res.data });
 };
 
-export const getMonthTasks = date => async dispatch => {
-  const res = await axios.get(`http://localhost:5000/tasks/getMonth/${date}`);
+// export const getMonthTasks = date => async dispatch => {
+//   const res = await axios.get(`http://localhost:5000/tasks/getMonth/${date}`);
 
-  const datesWithTasks = res.data.reduce((dates, task) => {
-    if (!dates.includes(task.day)) {
-      return [...dates, task.day];
-    }
-    return dates;
-  }, []);
+//   const datesWithTasks = res.data.reduce((dates, task) => {
+//     if (!dates.includes(task.day)) {
+//       return [...dates, task.day];
+//     }
+//     return dates;
+//   }, []);
 
-  dispatch({ type: GET_MONTH, payload: datesWithTasks });
-};
+//   dispatch({ type: GET_MONTH, payload: datesWithTasks });
+// };
 
 export const getDateTasks = date => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
@@ -86,18 +117,7 @@ export const getDate = () => async dispatch => {
   const year = moment().format("YYYY");
   const month = moment().format("MMMM");
 
-  const res = await axios.get(
-    `http://localhost:5000/tasks/getMonth/${year},${months.indexOf(month)}`
-  );
-
-  const datesWithTasks = res.data.reduce((dates, task) => {
-    if (!dates.includes(task.day)) {
-      return [...dates, task.day];
-    }
-    return dates;
-  }, []);
-
-  const monthArray = createMonthArray(datesWithTasks, year, month);
+  const monthArray = await createMonthArray(year, month);
 
   dispatch({
     type: SET_DATE,
@@ -116,7 +136,6 @@ export const changeDate = (operationType, dateType) => async (
   const currentDate = getState().currentDate;
   const displayedDate = getState().displayedDate;
   const minDate = getState().minDate;
-  // 1. get new date
   const { newYear: year, newMonth: month } = changeDateHelper({
     operationType,
     dateType,
@@ -125,22 +144,8 @@ export const changeDate = (operationType, dateType) => async (
     currentDate
   });
 
-  // 2. use new date to request month tasks
-  const res = await axios.get(
-    `http://localhost:5000/tasks/getMonth/${year},${months.indexOf(month)}`
-  );
+  const monthArray = await createMonthArray(year, month);
 
-  const datesWithTasks = res.data.reduce((dates, task) => {
-    if (!dates.includes(task.day)) {
-      return [...dates, task.day];
-    }
-    return dates;
-  }, []);
-
-  // 3. use month tasks to create a month array representation
-  const monthArray = createMonthArray(datesWithTasks, year, month);
-
-  // 4. dispatch action to update displayedDate and displayedMonth
   dispatch({
     type: CHANGE_DATE,
     payload: {

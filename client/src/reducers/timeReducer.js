@@ -7,7 +7,7 @@ export default function(state = 0, action) {
     case CLEAR_TIMER:
       return 0;
     case ADD_TASK:
-      return action.payload ? state : 0;
+      return action.payload.custom ? state : 0;
     default:
       return state;
   }
