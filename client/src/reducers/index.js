@@ -16,5 +16,5 @@ export default combineReducers({
   time: timeReducer,
   timerID: idReducer,
   tasks: tasksReducer,
-  fleshMessages: flashMessagesReducer
+  flashMessages: flashMessagesReducer
 });

@@ -8,6 +8,7 @@ import TextField from "material-ui/TextField";
 import Tabs, { Tab } from "material-ui/Tabs";
 
 import * as actions from "../actions";
+import FlashMsg from "./FlashMsg";
 
 const styles = theme => ({
   button: {
@@ -134,7 +135,7 @@ class InputForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, flashMessages } = this.props;
     const { selectedTab } = this.state;
 
     const timerInput = (
@@ -203,6 +204,7 @@ class InputForm extends React.Component {
         </Tabs>
         {selectedTab === 0 && <TabContainer>{timerInput}</TabContainer>}
         {selectedTab === 1 && <TabContainer>{timerInput}</TabContainer>}
+        {flashMessages ? <FlashMsg /> : ""}
       </div>
     );
   }
@@ -212,12 +214,14 @@ InputForm.propTypes = {
   classes: PropTypes.object.isRequired,
   time: PropTypes.number.isRequired,
   timerID: PropTypes.number.isRequired,
-  bookTime: PropTypes.func.isRequired
+  bookTime: PropTypes.func.isRequired,
+  flashMessages: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ time, timerID }) => ({
+const mapStateToProps = ({ time, timerID, flashMessages }) => ({
   time,
-  timerID
+  timerID,
+  flashMessages
 });
 
 export default connect(mapStateToProps, actions)(withStyles(styles)(InputForm));

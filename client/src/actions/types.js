@@ -5,4 +5,5 @@ export const CLEAR_TIMER = "clear_timer";
 export const SET_TIMER_ID = "set_timer_id";
 export const CHANGE_DATE = "change_date";
 export const SET_DATE = "set_date";
-export const TOGGLE_ADD_MSG = "toggle_add_msg";
+export const SHOW_ADD_MSG = "show_add_msg";
+export const HIDE_ADD_MSG = "hide_add_msg";
