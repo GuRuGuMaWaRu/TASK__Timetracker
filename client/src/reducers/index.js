@@ -6,6 +6,7 @@ import displayedMonthReducer from "./displayedMonthReducer";
 import timeReducer from "./timeReducer";
 import idReducer from "./idReducer";
 import tasksReducer from "./tasksReducer";
+import flashMessagesReducer from "./flashMessagesReducer";
 
 export default combineReducers({
   currentDate: currentDateReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   displayedMonth: displayedMonthReducer,
   time: timeReducer,
   timerID: idReducer,
-  tasks: tasksReducer
+  tasks: tasksReducer,
+  fleshMessages: flashMessagesReducer
 });

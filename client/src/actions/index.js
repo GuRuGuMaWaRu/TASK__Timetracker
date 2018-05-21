@@ -7,7 +7,8 @@ import {
   CLEAR_TIMER,
   SET_TIMER_ID,
   CHANGE_DATE,
-  SET_DATE
+  SET_DATE,
+  TOGGLE_ADD_MSG
 } from "./types";
 import { showTime, timeFromString } from "../utils/timer";
 import { months } from "../utils/dateData";
@@ -155,3 +156,5 @@ export const changeDate = (operationType, dateType) => async (
     }
   });
 };
+
+export const toggleAddMsg = () => ({ type: TOGGLE_ADD_MSG });
