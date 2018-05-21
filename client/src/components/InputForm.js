@@ -6,9 +6,24 @@ import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import Tabs, { Tab } from "material-ui/Tabs";
+import Transition from "react-transition-group/Transition";
 
 import * as actions from "../actions";
 import FlashMsg from "./FlashMsg";
+
+//==== transition animation --- START
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0
+};
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 }
+};
+//==== transition animation --- END
 
 const styles = theme => ({
   button: {
@@ -204,7 +219,9 @@ class InputForm extends React.Component {
         </Tabs>
         {selectedTab === 0 && <TabContainer>{timerInput}</TabContainer>}
         {selectedTab === 1 && <TabContainer>{timerInput}</TabContainer>}
-        {flashMessages ? <FlashMsg /> : ""}
+        <Transition in={this.props.flashMessages} timeout={0}>
+          {state => <FlashMsg status={state} />}
+        </Transition>
       </div>
     );
   }
