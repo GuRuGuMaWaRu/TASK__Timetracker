@@ -10,7 +10,7 @@ const styles = theme => ({
     flex: 1,
     paddingTop: 16,
     paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: 12,
     textAlign: "center"
   })
 });
