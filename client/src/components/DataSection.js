@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Card from "material-ui/Card";
-// import Calendar from "react-calendar-material";
 
 import SearchField from "./SearchField";
 import TaskList from "./TaskList";
-// import Calendar from "./Calendar";
 import Calendar from "./Calendar/Calendar";
 
 const styles = {

@@ -11,20 +11,6 @@ import Transition from "react-transition-group/Transition";
 import * as actions from "../actions";
 import FlashMsg from "./FlashMsg";
 
-//==== transition animation --- START
-const duration = 300;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0
-};
-
-const transitionStyles = {
-  entering: { opacity: 0 },
-  entered: { opacity: 1 }
-};
-//==== transition animation --- END
-
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit
@@ -219,7 +205,7 @@ class InputForm extends React.Component {
         </Tabs>
         {selectedTab === 0 && <TabContainer>{timerInput}</TabContainer>}
         {selectedTab === 1 && <TabContainer>{timerInput}</TabContainer>}
-        <Transition in={this.props.flashMessages} timeout={0}>
+        <Transition in={flashMessages} timeout={0}>
           {state => <FlashMsg status={state} />}
         </Transition>
       </div>
