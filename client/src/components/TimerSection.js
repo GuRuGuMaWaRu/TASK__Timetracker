@@ -13,8 +13,7 @@ const styles = theme => ({
     marginTop: 12,
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      // boxShadow: "none",
-      padding: 0,
+      boxShadow: "none",
       margin: 0
     }
   })

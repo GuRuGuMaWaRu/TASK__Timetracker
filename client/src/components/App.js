@@ -10,7 +10,7 @@ export default () => {
     <div className="app">
       <Header />
       <TimerSection />
-      {/* <DataSection /> */}
+      <DataSection />
     </div>
   );
 };

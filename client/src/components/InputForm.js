@@ -24,10 +24,6 @@ const styles = theme => ({
     alignItems: "center",
     flexWrap: "wrap"
   },
-  formControl: {
-    margin: theme.spacing.unit,
-    width: 280
-  },
   textField: {
     margin: theme.spacing.unit,
     width: 280,

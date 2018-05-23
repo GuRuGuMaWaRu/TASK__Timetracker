@@ -7,16 +7,19 @@ import SearchField from "./SearchField";
 import TaskList from "./TaskList";
 import Calendar from "./Calendar/Calendar";
 
-const styles = {
+const styles = theme => ({
   dataSection: {
     display: "flex",
-    marginTop: 12
+    marginTop: 12,
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column"
+    }
   },
   card: {
     flex: "1 1 auto",
     minWidth: 275
   }
-};
+});
 
 class DataSection extends Component {
   render() {
