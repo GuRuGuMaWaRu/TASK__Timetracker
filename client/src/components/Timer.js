@@ -9,6 +9,13 @@ import * as actions from "../actions";
 import { showTime } from "../utils/timer";
 
 const styles = theme => ({
+  main: {
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  },
   button: {
     margin: theme.spacing.unit
   }
@@ -32,8 +39,8 @@ class Timer extends Component {
   render() {
     const { time, classes } = this.props;
     return (
-      <div>
-        <Typography variant="headline" component="h3">
+      <div className={classes.main}>
+        <Typography className={classes.timer} variant="headline" component="h3">
           {showTime(time)}
         </Typography>
         <div className="timer__controls">
