@@ -12,6 +12,9 @@ import * as actions from "../actions";
 import FlashMsg from "./FlashMsg";
 
 const styles = theme => ({
+  root: {
+    width: "100%"
+  },
   button: {
     margin: theme.spacing.unit
   },
@@ -27,7 +30,10 @@ const styles = theme => ({
   },
   textField: {
     margin: theme.spacing.unit,
-    width: 280
+    width: 280,
+    [theme.breakpoints.down("sm")]: {
+      width: "auto"
+    }
   }
 });
 
@@ -190,6 +196,8 @@ class InputForm extends React.Component {
         </div>
       </div>
     );
+
+    const emptyDiv = <div>Just an empty DIV</div>;
 
     return (
       <div>

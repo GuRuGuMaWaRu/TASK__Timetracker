@@ -11,7 +11,12 @@ const styles = theme => ({
     paddingTop: 16,
     paddingBottom: 16,
     marginTop: 12,
-    textAlign: "center"
+    textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      // boxShadow: "none",
+      padding: 0,
+      margin: 0
+    }
   })
 });
 
