@@ -9,8 +9,8 @@ import TimerTimer from "./TimerTimer";
 import TimerBook from "./TimerBook";
 
 const styles = {
-  card: {
-    minWidth: 275
+  timerCard: {
+    display: "flex"
   }
 };
 
@@ -18,8 +18,8 @@ function TimerCard(props) {
   const { classes } = props;
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
+    <Card>
+      <CardContent className={classes.timerCard}>
         <Typography component="div">
           <TimerTimer />
         </Typography>

@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = {
   card: {
-    minWidth: 275,
     flex: "2 1"
   }
 };
