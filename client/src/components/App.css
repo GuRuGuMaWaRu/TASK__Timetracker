@@ -1,11 +1,21 @@
+body {
+  /* height: calc(100vh - 20px); */
+  height: 100vh;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
 .app {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 20px);
+  height: 100%;
 }
 
-@media screen and (max-width: 960px) {
+/* @media screen and (max-width: 960px) {
   body {
     margin: 0;
   }
-}
+} */

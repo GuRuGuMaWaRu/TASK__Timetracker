@@ -10,7 +10,7 @@ import { showTime } from "../utils/timer";
 
 const styles = theme => ({
   main: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center"
