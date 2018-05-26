@@ -9,9 +9,6 @@ const styles = {
   root: {
     color: "#fff"
   },
-  card: {
-    minWidth: 275
-  },
   footer: {
     backgroundColor: "#7f7f7f"
   }
@@ -22,10 +19,10 @@ function Footer(props) {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card>
         <CardContent
           className={classes.footer}
-          style={{ paddingBottom: "16px" }}
+          style={{ padding: "10px 16px" }}
         >
           <Typography component="footer" style={{ color: "#fff" }}>
             2018, GuRuGuMaWaRu
