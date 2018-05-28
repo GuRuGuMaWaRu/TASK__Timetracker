@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = {
   calendarCard: {
+    flex: "2 1"
+  },
+  calendarCardContent: {
     display: "flex"
   }
 };
@@ -15,8 +18,8 @@ function CalendarCard(props) {
   const { classes } = props;
 
   return (
-    <Card>
-      <CardContent className={classes.calendarCard}>
+    <Card className={classes.calendarCard}>
+      <CardContent className={classes.calendarCardContent}>
         <Typography component="div">Selection buttons</Typography>
 
         <Typography component="div">Calendar</Typography>

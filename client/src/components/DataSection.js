@@ -15,9 +15,8 @@ const styles = theme => ({
       flexDirection: "column"
     }
   },
-  card: {
-    flex: "1 1 auto",
-    minWidth: 275
+  calendar: {
+    flex: "2 1"
   }
 });
 
@@ -27,11 +26,11 @@ class DataSection extends Component {
 
     return (
       <div className={classes.dataSection}>
-        <Card className={classes.card}>
+        <Card>
           <SearchField />
           <TaskList />
         </Card>
-        <Card className={classes.card}>
+        <Card className={classes.calendar}>
           <Calendar />
         </Card>
       </div>
