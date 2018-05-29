@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
 import TimerTimer from "./TimerTimer";
+import TimerControls from "./TimerControls";
 import TimerBook from "./TimerBook";
 
 const styles = {
@@ -23,7 +24,9 @@ function TimerCard(props) {
         <Typography component="div">
           <TimerTimer />
         </Typography>
-
+        <Typography component="div">
+          <TimerControls />
+        </Typography>
         <Typography component="div">
           <TimerBook />
         </Typography>
