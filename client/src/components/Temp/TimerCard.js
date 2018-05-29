@@ -11,7 +11,9 @@ import TimerBook from "./TimerBook";
 
 const styles = {
   timerCard: {
-    display: "flex"
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center"
   }
 };
 
@@ -20,14 +22,10 @@ function TimerCard(props) {
 
   return (
     <Card>
-      <CardContent className={classes.timerCard}>
-        <Typography component="div">
+      <CardContent>
+        <Typography component="div" className={classes.timerCard}>
           <TimerTimer />
-        </Typography>
-        <Typography component="div">
           <TimerControls />
-        </Typography>
-        <Typography component="div">
           <TimerBook />
         </Typography>
       </CardContent>

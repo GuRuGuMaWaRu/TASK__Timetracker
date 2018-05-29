@@ -15,7 +15,10 @@ const styles = theme => ({
     display: "flex"
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    [theme.breakpoints.down("xs")]: {
+      margin: 0
+    }
   }
 });
 
@@ -28,6 +31,7 @@ class TimerControls extends Component {
         <IconButton
           className={classes.button}
           color="primary"
+          // size="small"
           aria-label={timerIsRunning ? "Run" : "Pause"}
         >
           {timerIsRunning ? <Pause /> : <PlayArrow />}
@@ -35,6 +39,7 @@ class TimerControls extends Component {
         <IconButton
           className={classes.button}
           color="secondary"
+          // size="small"
           aria-label="Clear"
         >
           <Clear />
