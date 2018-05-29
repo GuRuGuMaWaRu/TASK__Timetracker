@@ -77,7 +77,7 @@ export const bookTime = data => async (dispatch, getState) => {
 
 export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
 
-export const updateTimer = () => ({ type: UPDATE_TIMER });
+export const updateTimer = time => ({ type: UPDATE_TIMER, payload: time });
 
 export const clearTimer = () => ({ type: CLEAR_TIMER });
 

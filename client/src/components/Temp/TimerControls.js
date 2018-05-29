@@ -23,6 +23,32 @@ const styles = theme => ({
 });
 
 class TimerControls extends Component {
+  state = {
+    startTime: 0
+  };
+
+  toggleTimer = () => {
+    if (!this.props.timerIsRunning) {
+      const startTime = Date.now();
+
+      this.setState({
+        startTime
+      });
+
+      const timerID = setInterval(() => {
+        const currentTime = Math.round(
+          (Date.now() - this.state.startTime) / 1000
+        );
+        this.props.updateTimer(currentTime);
+      }, 1000);
+
+      this.props.setTimerID(timerID);
+    } else {
+      clearInterval(this.props.timerID);
+      this.props.clearTimer();
+    }
+  };
+
   render() {
     const { classes, timerIsRunning } = this.props;
 
@@ -31,15 +57,14 @@ class TimerControls extends Component {
         <IconButton
           className={classes.button}
           color="primary"
-          // size="small"
           aria-label={timerIsRunning ? "Run" : "Pause"}
+          onClick={this.toggleTimer}
         >
           {timerIsRunning ? <Pause /> : <PlayArrow />}
         </IconButton>
         <IconButton
           className={classes.button}
           color="secondary"
-          // size="small"
           aria-label="Clear"
         >
           <Clear />
@@ -51,11 +76,16 @@ class TimerControls extends Component {
 
 TimerControls.propTypes = {
   classes: PropTypes.object.isRequired,
-  timerIsRunning: PropTypes.bool.isRequired
+  timerIsRunning: PropTypes.bool.isRequired,
+  timerID: PropTypes.number.isRequired,
+  updateTimer: PropTypes.func.isRequired,
+  setTimerID: PropTypes.func.isRequired,
+  clearTimer: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ timerIsRunning }) => ({
-  timerIsRunning
+const mapStateToProps = ({ timerIsRunning, timerID }) => ({
+  timerIsRunning,
+  timerID
 });
 
 export default connect(mapStateToProps, actions)(
