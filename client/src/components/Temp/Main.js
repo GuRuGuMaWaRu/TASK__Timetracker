@@ -10,7 +10,7 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "row",
     flex: "1 1",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       flexDirection: "column"
     }
   }

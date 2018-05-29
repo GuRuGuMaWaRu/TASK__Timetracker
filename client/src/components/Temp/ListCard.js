@@ -5,11 +5,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const styles = {
+const styles = theme => ({
   card: {
-    flex: "2 1"
+    flex: "2 1",
+    [theme.breakpoints.down("sm")]: {
+      flex: "1 1"
+    }
   }
-};
+});
 
 function ListCard(props) {
   const { classes } = props;
