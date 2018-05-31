@@ -20,12 +20,7 @@ class TimerBook extends Component {
     const { classes } = this.props;
 
     return (
-      <Button
-        variant="outlined"
-        color="secondary"
-        // size="small"
-        className={classes.button}
-      >
+      <Button variant="outlined" color="secondary" className={classes.button}>
         book
       </Button>
     );

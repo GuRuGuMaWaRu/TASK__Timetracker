@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-class TimerControls extends Component {
+class TimerControls extends React.PureComponent {
   toggleTimer = () => {
     if (!this.props.timerIsRunning) {
       const startTime = Date.now() - this.props.time * 1000;
