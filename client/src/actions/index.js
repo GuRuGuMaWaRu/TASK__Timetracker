@@ -3,6 +3,7 @@ import moment from "moment";
 import {
   ADD_TASK,
   GET_TASKS,
+  TOGGLE_TIMER,
   UPDATE_TIMER,
   CLEAR_TIMER,
   SET_TIMER_ID,

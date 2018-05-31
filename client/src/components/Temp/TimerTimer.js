@@ -18,8 +18,8 @@ const styles = theme => ({
 class TimerTimer extends Component {
   render() {
     const { classes, time } = this.props;
+    // show current time on page tab
     document.title = `${showTime(time)} Tracker`;
-    console.log(document.title);
 
     return <div className={classes.timerTimer}>{showTime(time)}</div>;
   }

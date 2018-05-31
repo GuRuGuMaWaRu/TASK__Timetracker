@@ -23,34 +23,36 @@ const styles = theme => ({
 });
 
 class TimerControls extends Component {
-  state = {
-    startTime: 0
-  };
+  // state = {
+  //   startTime: 0
+  // };
 
   toggleTimer = () => {
     if (!this.props.timerIsRunning) {
       const startTime = Date.now();
 
-      this.setState({
-        startTime
-      });
+      // this.setState({
+      //   startTime
+      // });
 
       const timerID = setInterval(() => {
-        const currentTime = Math.round(
-          (Date.now() - this.state.startTime) / 1000
-        );
+        const currentTime = Math.round((Date.now() - startTime) / 1000);
         this.props.updateTimer(currentTime);
       }, 1000);
 
       this.props.setTimerID(timerID);
     } else {
       clearInterval(this.props.timerID);
-      this.props.clearTimer();
     }
   };
 
+  handleClear = () => {
+    clearInterval(this.props.timerID);
+    this.props.clearTimer();
+  };
+
   render() {
-    const { classes, timerIsRunning } = this.props;
+    const { classes, timerIsRunning, clearTimer } = this.props;
 
     return (
       <div className={classes.timerControls}>
@@ -66,6 +68,7 @@ class TimerControls extends Component {
           className={classes.button}
           color="secondary"
           aria-label="Clear"
+          onClick={this.handleClear}
         >
           <Clear />
         </IconButton>

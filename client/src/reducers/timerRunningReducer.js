@@ -1,11 +1,11 @@
-import { STOP_TIMER, START_TIMER } from "../actions/types";
+import { TOGGLE_TIMER, CLEAR_TIMER } from "../actions/types";
 
 export default function(state = false, action) {
   switch (action.type) {
-    case STOP_TIMER:
+    case CLEAR_TIMER:
       return false;
-    case START_TIMER:
-      return true;
+    case TOGGLE_TIMER:
+      return !state;
     default:
       return state;
   }
