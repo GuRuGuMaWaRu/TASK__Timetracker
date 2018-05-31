@@ -3,9 +3,9 @@ import moment from "moment";
 import {
   ADD_TASK,
   GET_TASKS,
-  TOGGLE_TIMER,
   UPDATE_TIMER,
   CLEAR_TIMER,
+  STOP_TIMER,
   SET_TIMER_ID,
   CHANGE_DATE,
   SET_DATE,
@@ -81,6 +81,8 @@ export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
 export const updateTimer = time => ({ type: UPDATE_TIMER, payload: time });
 
 export const clearTimer = () => ({ type: CLEAR_TIMER });
+
+export const stopTimer = () => ({ type: STOP_TIMER });
 
 export const searchTasks = searchQuery => async dispatch => {
   const res = await axios.get(

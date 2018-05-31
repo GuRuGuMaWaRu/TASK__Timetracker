@@ -23,17 +23,9 @@ const styles = theme => ({
 });
 
 class TimerControls extends Component {
-  // state = {
-  //   startTime: 0
-  // };
-
   toggleTimer = () => {
     if (!this.props.timerIsRunning) {
-      const startTime = Date.now();
-
-      // this.setState({
-      //   startTime
-      // });
+      const startTime = Date.now() - this.props.time * 1000;
 
       const timerID = setInterval(() => {
         const currentTime = Math.round((Date.now() - startTime) / 1000);
@@ -43,6 +35,7 @@ class TimerControls extends Component {
       this.props.setTimerID(timerID);
     } else {
       clearInterval(this.props.timerID);
+      this.props.stopTimer();
     }
   };
 
@@ -83,12 +76,14 @@ TimerControls.propTypes = {
   timerID: PropTypes.number.isRequired,
   updateTimer: PropTypes.func.isRequired,
   setTimerID: PropTypes.func.isRequired,
-  clearTimer: PropTypes.func.isRequired
+  clearTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ timerIsRunning, timerID }) => ({
+const mapStateToProps = ({ timerIsRunning, timerID, time }) => ({
   timerIsRunning,
-  timerID
+  timerID,
+  time
 });
 
 export default connect(mapStateToProps, actions)(
