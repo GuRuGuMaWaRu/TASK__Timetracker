@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withStyles } from "material-ui/styles";
-import Typography from "material-ui/Typography";
 
 import * as actions from "../../actions";
 import { showTime } from "../../utils/timer";

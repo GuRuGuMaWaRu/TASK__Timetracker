@@ -1,18 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from "material-ui/Dialog";
 
-export default class Modal extends React.Component {
+class BookDialog extends Component {
   render() {
+    const { isOpen, handleClose } = this.props;
     return (
       <Dialog
-        open={this.props.isOpen}
-        onClose={this.handleClose}
+        open={isOpen}
+        onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
@@ -31,10 +33,10 @@ export default class Modal extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={this.handleClose} color="primary">
+          <Button onClick={handleClose} color="primary">
             Subscribe
           </Button>
         </DialogActions>
@@ -42,3 +44,5 @@ export default class Modal extends React.Component {
     );
   }
 }
+
+export default BookDialog;

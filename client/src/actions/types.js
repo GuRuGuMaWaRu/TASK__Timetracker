@@ -7,4 +7,3 @@ export const SET_TIMER_ID = "set_timer_id";
 export const CHANGE_DATE = "change_date";
 export const SET_DATE = "set_date";
 export const HIDE_ADD_MSG = "hide_add_msg";
-export const TOGGLE_MODAL = "toggle_modal";

@@ -8,7 +8,6 @@ import idReducer from "./idReducer";
 import tasksReducer from "./tasksReducer";
 import flashMessagesReducer from "./flashMessagesReducer";
 import timerRunningReducer from "./timerRunningReducer";
-import modalReducer from "./modalReducer";
 
 export default combineReducers({
   currentDate: currentDateReducer,
@@ -19,6 +18,5 @@ export default combineReducers({
   timerID: idReducer,
   tasks: tasksReducer,
   flashMessages: flashMessagesReducer,
-  timerIsRunning: timerRunningReducer,
-  modalOpen: modalReducer
+  timerIsRunning: timerRunningReducer
 });

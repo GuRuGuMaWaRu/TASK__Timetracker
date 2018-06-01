@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import Pause from "@material-ui/icons/Pause";
@@ -22,7 +21,7 @@ const styles = theme => ({
   }
 });
 
-class TimerControls extends React.PureComponent {
+class TimerControls extends Component {
   toggleTimer = () => {
     if (!this.props.timerIsRunning) {
       const startTime = Date.now() - this.props.time * 1000;
@@ -45,7 +44,7 @@ class TimerControls extends React.PureComponent {
   };
 
   render() {
-    const { classes, timerIsRunning, clearTimer } = this.props;
+    const { classes, timerIsRunning } = this.props;
 
     return (
       <div className={classes.timerControls}>

@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { withStyles } from "material-ui/styles";
 
 import Header from "./Header";
-import TimerSection from "./TimerSection";
-import DataSection from "./DataSection";
+// import TimerSection from "./TimerSection";
+// import DataSection from "./DataSection";
 import Footer from "./Footer";
 import Main from "./Temp/Main";
 import "./App.css";
