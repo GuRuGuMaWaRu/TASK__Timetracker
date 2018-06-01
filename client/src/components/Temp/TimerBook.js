@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 import BookDialog from "./BookDialog";
+import { stopTimer } from "../../actions";
 
 const styles = theme => ({
   button: {
@@ -20,6 +22,8 @@ class TimerBook extends Component {
   };
 
   handleClickOpen = () => {
+    clearInterval(this.props.timerID);
+    this.props.stopTimer();
     this.setState({ open: true });
   };
 
@@ -50,4 +54,10 @@ TimerBook.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(TimerBook);
+const mapStateToProps = ({ timerID }) => ({
+  timerID
+});
+
+export default connect(mapStateToProps, { stopTimer })(
+  withStyles(styles)(TimerBook)
+);
