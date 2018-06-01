@@ -22,29 +22,35 @@ const styles = theme => ({
 });
 
 class TimerControls extends Component {
-  toggleTimer = () => {
-    if (!this.props.timerIsRunning) {
-      const startTime = Date.now() - this.props.time * 1000;
+  // toggleTimer = () => {
+  //   if (!this.props.timerIsRunning) {
+  //     const startTime = Date.now() - this.props.time * 1000;
 
-      const timerID = setInterval(() => {
-        const currentTime = Math.round((Date.now() - startTime) / 1000);
-        this.props.updateTimer(currentTime);
-      }, 1000);
+  //     const timerID = setInterval(() => {
+  //       const currentTime = Math.round((Date.now() - startTime) / 1000);
+  //       this.props.updateTimer(currentTime);
+  //     }, 1000);
 
-      this.props.setTimerID(timerID);
-    } else {
-      clearInterval(this.props.timerID);
-      this.props.stopTimer();
-    }
-  };
+  //     this.props.setTimerID(timerID);
+  //   } else {
+  //     clearInterval(this.props.timerID);
+  //     this.props.stopTimer();
+  //   }
+  // };
 
-  handleClear = () => {
-    clearInterval(this.props.timerID);
-    this.props.clearTimer();
-  };
+  // handleClear = () => {
+  //   clearInterval(this.props.timerID);
+  //   this.props.clearTimer();
+  // };
 
   render() {
-    const { classes, timerIsRunning } = this.props;
+    const {
+      classes,
+      timerIsRunning,
+      startTimer,
+      clearTimer,
+      stopTimer
+    } = this.props;
 
     return (
       <div className={classes.timerControls}>
@@ -52,7 +58,9 @@ class TimerControls extends Component {
           className={classes.button}
           color="primary"
           aria-label={timerIsRunning ? "Run" : "Pause"}
-          onClick={this.toggleTimer}
+          onClick={() => {
+            timerIsRunning ? stopTimer() : startTimer();
+          }}
         >
           {timerIsRunning ? <Pause /> : <PlayArrow />}
         </IconButton>
@@ -60,7 +68,7 @@ class TimerControls extends Component {
           className={classes.button}
           color="secondary"
           aria-label="Clear"
-          onClick={this.handleClear}
+          onClick={clearTimer}
         >
           <Clear />
         </IconButton>
@@ -72,17 +80,16 @@ class TimerControls extends Component {
 TimerControls.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
-  timerID: PropTypes.number.isRequired,
-  updateTimer: PropTypes.func.isRequired,
-  setTimerID: PropTypes.func.isRequired,
+  // timerID: PropTypes.number.isRequired,
+  // updateTimer: PropTypes.func.isRequired,
+  // setTimerID: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
   clearTimer: PropTypes.func.isRequired,
   stopTimer: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ timerIsRunning, timerID, time }) => ({
-  timerIsRunning,
-  timerID,
-  time
+const mapStateToProps = ({ timerIsRunning }) => ({
+  timerIsRunning
 });
 
 export default connect(mapStateToProps, actions)(

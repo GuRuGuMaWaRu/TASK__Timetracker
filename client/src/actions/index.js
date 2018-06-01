@@ -108,7 +108,13 @@ export const clearTimer = () => async (dispatch, getState) => {
   dispatch({ type: CLEAR_TIMER });
 };
 
-export const stopTimer = () => ({ type: STOP_TIMER });
+export const stopTimer = () => async (dispatch, getState) => {
+  const { timerID } = getState();
+
+  clearInterval(timerID);
+
+  dispatch({ type: STOP_TIMER });
+};
 
 export const searchTasks = searchQuery => async dispatch => {
   const res = await axios.get(
