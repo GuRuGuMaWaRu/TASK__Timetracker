@@ -13,7 +13,12 @@ import * as actions from "../../actions";
 import { showTime } from "../../utils/timer";
 class BookDialog extends Component {
   state = {
-    time: showTime(this.props.time)
+    errorTime: 0,
+    errorDescription: 0
+  };
+
+  handleChangeTime = e => {
+    console.log(e.target.value);
   };
 
   render() {
@@ -32,7 +37,10 @@ class BookDialog extends Component {
               shrink: true
             }}
             fullWidth
-            value={this.state.time}
+            value={showTime(this.props.editTime)}
+            onChange={this.handleChangeTime}
+            error={this.state.errorTime === 1}
+            helperText={this.state.errorTime === 1 ? "Please enter time" : ""}
           />
           <TextField
             margin="dense"
@@ -60,11 +68,11 @@ class BookDialog extends Component {
 }
 
 BookDialog.propTypes = {
-  time: PropTypes.number.isRequired
+  editTime: PropTypes.number.isRequired
 };
 
-const mapStateToProps = ({ time }) => ({
-  time
+const mapStateToProps = ({ editTime }) => ({
+  editTime
 });
 
 export default connect(mapStateToProps, actions)(BookDialog);

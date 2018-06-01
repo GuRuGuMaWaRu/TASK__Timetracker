@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 import BookDialog from "./BookDialog";
-import { stopTimer, startTimer } from "../../actions";
+import { stopTimer, startEdit } from "../../actions";
 
 const styles = theme => ({
   button: {
@@ -25,6 +25,7 @@ class TimerBook extends Component {
     if (this.props.timerIsRunning) {
       this.props.stopTimer();
     }
+    this.props.startEdit();
     this.setState({ open: true });
   };
 
@@ -55,13 +56,13 @@ TimerBook.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
   stopTimer: PropTypes.func.isRequired,
-  startTimer: PropTypes.func.isRequired
+  startEdit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ timerIsRunning }) => ({
   timerIsRunning
 });
 
-export default connect(mapStateToProps, { stopTimer, startTimer })(
+export default connect(mapStateToProps, { stopTimer, startEdit })(
   withStyles(styles)(TimerBook)
 );

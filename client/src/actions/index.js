@@ -1,16 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import {
-  ADD_TASK,
-  GET_TASKS,
-  UPDATE_TIMER,
-  CLEAR_TIMER,
-  STOP_TIMER,
-  SET_TIMER_ID,
-  CHANGE_DATE,
-  SET_DATE,
-  HIDE_ADD_MSG
-} from "./types";
+import * as types from "./types";
 import { showTime, timeFromString } from "../utils/timer";
 import { months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
@@ -68,7 +58,7 @@ export const bookTime = data => async (dispatch, getState) => {
   const monthArray = await createMonthArray(year, months[month]);
 
   dispatch({
-    type: ADD_TASK,
+    type: types.ADD_TASK,
     payload: {
       custom,
       allTasks: allTasksResponse.data,
@@ -85,27 +75,33 @@ export const startTimer = () => async (dispatch, getState) => {
     const currentTime = Math.round((Date.now() - startTime) / 1000);
 
     dispatch({
-      type: UPDATE_TIMER,
+      type: types.UPDATE_TIMER,
       payload: currentTime
     });
   }, 1000);
 
   dispatch({
-    type: SET_TIMER_ID,
+    type: types.SET_TIMER_ID,
     payload: timerID
   });
 };
 
-export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
+export const setTimerID = timerID => ({
+  type: types.SET_TIMER_ID,
+  payload: timerID
+});
 
-export const updateTimer = time => ({ type: UPDATE_TIMER, payload: time });
+export const updateTimer = time => ({
+  type: types.UPDATE_TIMER,
+  payload: time
+});
 
 export const clearTimer = () => async (dispatch, getState) => {
   const { timerID } = getState();
 
   clearInterval(timerID);
 
-  dispatch({ type: CLEAR_TIMER });
+  dispatch({ type: types.CLEAR_TIMER });
 };
 
 export const stopTimer = () => async (dispatch, getState) => {
@@ -113,7 +109,7 @@ export const stopTimer = () => async (dispatch, getState) => {
 
   clearInterval(timerID);
 
-  dispatch({ type: STOP_TIMER });
+  dispatch({ type: types.STOP_TIMER });
 };
 
 export const searchTasks = searchQuery => async dispatch => {
@@ -121,13 +117,13 @@ export const searchTasks = searchQuery => async dispatch => {
     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
   );
 
-  dispatch({ type: GET_TASKS, payload: res.data });
+  dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 export const getAllTasks = () => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
 
-  dispatch({ type: GET_TASKS, payload: res.data });
+  dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 // export const getMonthTasks = date => async dispatch => {
@@ -140,13 +136,13 @@ export const getAllTasks = () => async dispatch => {
 //     return dates;
 //   }, []);
 
-//   dispatch({ type: GET_MONTH, payload: datesWithTasks });
+//   dispatch({ type: types.GET_MONTH, payload: datesWithTasks });
 // };
 
 export const getDateTasks = date => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
 
-  dispatch({ type: GET_TASKS, payload: res.data });
+  dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 export const getDate = () => async dispatch => {
@@ -156,7 +152,7 @@ export const getDate = () => async dispatch => {
   const monthArray = await createMonthArray(year, month);
 
   dispatch({
-    type: SET_DATE,
+    type: types.SET_DATE,
     payload: {
       year,
       month,
@@ -181,7 +177,7 @@ export const changeDate = (operationType, dateType) => async (
   const monthArray = await createMonthArray(year, month);
 
   dispatch({
-    type: CHANGE_DATE,
+    type: types.CHANGE_DATE,
     payload: {
       year,
       month,
@@ -190,4 +186,22 @@ export const changeDate = (operationType, dateType) => async (
   });
 };
 
-export const hideAddMsg = () => ({ type: HIDE_ADD_MSG });
+export const hideAddMsg = () => ({ type: types.HIDE_ADD_MSG });
+
+export const startEdit = () => async (dispatch, getState) => {
+  const { time } = getState();
+
+  dispatch({
+    type: types.START_EDIT,
+    payload: time
+  });
+};
+
+export const updateEdit = time => ({
+  type: types.UPDATE_EDIT,
+  payload: time
+});
+
+export const endEdit = () => ({
+  type: types.END_EDIT
+});
