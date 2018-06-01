@@ -32,7 +32,8 @@ const createMonthArray = async (year, month) => {
 };
 
 export const bookTime = data => async (dispatch, getState) => {
-  let { time, description, custom } = data;
+  let { time } = data;
+  const { description, custom } = data;
 
   if (!custom) {
     time = showTime(getState().time);
@@ -41,7 +42,7 @@ export const bookTime = data => async (dispatch, getState) => {
   }
 
   if (time.length === 7) {
-    time = "0" + time;
+    time = `0${time}`;
   }
 
   const currentDate = new Date();
@@ -77,7 +78,7 @@ export const bookTime = data => async (dispatch, getState) => {
 };
 
 export const startTimer = () => async (dispatch, getState) => {
-  const time = getState().time;
+  const { time } = getState();
   const startTime = Date.now() - time * 1000;
 
   const timerID = setInterval(() => {
@@ -99,7 +100,13 @@ export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
 
 export const updateTimer = time => ({ type: UPDATE_TIMER, payload: time });
 
-export const clearTimer = () => ({ type: CLEAR_TIMER });
+export const clearTimer = () => async (dispatch, getState) => {
+  const { timerID } = getState();
+
+  clearInterval(timerID);
+
+  dispatch({ type: CLEAR_TIMER });
+};
 
 export const stopTimer = () => ({ type: STOP_TIMER });
 
@@ -156,9 +163,7 @@ export const changeDate = (operationType, dateType) => async (
   dispatch,
   getState
 ) => {
-  const currentDate = getState().currentDate;
-  const displayedDate = getState().displayedDate;
-  const minDate = getState().minDate;
+  const { currentDate, displayedDate, minDate } = getState();
   const { newYear: year, newMonth: month } = changeDateHelper({
     operationType,
     dateType,
