@@ -7,7 +7,6 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from "material-ui/Dialog";
-
 class BookDialog extends Component {
   render() {
     const { isOpen, handleClose } = this.props;
