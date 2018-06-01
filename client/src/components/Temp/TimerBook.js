@@ -22,12 +22,13 @@ class TimerBook extends Component {
   };
 
   handleClickOpen = () => {
-    this.props.stopTimer();
+    if (this.props.timerIsRunning) {
+      this.props.stopTimer();
+    }
     this.setState({ open: true });
   };
 
   handleClose = () => {
-    this.props.startTimer();
     this.setState({ open: false });
   };
 
@@ -52,10 +53,15 @@ class TimerBook extends Component {
 
 TimerBook.propTypes = {
   classes: PropTypes.object.isRequired,
+  timerIsRunning: PropTypes.bool.isRequired,
   stopTimer: PropTypes.func.isRequired,
   startTimer: PropTypes.func.isRequired
 };
 
-export default connect(null, { stopTimer, startTimer })(
+const mapStateToProps = ({ timerIsRunning }) => ({
+  timerIsRunning
+});
+
+export default connect(mapStateToProps, { stopTimer, startTimer })(
   withStyles(styles)(TimerBook)
 );
