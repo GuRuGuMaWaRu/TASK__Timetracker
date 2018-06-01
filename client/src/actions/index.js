@@ -76,6 +76,25 @@ export const bookTime = data => async (dispatch, getState) => {
   });
 };
 
+export const startTimer = () => async (dispatch, getState) => {
+  const time = getState().time;
+  const startTime = Date.now() - time * 1000;
+
+  const timerID = setInterval(() => {
+    const currentTime = Math.round((Date.now() - startTime) / 1000);
+
+    dispatch({
+      type: UPDATE_TIMER,
+      payload: currentTime
+    });
+  }, 1000);
+
+  dispatch({
+    type: SET_TIMER_ID,
+    payload: timerID
+  });
+};
+
 export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
 
 export const updateTimer = time => ({ type: UPDATE_TIMER, payload: time });
