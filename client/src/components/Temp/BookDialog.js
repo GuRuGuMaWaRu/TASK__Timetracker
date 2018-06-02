@@ -10,7 +10,6 @@ import Dialog, {
 } from "material-ui/Dialog";
 
 import * as actions from "../../actions";
-import { showTime } from "../../utils/timer";
 class BookDialog extends Component {
   state = {
     errorTime: 0,
@@ -18,11 +17,11 @@ class BookDialog extends Component {
   };
 
   handleChangeTime = e => {
-    console.log(e.target.value);
+    this.props.updateEdit(e.target.value);
   };
 
   render() {
-    const { isOpen, handleClose } = this.props;
+    const { isOpen, handleClose, editTime } = this.props;
     return (
       <Dialog open={isOpen} onClose={handleClose} aria-labelledby="book-time">
         <DialogTitle id="book-time">Book Time</DialogTitle>
@@ -37,7 +36,7 @@ class BookDialog extends Component {
               shrink: true
             }}
             fullWidth
-            value={showTime(this.props.editTime)}
+            value={editTime}
             onChange={this.handleChangeTime}
             error={this.state.errorTime === 1}
             helperText={this.state.errorTime === 1 ? "Please enter time" : ""}
@@ -68,7 +67,8 @@ class BookDialog extends Component {
 }
 
 BookDialog.propTypes = {
-  editTime: PropTypes.number.isRequired
+  editTime: PropTypes.string.isRequired,
+  updateEdit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ editTime }) => ({

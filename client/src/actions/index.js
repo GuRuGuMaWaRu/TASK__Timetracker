@@ -1,5 +1,6 @@
 import axios from "axios";
 import moment from "moment";
+
 import * as types from "./types";
 import { showTime, timeFromString } from "../utils/timer";
 import { months } from "../utils/dateData";
@@ -190,10 +191,11 @@ export const hideAddMsg = () => ({ type: types.HIDE_ADD_MSG });
 
 export const startEdit = () => async (dispatch, getState) => {
   const { time } = getState();
+  const processedTime = showTime(time).slice(0, 5);
 
   dispatch({
     type: types.START_EDIT,
-    payload: time
+    payload: processedTime
   });
 };
 
@@ -202,6 +204,6 @@ export const updateEdit = time => ({
   payload: time
 });
 
-export const endEdit = () => ({
-  type: types.END_EDIT
-});
+// export const endEdit = () => ({
+//   type: types.END_EDIT
+// });
