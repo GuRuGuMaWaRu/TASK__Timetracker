@@ -27,10 +27,31 @@ class BookDialog extends Component {
     });
   };
 
+  handleSubmit = () => {
+    this.setState({
+      description: ""
+    });
+
+    this.props.handleClose();
+  };
+
+  handleClose = () => {
+    this.setState({
+      description: ""
+    });
+
+    this.props.handleClose();
+  };
+
   render() {
-    const { isOpen, handleClose, editTime } = this.props;
+    const { isOpen, editTime } = this.props;
+
     return (
-      <Dialog open={isOpen} onClose={handleClose} aria-labelledby="book-time">
+      <Dialog
+        open={isOpen}
+        onClose={this.handleClose}
+        aria-labelledby="book-time"
+      >
         <DialogTitle id="book-time">Book Time</DialogTitle>
         <DialogContent>
           <TextField
@@ -67,10 +88,10 @@ class BookDialog extends Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={this.handleSubmit} color="primary">
             Book
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={this.handleClose} color="primary">
             Cancel
           </Button>
         </DialogActions>
