@@ -8,17 +8,32 @@ import Dialog, {
   DialogContent,
   DialogTitle
 } from "material-ui/Dialog";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
 
 import * as actions from "../../actions";
+
+function TabContainer(props) {
+  return <Typography component="div">{props.children}</Typography>;
+}
+
 class BookDialog extends Component {
   state = {
+    selectedTab: 0,
     errorTime: false,
     errorDescription: false,
+    time: "00:00",
     description: ""
   };
 
   handleChangeTime = e => {
-    this.props.updateEdit(e.target.value);
+    if (this.state.selectedTab === 0) {
+      console.log(e.target.value);
+      this.props.updateEdit(e.target.value);
+    } else {
+      this.setState({ time: e.target.value });
+    }
   };
 
   handleChangeDescription = e => {
@@ -29,6 +44,7 @@ class BookDialog extends Component {
 
   handleSubmit = () => {
     this.setState({
+      time: "00:00",
       description: ""
     });
 
@@ -37,14 +53,46 @@ class BookDialog extends Component {
 
   handleClose = () => {
     this.setState({
+      time: "00:00",
       description: ""
     });
 
     this.props.handleClose();
   };
 
+  handleChangeTab = (event, value) => {
+    this.setState({ selectedTab: value });
+  };
+
   render() {
     const { isOpen, editTime } = this.props;
+    const {
+      selectedTab,
+      errorTime,
+      errorDescription,
+      time,
+      description
+    } = this.state;
+
+    const form = value => (
+      <TextField
+        autoFocus
+        margin="dense"
+        id="time"
+        label="Time"
+        type="time"
+        InputLabelProps={{
+          shrink: true
+        }}
+        fullWidth
+        value={value}
+        onChange={this.handleChangeTime}
+        error={this.state.errorTime}
+        helperText={this.state.errorTime ? "Please enter time" : ""}
+      />
+    );
+
+    console.log(editTime);
 
     return (
       <Dialog
@@ -54,21 +102,20 @@ class BookDialog extends Component {
       >
         <DialogTitle id="book-time">Book Time</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="time"
-            label="Time"
-            type="time"
-            InputLabelProps={{
-              shrink: true
-            }}
+          <Tabs
+            value={selectedTab}
+            onChange={this.handleChangeTab}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
             fullWidth
-            value={editTime}
-            onChange={this.handleChangeTime}
-            error={this.state.errorTime}
-            helperText={this.state.errorTime ? "Please enter time" : ""}
-          />
+          >
+            <Tab label="Timer" />
+            <Tab label="Custom" />
+          </Tabs>
+          {selectedTab === 0 && <TabContainer>{form(editTime)}</TabContainer>}
+          {selectedTab === 1 && <TabContainer>{form(time)}</TabContainer>}
+
           <TextField
             margin="dense"
             id="description"
@@ -79,7 +126,7 @@ class BookDialog extends Component {
             }}
             multiline={true}
             fullWidth
-            value={this.state.description}
+            value={description}
             onChange={this.handleChangeDescription}
             error={this.state.errorDescription}
             helperText={
