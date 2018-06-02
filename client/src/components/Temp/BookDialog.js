@@ -27,16 +27,50 @@ class BookDialog extends Component {
     description: ""
   };
 
-  handleChangeTime = e => {
-    if (this.state.selectedTab === 0) {
-      console.log(e.target.value);
-      this.props.updateEdit(e.target.value);
+  validateTime = () => {
+    if (this.state.selectedTab === 1) {
+      const timeToArr = this.state.time.split(":").map(parseFloat);
+      return timeToArr.every(time => time === 0);
     } else {
-      this.setState({ time: e.target.value });
+      return this.props.editTime < 1;
     }
   };
 
+  validateInput = () => {
+    const timeError = this.validateTime();
+    const descriptionError = this.state.description.length === 0;
+
+    if (timeError || descriptionError) {
+      if (timeError) {
+        this.setState({ errorTime: true });
+      }
+      if (descriptionError) {
+        this.setState({ errorDescription: true });
+      }
+
+      return true;
+    }
+
+    return false;
+  };
+
+  handleChangeTime = e => {
+    if (this.state.errorTime) {
+      this.setState({
+        errorTime: false
+      });
+    }
+    this.setState({
+      time: e.target.value
+    });
+  };
+
   handleChangeDescription = e => {
+    if (this.state.errorDescription) {
+      this.setState({
+        errorDescription: false
+      });
+    }
     this.setState({
       description: e.target.value
     });
@@ -92,8 +126,6 @@ class BookDialog extends Component {
         disabled={selectedTab === 0 ? true : false}
       />
     );
-
-    console.log(editTime);
 
     return (
       <Dialog
