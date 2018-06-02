@@ -28,12 +28,11 @@ class BookDialog extends Component {
   };
 
   validateTime = () => {
-    if (this.state.selectedTab === 1) {
-      const timeToArr = this.state.time.split(":").map(parseFloat);
-      return timeToArr.every(time => time === 0);
-    } else {
-      return this.props.editTime < 1;
-    }
+    const time =
+      this.state.selectedTab === 1 ? this.state.time : this.props.editTime;
+
+    const timeToArr = time.split(":").map(parseFloat);
+    return timeToArr.every(time => time === 0);
   };
 
   validateInput = () => {
@@ -77,12 +76,28 @@ class BookDialog extends Component {
   };
 
   handleSubmit = () => {
-    this.setState({
-      time: "00:00",
-      description: ""
-    });
+    const error = this.validateInput();
 
-    this.props.handleClose();
+    if (!error) {
+      if (this.state.selectedTab === 0) {
+        this.props.clearTimer();
+      }
+
+      this.props.bookTime({
+        time:
+          this.state.selectedTab === 0 ? this.props.editTime : this.state.time,
+        description: this.state.description
+      });
+
+      this.setState({
+        time: "00:00",
+        description: ""
+      });
+
+      this.props.handleClose();
+    }
+
+    return;
   };
 
   handleClose = () => {
@@ -182,7 +197,9 @@ class BookDialog extends Component {
 
 BookDialog.propTypes = {
   editTime: PropTypes.string.isRequired,
-  updateEdit: PropTypes.func.isRequired
+  updateEdit: PropTypes.func.isRequired,
+  clearTimer: PropTypes.func.isRequired,
+  bookTime: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ editTime }) => ({

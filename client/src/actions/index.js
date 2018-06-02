@@ -24,13 +24,7 @@ const createMonthArray = async (year, month) => {
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time } = data;
-  const { description, custom } = data;
-
-  if (!custom) {
-    time = showTime(getState().time);
-  } else {
-    time = timeFromString(time);
-  }
+  const { description } = data;
 
   if (time.length === 7) {
     time = `0${time}`;
@@ -45,7 +39,7 @@ export const bookTime = data => async (dispatch, getState) => {
     year,
     month,
     day,
-    time,
+    time: timeFromString(time),
     description
   };
 
@@ -61,7 +55,6 @@ export const bookTime = data => async (dispatch, getState) => {
   dispatch({
     type: types.ADD_TASK,
     payload: {
-      custom,
       allTasks: allTasksResponse.data,
       monthArray
     }
@@ -203,7 +196,3 @@ export const updateEdit = time => ({
   type: types.UPDATE_EDIT,
   payload: time
 });
-
-// export const endEdit = () => ({
-//   type: types.END_EDIT
-// });
