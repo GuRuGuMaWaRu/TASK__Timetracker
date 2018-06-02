@@ -87,8 +87,9 @@ class BookDialog extends Component {
         fullWidth
         value={value}
         onChange={this.handleChangeTime}
-        error={this.state.errorTime}
-        helperText={this.state.errorTime ? "Please enter time" : ""}
+        error={errorTime}
+        helperText={errorTime ? "Please enter time" : ""}
+        disabled={selectedTab === 0 ? true : false}
       />
     );
 
