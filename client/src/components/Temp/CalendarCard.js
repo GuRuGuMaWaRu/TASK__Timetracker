@@ -12,18 +12,21 @@ import "../Calendar/Calendar.css";
 import DateSelector from "../Calendar/DateSelector";
 
 const styles = theme => ({
-  calendarCard: {
+  card: {
     flex: "2 1",
     [theme.breakpoints.down("xs")]: {
       padding: 0
     }
   },
-  calendarCardContent: {
+  cardContent: {
     display: "flex",
     flexDirection: "column",
     userSelect: "none",
     [theme.breakpoints.down("xs")]: {
-      padding: 0
+      padding: 0,
+      "&:last-child": {
+        paddingBottom: "10px"
+      }
     }
   }
 });
@@ -72,8 +75,8 @@ class CalendarCard extends React.Component {
     const { classes, displayedDate, currentDate, minDate } = this.props;
 
     return (
-      <Card className={classes.calendarCard}>
-        <CardContent className={classes.calendarCardContent}>
+      <Card className={classes.card}>
+        <CardContent className={classes.cardContent}>
           <Typography component="div" className={classes.selectors}>
             <DateSelector
               dateType="year"
