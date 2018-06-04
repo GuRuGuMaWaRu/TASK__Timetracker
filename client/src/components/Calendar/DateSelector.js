@@ -13,10 +13,15 @@ const DateSelectorStyles = theme => ({
     alignItems: "center",
     justifyContent: "space-between",
     width: "90%",
-    margin: "10px auto",
-    fontSize: 18
+    padding: "15px",
+    margin: "0 auto",
+    fontSize: 18,
+    [theme.breakpoints.down("xs")]: {
+      padding: "6px",
+      fontSize: 16
+    }
   },
-  icon: {
+  enabled: {
     cursor: "pointer",
     color: "#0E0E0E"
   },
@@ -56,14 +61,12 @@ let DateSelector = ({
   return (
     <div className={classes.selector}>
       <ArrowLeft
-        className={isMinimum ? classes.disabled : classes.icon}
-        style={{ fontSize: 40 }}
+        className={isMinimum ? classes.disabled : classes.enabled}
         onClick={() => handleChangeDate("decrease", dateType, isMinimum)}
       />
       <span>{displayedDate[dateType]}</span>
       <ArrowRight
-        className={isMaximum ? classes.disabled : classes.icon}
-        style={{ fontSize: 40 }}
+        className={isMaximum ? classes.disabled : classes.enabled}
         onClick={() => handleChangeDate("increase", dateType, isMaximum)}
       />
     </div>
