@@ -21,11 +21,13 @@ const styles = theme => ({
   cardContent: {
     display: "flex",
     flexDirection: "column",
+    height: "100%",
     userSelect: "none",
     [theme.breakpoints.down("xs")]: {
+      justifyContent: "space-around",
       padding: 0,
       "&:last-child": {
-        paddingBottom: "10px"
+        paddingBottom: 0
       }
     }
   }

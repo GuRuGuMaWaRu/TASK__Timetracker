@@ -32,3 +32,18 @@
 .with-tasks:hover {
   transform: translateX(10%);
 }
+
+@media screen and (max-width: 960px) {
+  .month-dates {
+    width: 90%;
+    margin: 0 7% 0 3%;
+    font-size: 0.8em;
+  }
+
+  .month-dates--weekdays,
+  .month-dates--prev,
+  .month-dates--curr,
+  .month-dates--next {
+    padding: 2px 2px;
+  }
+}

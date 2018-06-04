@@ -17,7 +17,7 @@ const DateSelectorStyles = theme => ({
     margin: "0 auto",
     fontSize: 18,
     [theme.breakpoints.down("xs")]: {
-      padding: "6px",
+      padding: "2px",
       fontSize: 16
     }
   },

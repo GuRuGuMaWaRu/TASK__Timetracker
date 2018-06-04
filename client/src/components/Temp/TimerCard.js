@@ -12,9 +12,9 @@ import TimerBook from "./TimerBook";
 const styles = theme => ({
   cardContent: {
     [theme.breakpoints.down("xs")]: {
-      paddingTop: "10px",
+      paddingTop: "5px",
       "&:last-child": {
-        paddingBottom: "10px"
+        paddingBottom: "5px"
       }
     }
   },
