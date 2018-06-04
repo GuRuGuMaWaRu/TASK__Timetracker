@@ -9,20 +9,28 @@ import TimerTimer from "./TimerTimer";
 import TimerControls from "./TimerControls";
 import TimerBook from "./TimerBook";
 
-const styles = {
+const styles = theme => ({
+  cardContent: {
+    [theme.breakpoints.down("xs")]: {
+      paddingTop: "10px",
+      "&:last-child": {
+        paddingBottom: "10px"
+      }
+    }
+  },
   timerCard: {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center"
   }
-};
+});
 
 function TimerCard(props) {
   const { classes } = props;
 
   return (
-    <Card>
-      <CardContent>
+    <Card className={classes.card}>
+      <CardContent className={classes.cardContent}>
         <Typography component="div" className={classes.timerCard}>
           <TimerTimer />
           <TimerControls />

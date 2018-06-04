@@ -8,20 +8,24 @@ import Typography from "@material-ui/core/Typography";
 
 import * as actions from "../../actions";
 import { months } from "../../utils/dateData";
+import "../Calendar/Calendar.css";
 import DateSelector from "../Calendar/DateSelector";
 
 const styles = theme => ({
   calendarCard: {
-    flex: "2 1"
-  },
-  calendarCardContent: {
-    display: "flex",
-    flexDirection: "column",
+    flex: "2 1",
     [theme.breakpoints.down("xs")]: {
       padding: 0
     }
   },
-  selectors: {}
+  calendarCardContent: {
+    display: "flex",
+    flexDirection: "column",
+    userSelect: "none",
+    [theme.breakpoints.down("xs")]: {
+      padding: 0
+    }
+  }
 });
 
 class CalendarCard extends React.Component {
@@ -85,7 +89,11 @@ class CalendarCard extends React.Component {
             />
           </Typography>
 
-          <Typography component="div">Calendar</Typography>
+          <Typography component="div">
+            <section className="month-dates" onClick={this.handleDateSelect}>
+              {this.constructMonth()}
+            </section>
+          </Typography>
         </CardContent>
       </Card>
     );
