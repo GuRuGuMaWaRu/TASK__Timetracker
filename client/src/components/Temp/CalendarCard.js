@@ -1,35 +1,109 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const styles = {
+import * as actions from "../../actions";
+import { months } from "../../utils/dateData";
+import DateSelector from "../Calendar/DateSelector";
+
+const styles = theme => ({
   calendarCard: {
     flex: "2 1"
   },
   calendarCardContent: {
-    display: "flex"
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      padding: 0
+    }
+  },
+  selectors: {}
+});
+
+class CalendarCard extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    displayedDate: PropTypes.objectOf(PropTypes.string).isRequired,
+    currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
+    minDate: PropTypes.objectOf(PropTypes.string).isRequired,
+    displayedMonth: PropTypes.array.isRequired,
+    getDateTasks: PropTypes.func.isRequired,
+    getDate: PropTypes.func.isRequired
+  };
+
+  componentDidMount() {
+    this.props.getDate();
   }
-};
 
-function CalendarCard(props) {
-  const { classes } = props;
+  constructMonth = () => {
+    return this.props.displayedMonth.map(cell => {
+      return (
+        <div
+          key={`${cell.className}-${cell.value}`}
+          className={`${cell.className} ${cell.withTasks ? "with-tasks" : ""}`}
+        >
+          {cell.value}
+        </div>
+      );
+    });
+  };
 
-  return (
-    <Card className={classes.calendarCard}>
-      <CardContent className={classes.calendarCardContent}>
-        <Typography component="div">Selection buttons</Typography>
+  handleDateSelect = e => {
+    const element = e.target;
 
-        <Typography component="div">Calendar</Typography>
-      </CardContent>
-    </Card>
-  );
+    if (element.classList.contains("with-tasks")) {
+      this.props.getDateTasks(
+        `${this.props.displayedDate.year},${months.indexOf(
+          this.props.displayedDate.month
+        )},${element.textContent}`
+      );
+    }
+  };
+
+  render() {
+    const { classes, displayedDate, currentDate, minDate } = this.props;
+
+    return (
+      <Card className={classes.calendarCard}>
+        <CardContent className={classes.calendarCardContent}>
+          <Typography component="div" className={classes.selectors}>
+            <DateSelector
+              dateType="year"
+              displayedDate={displayedDate}
+              currentDate={currentDate}
+              minDate={minDate}
+            />
+            <DateSelector
+              dateType="month"
+              displayedDate={displayedDate}
+              currentDate={currentDate}
+              minDate={minDate}
+            />
+          </Typography>
+
+          <Typography component="div">Calendar</Typography>
+        </CardContent>
+      </Card>
+    );
+  }
 }
 
-CalendarCard.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+const mapStateToProps = ({
+  displayedDate,
+  currentDate,
+  minDate,
+  displayedMonth
+}) => ({
+  displayedDate,
+  currentDate,
+  minDate,
+  displayedMonth
+});
 
-export default withStyles(styles)(CalendarCard);
+export default withStyles(styles)(
+  connect(mapStateToProps, actions)(CalendarCard)
+);

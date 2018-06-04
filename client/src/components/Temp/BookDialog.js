@@ -176,10 +176,8 @@ class BookDialog extends Component {
             fullWidth
             value={description}
             onChange={this.handleChangeDescription}
-            error={this.state.errorDescription}
-            helperText={
-              this.state.errorDescription ? "Please enter description" : ""
-            }
+            error={errorDescription}
+            helperText={errorDescription ? "Please enter description" : ""}
           />
         </DialogContent>
         <DialogActions>
