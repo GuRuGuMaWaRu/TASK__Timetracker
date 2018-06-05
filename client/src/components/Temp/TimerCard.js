@@ -10,6 +10,12 @@ import TimerControls from "./TimerControls";
 import TimerBook from "./TimerBook";
 
 const styles = theme => ({
+  card: {
+    flex: "0 0 auto",
+    [theme.breakpoints.down("sm")]: {
+      flex: "1 0 auto"
+    }
+  },
   cardContent: {
     [theme.breakpoints.down("xs")]: {
       paddingTop: "5px",

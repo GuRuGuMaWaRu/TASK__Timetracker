@@ -9,7 +9,7 @@ const styles = theme => ({
   card: {
     flex: "2 1",
     [theme.breakpoints.down("sm")]: {
-      flex: "1 1"
+      flex: "10 1"
     }
   }
 });

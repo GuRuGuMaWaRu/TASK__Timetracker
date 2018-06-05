@@ -13,10 +13,10 @@ import DateSelector from "../Calendar/DateSelector";
 
 const styles = theme => ({
   card: {
-    flex: "2 1"
-    // [theme.breakpoints.down("xs")]: {
-    //   padding: 0
-    // }
+    flex: "2 1",
+    [theme.breakpoints.down("sm")]: {
+      flex: "1 0 auto"
+    }
   },
   cardContent: {
     display: "flex",
