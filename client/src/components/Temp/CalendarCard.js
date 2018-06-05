@@ -13,23 +13,23 @@ import DateSelector from "../Calendar/DateSelector";
 
 const styles = theme => ({
   card: {
-    flex: "2 1",
-    [theme.breakpoints.down("xs")]: {
-      padding: 0
-    }
+    flex: "2 1"
+    // [theme.breakpoints.down("xs")]: {
+    //   padding: 0
+    // }
   },
   cardContent: {
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    userSelect: "none",
-    [theme.breakpoints.down("xs")]: {
-      justifyContent: "space-around",
-      padding: 0,
-      "&:last-child": {
-        paddingBottom: 0
-      }
-    }
+    userSelect: "none"
+    // [theme.breakpoints.down("xs")]: {
+    //   justifyContent: "space-around",
+    //   padding: 0,
+    //   "&:last-child": {
+    //     paddingBottom: 0
+    //   }
+    // }
   }
 });
 
@@ -118,5 +118,8 @@ const mapStateToProps = ({
 });
 
 export default withStyles(styles)(
-  connect(mapStateToProps, actions)(CalendarCard)
+  connect(
+    mapStateToProps,
+    actions
+  )(CalendarCard)
 );

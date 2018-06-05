@@ -20,7 +20,15 @@ const styles = theme => ({
   },
   timerCard: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
+    alignItems: "center"
+    // [theme.breakpoints.down("sm")]: {
+    //   justifyContent: "space-between",
+    //   alignItems: "center"
+    // }
+  },
+  timerComponents: {
+    display: "flex",
     alignItems: "center"
   }
 });
@@ -32,8 +40,10 @@ function TimerCard(props) {
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
         <Typography component="div" className={classes.timerCard}>
-          <TimerTimer />
-          <TimerControls />
+          <div className={classes.timerComponents}>
+            <TimerTimer />
+            <TimerControls />
+          </div>
           <TimerBook />
         </Typography>
       </CardContent>

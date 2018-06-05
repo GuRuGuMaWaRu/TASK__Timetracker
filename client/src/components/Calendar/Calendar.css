@@ -33,7 +33,7 @@
   transform: translateX(10%);
 }
 
-@media screen and (max-width: 960px) {
+/* @media screen and (max-width: 599px) {
   .month-dates {
     width: 90%;
     margin: 0 7% 0 3%;
@@ -46,4 +46,4 @@
   .month-dates--next {
     padding: 2px 2px;
   }
-}
+} */

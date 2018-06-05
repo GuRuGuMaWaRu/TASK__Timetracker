@@ -11,7 +11,8 @@ import * as actions from "../../actions";
 
 const styles = theme => ({
   timerControls: {
-    display: "flex"
+    display: "flex",
+    paddingLeft: "10px"
   },
   button: {
     margin: theme.spacing.unit,
@@ -64,6 +65,7 @@ const mapStateToProps = ({ timerIsRunning }) => ({
   timerIsRunning
 });
 
-export default connect(mapStateToProps, actions)(
-  withStyles(styles)(TimerControls)
-);
+export default connect(
+  mapStateToProps,
+  actions
+)(withStyles(styles)(TimerControls));

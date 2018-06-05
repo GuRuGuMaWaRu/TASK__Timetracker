@@ -10,6 +10,9 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     flex: "1 1"
+    // [theme.breakpoints.down("sm")]: {
+    //   flex: "2 1"
+    // }
   }
 });
 
