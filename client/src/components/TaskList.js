@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withStyles } from "material-ui/styles";
-import Table, {
-  TableBody,
-  TableCell,
-  TableFooter,
-  TablePagination,
-  TableRow
-} from "material-ui/Table";
-import Paper from "material-ui/Paper";
-import IconButton from "material-ui/IconButton";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableFooter from "@material-ui/core/TableFooter";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
@@ -179,7 +178,7 @@ class CustomPaginationActionsTable extends Component {
                   page={page}
                   onChangePage={this.handleChangePage}
                   onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  Actions={TablePaginationActionsWrapped}
+                  ActionsComponent={TablePaginationActionsWrapped}
                 />
               </TableRow>
             </TableFooter>
@@ -198,6 +197,7 @@ CustomPaginationActionsTable.propTypes = {
 
 const mapStateToProps = ({ tasks }) => ({ tasks });
 
-export default connect(mapStateToProps, actions)(
-  withStyles(styles)(CustomPaginationActionsTable)
-);
+export default connect(
+  mapStateToProps,
+  actions
+)(withStyles(styles)(CustomPaginationActionsTable));

@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
+
+import SearchField from "../SearchField";
+import TaskList from "../TaskList";
 
 const styles = theme => ({
   card: {
@@ -20,9 +23,10 @@ function ListCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography component="div">Search field</Typography>
-
-        <Typography component="div">Task List</Typography>
+        {/* <Typography component="div">Search field</Typography> */}
+        <SearchField />
+        <TaskList />
+        {/* <Typography component="div">Task List</Typography> */}
       </CardContent>
     </Card>
   );
