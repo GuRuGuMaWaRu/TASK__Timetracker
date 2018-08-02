@@ -5,8 +5,8 @@ import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 
-import * as actions from "../actions";
-import { showTime } from "../utils/timer";
+import * as actions from "../../actions";
+import { showTime } from "../../utils/timer";
 
 const styles = theme => ({
   main: {
@@ -79,4 +79,9 @@ const mapStateToProps = ({ time, timerID }) => ({
   timerID
 });
 
-export default withStyles(styles)(connect(mapStateToProps, actions)(Timer));
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    actions
+  )(Timer)
+);

@@ -16,7 +16,7 @@ const styles = theme => ({
   }
 });
 
-class TimerBook extends Component {
+class Book extends Component {
   state = {
     open: false
   };
@@ -52,7 +52,7 @@ class TimerBook extends Component {
   }
 }
 
-TimerBook.propTypes = {
+Book.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
   stopTimer: PropTypes.func.isRequired,
@@ -63,6 +63,7 @@ const mapStateToProps = ({ timerIsRunning }) => ({
   timerIsRunning
 });
 
-export default connect(mapStateToProps, { stopTimer, startEdit })(
-  withStyles(styles)(TimerBook)
-);
+export default connect(
+  mapStateToProps,
+  { stopTimer, startEdit }
+)(withStyles(styles)(Book));

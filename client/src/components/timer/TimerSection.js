@@ -5,9 +5,25 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-import TimerTimer from "./TimerTimer";
-import TimerControls from "./TimerControls";
-import TimerBook from "./TimerBook";
+import Clock from "./Clock";
+import Controls from "./Controls";
+import Book from "./Book";
+
+const TimerSection = ({ classes }) => {
+  return (
+    <Card className={classes.card}>
+      <CardContent className={classes.cardContent}>
+        <Typography component="div" className={classes.timer}>
+          <div className={classes.timerComponents}>
+            <Clock />
+            <Controls />
+          </div>
+          <Book />
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
 
 const styles = theme => ({
   card: {
@@ -24,7 +40,7 @@ const styles = theme => ({
       }
     }
   },
-  timerCard: {
+  timer: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
@@ -39,26 +55,8 @@ const styles = theme => ({
   }
 });
 
-function TimerCard(props) {
-  const { classes } = props;
-
-  return (
-    <Card className={classes.card}>
-      <CardContent className={classes.cardContent}>
-        <Typography component="div" className={classes.timerCard}>
-          <div className={classes.timerComponents}>
-            <TimerTimer />
-            <TimerControls />
-          </div>
-          <TimerBook />
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-}
-
-TimerCard.propTypes = {
+TimerSection.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(TimerCard);
+export default withStyles(styles)(TimerSection);

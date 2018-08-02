@@ -10,7 +10,7 @@ import Clear from "@material-ui/icons/Clear";
 import * as actions from "../../actions";
 
 const styles = theme => ({
-  timerControls: {
+  main: {
     display: "flex",
     paddingLeft: "10px"
   },
@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-const TimerControls = ({
+const Controls = ({
   classes,
   timerIsRunning,
   startTimer,
@@ -30,7 +30,7 @@ const TimerControls = ({
   stopTimer
 }) => {
   return (
-    <div className={classes.timerControls}>
+    <div className={classes.main}>
       <IconButton
         className={classes.button}
         color="primary"
@@ -53,7 +53,7 @@ const TimerControls = ({
   );
 };
 
-TimerControls.propTypes = {
+Controls.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
   startTimer: PropTypes.func.isRequired,
@@ -68,4 +68,4 @@ const mapStateToProps = ({ timerIsRunning }) => ({
 export default connect(
   mapStateToProps,
   actions
-)(withStyles(styles)(TimerControls));
+)(withStyles(styles)(Controls));
