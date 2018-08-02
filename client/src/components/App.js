@@ -5,8 +5,8 @@ import { withStyles } from "material-ui/styles";
 import Header from "./Header";
 // import TimerSection from "./TimerSection";
 // import DataSection from "./DataSection";
+import Main from "./Main";
 import Footer from "./Footer";
-import Main from "./Temp/Main";
 import "./App.css";
 
 const styles = theme => ({
