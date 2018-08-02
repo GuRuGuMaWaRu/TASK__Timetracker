@@ -5,26 +5,29 @@ import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 
-const styles = {
-  root: {
-    flexGrow: 1
+const styles = theme => ({
+  appBar: {
+    // [theme.breakpoints.down("sm")]: {
+    //   boxShadow: "none"
+    // }
   },
-  flex: {
-    flex: 1
+  toolbar: {
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "40px",
+      paddingLeft: "18px"
+    }
   }
-};
+});
 
 const Header = ({ classes }) => {
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="secondary">
-        <Toolbar>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            Time Tracker
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar className={classes.appBar} position="static" color="secondary">
+      <Toolbar className={classes.toolbar}>
+        <Typography variant="title" color="inherit">
+          Time Tracker
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 };
 

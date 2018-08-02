@@ -11,21 +11,10 @@ import Transition from "react-transition-group/Transition";
 import * as actions from "../actions";
 import FlashMsg from "./FlashMsg";
 
-//==== transition animation --- START
-const duration = 300;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0
-};
-
-const transitionStyles = {
-  entering: { opacity: 0 },
-  entered: { opacity: 1 }
-};
-//==== transition animation --- END
-
 const styles = theme => ({
+  root: {
+    width: "100%"
+  },
   button: {
     margin: theme.spacing.unit
   },
@@ -35,13 +24,12 @@ const styles = theme => ({
     alignItems: "center",
     flexWrap: "wrap"
   },
-  formControl: {
-    margin: theme.spacing.unit,
-    width: 280
-  },
   textField: {
     margin: theme.spacing.unit,
-    width: 280
+    width: 280,
+    [theme.breakpoints.down("sm")]: {
+      width: "auto"
+    }
   }
 });
 
@@ -205,6 +193,8 @@ class InputForm extends React.Component {
       </div>
     );
 
+    const emptyDiv = <div>Just an empty DIV</div>;
+
     return (
       <div>
         <Tabs
@@ -219,7 +209,7 @@ class InputForm extends React.Component {
         </Tabs>
         {selectedTab === 0 && <TabContainer>{timerInput}</TabContainer>}
         {selectedTab === 1 && <TabContainer>{timerInput}</TabContainer>}
-        <Transition in={this.props.flashMessages} timeout={0}>
+        <Transition in={flashMessages} timeout={0}>
           {state => <FlashMsg status={state} />}
         </Transition>
       </div>

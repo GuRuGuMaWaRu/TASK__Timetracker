@@ -2,23 +2,23 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Card from "material-ui/Card";
-// import Calendar from "react-calendar-material";
 
 import SearchField from "./SearchField";
 import TaskList from "./TaskList";
-// import Calendar from "./Calendar";
 import Calendar from "./Calendar/Calendar";
 
-const styles = {
+const styles = theme => ({
   dataSection: {
     display: "flex",
-    marginTop: 12
+    marginTop: 12,
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column"
+    }
   },
-  card: {
-    flex: "1 1 auto",
-    minWidth: 275
+  calendar: {
+    flex: "2 1"
   }
-};
+});
 
 class DataSection extends Component {
   render() {
@@ -26,11 +26,11 @@ class DataSection extends Component {
 
     return (
       <div className={classes.dataSection}>
-        <Card className={classes.card}>
+        <Card>
           <SearchField />
           <TaskList />
         </Card>
-        <Card className={classes.card}>
+        <Card className={classes.calendar}>
           <Calendar />
         </Card>
       </div>

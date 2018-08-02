@@ -1,15 +1,7 @@
 import axios from "axios";
 import moment from "moment";
-import {
-  ADD_TASK,
-  GET_TASKS,
-  UPDATE_TIMER,
-  CLEAR_TIMER,
-  SET_TIMER_ID,
-  CHANGE_DATE,
-  SET_DATE,
-  HIDE_ADD_MSG
-} from "./types";
+
+import * as types from "./types";
 import { showTime, timeFromString } from "../utils/timer";
 import { months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
@@ -31,16 +23,11 @@ const createMonthArray = async (year, month) => {
 };
 
 export const bookTime = data => async (dispatch, getState) => {
-  let { time, description, custom } = data;
-
-  if (!custom) {
-    time = showTime(getState().time);
-  } else {
-    time = timeFromString(time);
-  }
+  let { time } = data;
+  const { description } = data;
 
   if (time.length === 7) {
-    time = "0" + time;
+    time = `0${time}`;
   }
 
   const currentDate = new Date();
@@ -52,7 +39,7 @@ export const bookTime = data => async (dispatch, getState) => {
     year,
     month,
     day,
-    time,
+    time: timeFromString(time),
     description
   };
 
@@ -66,33 +53,71 @@ export const bookTime = data => async (dispatch, getState) => {
   const monthArray = await createMonthArray(year, months[month]);
 
   dispatch({
-    type: ADD_TASK,
+    type: types.ADD_TASK,
     payload: {
-      custom,
       allTasks: allTasksResponse.data,
       monthArray
     }
   });
 };
 
-export const setTimerID = timerID => ({ type: SET_TIMER_ID, payload: timerID });
+export const startTimer = () => async (dispatch, getState) => {
+  const { time } = getState();
+  const startTime = Date.now() - time * 1000;
 
-export const updateTimer = () => ({ type: UPDATE_TIMER });
+  const timerID = setInterval(() => {
+    const currentTime = Math.round((Date.now() - startTime) / 1000);
 
-export const clearTimer = () => ({ type: CLEAR_TIMER });
+    dispatch({
+      type: types.UPDATE_TIMER,
+      payload: currentTime
+    });
+  }, 1000);
+
+  dispatch({
+    type: types.SET_TIMER_ID,
+    payload: timerID
+  });
+};
+
+export const setTimerID = timerID => ({
+  type: types.SET_TIMER_ID,
+  payload: timerID
+});
+
+export const updateTimer = time => ({
+  type: types.UPDATE_TIMER,
+  payload: time
+});
+
+export const clearTimer = () => async (dispatch, getState) => {
+  const { timerID } = getState();
+
+  clearInterval(timerID);
+
+  dispatch({ type: types.CLEAR_TIMER });
+};
+
+export const stopTimer = () => async (dispatch, getState) => {
+  const { timerID } = getState();
+
+  clearInterval(timerID);
+
+  dispatch({ type: types.STOP_TIMER });
+};
 
 export const searchTasks = searchQuery => async dispatch => {
   const res = await axios.get(
     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
   );
 
-  dispatch({ type: GET_TASKS, payload: res.data });
+  dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 export const getAllTasks = () => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
 
-  dispatch({ type: GET_TASKS, payload: res.data });
+  dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 // export const getMonthTasks = date => async dispatch => {
@@ -105,13 +130,13 @@ export const getAllTasks = () => async dispatch => {
 //     return dates;
 //   }, []);
 
-//   dispatch({ type: GET_MONTH, payload: datesWithTasks });
+//   dispatch({ type: types.GET_MONTH, payload: datesWithTasks });
 // };
 
 export const getDateTasks = date => async dispatch => {
   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
 
-  dispatch({ type: GET_TASKS, payload: res.data });
+  dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 export const getDate = () => async dispatch => {
@@ -121,7 +146,7 @@ export const getDate = () => async dispatch => {
   const monthArray = await createMonthArray(year, month);
 
   dispatch({
-    type: SET_DATE,
+    type: types.SET_DATE,
     payload: {
       year,
       month,
@@ -134,9 +159,7 @@ export const changeDate = (operationType, dateType) => async (
   dispatch,
   getState
 ) => {
-  const currentDate = getState().currentDate;
-  const displayedDate = getState().displayedDate;
-  const minDate = getState().minDate;
+  const { currentDate, displayedDate, minDate } = getState();
   const { newYear: year, newMonth: month } = changeDateHelper({
     operationType,
     dateType,
@@ -148,7 +171,7 @@ export const changeDate = (operationType, dateType) => async (
   const monthArray = await createMonthArray(year, month);
 
   dispatch({
-    type: CHANGE_DATE,
+    type: types.CHANGE_DATE,
     payload: {
       year,
       month,
@@ -157,4 +180,19 @@ export const changeDate = (operationType, dateType) => async (
   });
 };
 
-export const hideAddMsg = () => ({ type: HIDE_ADD_MSG });
+export const hideAddMsg = () => ({ type: types.HIDE_ADD_MSG });
+
+export const startEdit = () => async (dispatch, getState) => {
+  const { time } = getState();
+  const processedTime = showTime(time).slice(0, 5);
+
+  dispatch({
+    type: types.START_EDIT,
+    payload: processedTime
+  });
+};
+
+export const updateEdit = time => ({
+  type: types.UPDATE_EDIT,
+  payload: time
+});

@@ -5,10 +5,17 @@ import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 
-import * as actions from "../actions";
-import { showTime } from "../utils/timer";
+import * as actions from "../../actions";
+import { showTime } from "../../utils/timer";
 
 const styles = theme => ({
+  main: {
+    [theme.breakpoints.down("xs")]: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  },
   button: {
     margin: theme.spacing.unit
   }
@@ -32,8 +39,8 @@ class Timer extends Component {
   render() {
     const { time, classes } = this.props;
     return (
-      <div>
-        <Typography variant="headline" component="h3">
+      <div className={classes.main}>
+        <Typography className={classes.timer} variant="headline" component="h3">
           {showTime(time)}
         </Typography>
         <div className="timer__controls">
@@ -72,4 +79,9 @@ const mapStateToProps = ({ time, timerID }) => ({
   timerID
 });
 
-export default withStyles(styles)(connect(mapStateToProps, actions)(Timer));
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    actions
+  )(Timer)
+);
