@@ -8,8 +8,8 @@ import Typography from "@material-ui/core/Typography";
 
 import * as actions from "../../actions";
 import { months } from "../../utils/dateData";
-import "../Calendar/Calendar.css";
-import DateSelector from "../Calendar/DateSelector";
+import "../calendar/Calendar.css";
+import DateSelector from "../calendar/DateSelector";
 
 const styles = theme => ({
   card: {

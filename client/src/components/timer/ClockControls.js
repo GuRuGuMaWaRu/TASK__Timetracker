@@ -9,20 +9,7 @@ import Clear from "@material-ui/icons/Clear";
 
 import * as actions from "../../actions";
 
-const styles = theme => ({
-  main: {
-    display: "flex",
-    paddingLeft: "10px"
-  },
-  button: {
-    margin: theme.spacing.unit,
-    [theme.breakpoints.down("xs")]: {
-      margin: 0
-    }
-  }
-});
-
-const Controls = ({
+const ClockControls = ({
   classes,
   timerIsRunning,
   startTimer,
@@ -53,7 +40,20 @@ const Controls = ({
   );
 };
 
-Controls.propTypes = {
+const styles = theme => ({
+  main: {
+    display: "flex",
+    paddingLeft: "10px"
+  },
+  button: {
+    margin: theme.spacing.unit,
+    [theme.breakpoints.down("xs")]: {
+      margin: 0
+    }
+  }
+});
+
+ClockControls.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
   startTimer: PropTypes.func.isRequired,
@@ -68,4 +68,4 @@ const mapStateToProps = ({ timerIsRunning }) => ({
 export default connect(
   mapStateToProps,
   actions
-)(withStyles(styles)(Controls));
+)(withStyles(styles)(ClockControls));
