@@ -1,6 +1,6 @@
 import { START_EDIT, UPDATE_EDIT } from "../actions/types";
 
-export default function(state = "00:00:00", action) {
+export default function(state = "00:00", action) {
   switch (action.type) {
     case START_EDIT:
       return action.payload;

@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 
 import * as types from "./types";
-import { showTime, timeFromString, roundUpSeconds } from "../utils/timer";
+import { showTime, roundUpSeconds } from "../utils/timer";
 import { months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
 import createMonthArrayHelper from "../utils/createMonthArrayHelper";
@@ -39,7 +39,7 @@ export const bookTime = data => async (dispatch, getState) => {
     year,
     month,
     day,
-    time: timeFromString(time),
+    time,
     description
   };
 

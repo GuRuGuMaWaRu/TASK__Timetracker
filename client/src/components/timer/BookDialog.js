@@ -204,4 +204,7 @@ const mapStateToProps = ({ editTime }) => ({
   editTime
 });
 
-export default connect(mapStateToProps, actions)(BookDialog);
+export default connect(
+  mapStateToProps,
+  actions
+)(BookDialog);
