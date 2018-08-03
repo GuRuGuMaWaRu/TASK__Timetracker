@@ -1,20 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import compose from "recompose/compose";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 import BookDialog from "./BookDialog";
 import { stopTimer, startEdit } from "../../actions";
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-    [theme.breakpoints.down("xs")]: {
-      margin: 0
-    }
-  }
-});
 
 class Book extends Component {
   state = {
@@ -52,6 +44,15 @@ class Book extends Component {
   }
 }
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    [theme.breakpoints.down("xs")]: {
+      margin: 0
+    }
+  }
+});
+
 Book.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
@@ -59,11 +60,12 @@ Book.propTypes = {
   startEdit: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ timerIsRunning }) => ({
-  timerIsRunning
-});
+const mapStateToProps = ({ timerIsRunning }) => ({ timerIsRunning });
 
-export default connect(
-  mapStateToProps,
-  { stopTimer, startEdit }
-)(withStyles(styles)(Book));
+export default compose(
+  connect(
+    mapStateToProps,
+    { stopTimer, startEdit }
+  ),
+  withStyles(styles)
+)(Book);
