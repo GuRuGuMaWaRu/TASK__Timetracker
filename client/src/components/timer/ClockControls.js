@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import compose from "recompose/compose";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrow from "@material-ui/icons/PlayArrow";
@@ -65,7 +66,10 @@ const mapStateToProps = ({ timerIsRunning }) => ({
   timerIsRunning
 });
 
-export default connect(
-  mapStateToProps,
-  actions
-)(withStyles(styles)(ClockControls));
+export default compose(
+  connect(
+    mapStateToProps,
+    actions
+  ),
+  withStyles(styles)
+)(ClockControls);
