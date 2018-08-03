@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 
 import * as types from "./types";
-import { showTime, timeFromString } from "../utils/timer";
+import { showTime, timeFromString, roundUpSeconds } from "../utils/timer";
 import { months } from "../utils/dateData";
 import changeDateHelper from "../utils/changeDateHelper";
 import createMonthArrayHelper from "../utils/createMonthArrayHelper";
@@ -184,7 +184,7 @@ export const hideAddMsg = () => ({ type: types.HIDE_ADD_MSG });
 
 export const startEdit = () => async (dispatch, getState) => {
   const { time } = getState();
-  const processedTime = showTime(time).slice(0, 5);
+  const processedTime = roundUpSeconds(showTime(time));
 
   dispatch({
     type: types.START_EDIT,
