@@ -89,15 +89,8 @@ class BookDialog extends Component {
         description: this.state.description
       });
 
-      this.setState({
-        time: "00:00",
-        description: ""
-      });
-
       this.props.handleClose();
     }
-
-    return;
   };
 
   handleClose = () => {
@@ -204,4 +197,7 @@ const mapStateToProps = ({ editTime }) => ({
   editTime
 });
 
-export default connect(mapStateToProps, actions)(BookDialog);
+export default connect(
+  mapStateToProps,
+  actions
+)(BookDialog);

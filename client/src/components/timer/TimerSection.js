@@ -6,17 +6,17 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
 import Clock from "./Clock";
-import Controls from "./Controls";
+import ClockControls from "./ClockControls";
 import Book from "./Book";
 
 const TimerSection = ({ classes }) => {
   return (
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
-        <Typography component="div" className={classes.timer}>
+        <Typography component="div" className={classes.allComponents}>
           <div className={classes.timerComponents}>
             <Clock />
-            <Controls />
+            <ClockControls />
           </div>
           <Book />
         </Typography>
@@ -40,7 +40,7 @@ const styles = theme => ({
       }
     }
   },
-  timer: {
+  allComponents: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"

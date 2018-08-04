@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import compose from "recompose/compose";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrow from "@material-ui/icons/PlayArrow";
@@ -9,20 +10,7 @@ import Clear from "@material-ui/icons/Clear";
 
 import * as actions from "../../actions";
 
-const styles = theme => ({
-  main: {
-    display: "flex",
-    paddingLeft: "10px"
-  },
-  button: {
-    margin: theme.spacing.unit,
-    [theme.breakpoints.down("xs")]: {
-      margin: 0
-    }
-  }
-});
-
-const Controls = ({
+const ClockControls = ({
   classes,
   timerIsRunning,
   startTimer,
@@ -53,7 +41,20 @@ const Controls = ({
   );
 };
 
-Controls.propTypes = {
+const styles = theme => ({
+  main: {
+    display: "flex",
+    paddingLeft: "10px"
+  },
+  button: {
+    margin: theme.spacing.unit,
+    [theme.breakpoints.down("xs")]: {
+      margin: 0
+    }
+  }
+});
+
+ClockControls.propTypes = {
   classes: PropTypes.object.isRequired,
   timerIsRunning: PropTypes.bool.isRequired,
   startTimer: PropTypes.func.isRequired,
@@ -65,7 +66,10 @@ const mapStateToProps = ({ timerIsRunning }) => ({
   timerIsRunning
 });
 
-export default connect(
-  mapStateToProps,
-  actions
-)(withStyles(styles)(Controls));
+export default compose(
+  connect(
+    mapStateToProps,
+    actions
+  ),
+  withStyles(styles)
+)(ClockControls);
