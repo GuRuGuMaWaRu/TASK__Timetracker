@@ -89,15 +89,8 @@ class BookDialog extends Component {
         description: this.state.description
       });
 
-      this.setState({
-        time: "00:00",
-        description: ""
-      });
-
       this.props.handleClose();
     }
-
-    return;
   };
 
   handleClose = () => {
