@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import compose from "recompose/compose";
 import { connect } from "react-redux";
 import { withStyles } from "material-ui/styles";
 import TextField from "material-ui/TextField";
@@ -13,36 +14,6 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import * as actions from "../../actions";
-
-const styles = theme => ({
-  section: {
-    display: "flex",
-    alignItems: "center"
-  },
-  searchForm: {
-    display: "flex",
-    alignItems: "center",
-    flex: "1 1 auto"
-  },
-  textField: {
-    // marginLeft: theme.spacing.unit,
-    // marginRight: theme.spacing.unit,
-    // minWidth: 400,
-    // [theme.breakpoints.down("sm")]: {
-    //   width: "100%"
-    // }
-    flex: "1 1 50%"
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  searchIcon: {
-    marginLeft: theme.spacing.unit
-  },
-  arrowDownwardIcon: {
-    marginLeft: theme.spacing.unit
-  }
-});
 
 class SearchField extends Component {
   state = {
@@ -60,6 +31,12 @@ class SearchField extends Component {
   handleChange = e => {
     this.setState({
       searchQuery: e.target.value
+    });
+  };
+
+  handleClear = () => {
+    this.setState({
+      searchQuery: ""
     });
   };
 
@@ -91,7 +68,11 @@ class SearchField extends Component {
             </Button>
           </Hidden>
           <Hidden mdUp>
-            <IconButton className={classes.button} aria-label="Search">
+            <IconButton
+              className={classes.button}
+              onClick={this.handleSearch}
+              aria-label="Search"
+            >
               <Search className={classes.searchIcon} />
             </IconButton>
           </Hidden>
@@ -108,12 +89,20 @@ class SearchField extends Component {
           </Button>
         </Hidden>
         <Hidden mdUp>
-          <IconButton className={classes.button} aria-label="Show All">
+          <IconButton
+            className={classes.button}
+            onClick={getAllTasks}
+            aria-label="Show All"
+          >
             <ArrowDownward className={classes.arrowDownwardIcon} />
           </IconButton>
         </Hidden>
         <Hidden mdUp>
-          <IconButton className={classes.button} aria-label="Delete">
+          <IconButton
+            className={classes.button}
+            onClick={this.handleClear}
+            aria-label="Delete"
+          >
             <DeleteIcon />
           </IconButton>
         </Hidden>
@@ -122,13 +111,40 @@ class SearchField extends Component {
   }
 }
 
+const styles = theme => ({
+  section: {
+    display: "flex",
+    alignItems: "center"
+  },
+  searchForm: {
+    display: "flex",
+    alignItems: "center",
+    flex: "1 1 auto"
+  },
+  textField: {
+    flex: "1 1 50%"
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  searchIcon: {
+    marginLeft: theme.spacing.unit
+  },
+  arrowDownwardIcon: {
+    marginLeft: theme.spacing.unit
+  }
+});
+
 SearchField.propTypes = {
   classes: PropTypes.object.isRequired,
   searchTasks: PropTypes.func.isRequired,
   getAllTasks: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  actions
-)(withStyles(styles)(SearchField));
+export default compose(
+  withStyles(styles),
+  connect(
+    null,
+    actions
+  )
+)(SearchField);
