@@ -1,37 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import compose from "recompose/compose";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
+import "../calendar/Calendar.css";
 import * as actions from "../../actions";
 import { months } from "../../utils/dateData";
-import "../calendar/Calendar.css";
 import DateSelector from "../calendar/DateSelector";
-
-const styles = theme => ({
-  card: {
-    flex: "2 1",
-    [theme.breakpoints.down("sm")]: {
-      flex: "1 0 auto"
-    }
-  },
-  cardContent: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    userSelect: "none"
-    // [theme.breakpoints.down("xs")]: {
-    //   justifyContent: "space-around",
-    //   padding: 0,
-    //   "&:last-child": {
-    //     paddingBottom: 0
-    //   }
-    // }
-  }
-});
 
 class CalendarCard extends React.Component {
   static propTypes = {
@@ -66,9 +45,11 @@ class CalendarCard extends React.Component {
 
     if (element.classList.contains("with-tasks")) {
       this.props.getDateTasks(
-        `${this.props.displayedDate.year},${months.indexOf(
-          this.props.displayedDate.month
-        )},${element.textContent}`
+        `
+          ${this.props.displayedDate.year},
+          ${months.indexOf(this.props.displayedDate.month)},
+          ${element.textContent}
+        `
       );
     }
   };
@@ -105,6 +86,21 @@ class CalendarCard extends React.Component {
   }
 }
 
+const styles = theme => ({
+  card: {
+    flex: "2 1",
+    [theme.breakpoints.down("sm")]: {
+      flex: "1 0 auto"
+    }
+  },
+  cardContent: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    userSelect: "none"
+  }
+});
+
 const mapStateToProps = ({
   displayedDate,
   currentDate,
@@ -117,9 +113,10 @@ const mapStateToProps = ({
   displayedMonth
 });
 
-export default withStyles(styles)(
+export default compose(
+  withStyles(styles),
   connect(
     mapStateToProps,
     actions
-  )(CalendarCard)
-);
+  )
+)(CalendarCard);
