@@ -8,7 +8,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
 import TimerSection from "./timer/TimerSection";
-import CalendarCard from "./Temp/CalendarCard";
+import CalendarCard from "./calendar/CalendarCard";
 import SearchSection from "./Temp/SearchSection";
 import TaskList from "./TaskList";
 
