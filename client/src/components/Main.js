@@ -21,10 +21,13 @@ const Main = ({ classes }) => {
           <CalendarCard />
         </Hidden>
       </section>
-      <Card className={classes.displaySection}>
-        <CardContent>
+      <Card
+        className={classes.displaySection}
+        classes={{ root: classes.displaySectionCard }}
+      >
+        <CardContent classes={{ root: classes.displaySectionCardContent }}>
           <SearchSection />
-          <TaskList />
+          {/* <TaskList /> */}
         </CardContent>
       </Card>
     </div>
@@ -48,8 +51,14 @@ const styles = theme => ({
   displaySection: {
     flex: "2 1",
     [theme.breakpoints.down("sm")]: {
-      flex: "10 1"
+      flex: "7 1"
     }
+  },
+  displaySectionCard: {
+    // boxShadow: "none!important"
+  },
+  displaySectionCardContent: {
+    paddingTop: "0!important"
   }
 });
 

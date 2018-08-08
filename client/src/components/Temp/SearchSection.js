@@ -97,15 +97,6 @@ class SearchField extends Component {
             <ArrowDownward className={classes.arrowDownwardIcon} />
           </IconButton>
         </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            className={classes.button}
-            onClick={this.handleClear}
-            aria-label="Delete"
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Hidden>
       </section>
     );
   }
@@ -122,16 +113,22 @@ const styles = theme => ({
     flex: "1 1 auto"
   },
   textField: {
-    flex: "1 1 50%"
-  },
-  button: {
-    margin: theme.spacing.unit
+    flex: "1 1 50%",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 0
+    }
   },
   searchIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing.unit,
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: 0
+    }
   },
   arrowDownwardIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing.unit,
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: 0
+    }
   }
 });
 
