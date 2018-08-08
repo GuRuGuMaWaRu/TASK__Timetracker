@@ -9,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 import TimerSection from "./timer/TimerSection";
 import CalendarCard from "./calendar/CalendarCard";
-import SearchSection from "./Temp/SearchSection";
+import SearchSection from "./search/SearchSection";
 import TaskList from "./TaskList";
 
 const Main = ({ classes }) => {
@@ -27,7 +27,7 @@ const Main = ({ classes }) => {
       >
         <CardContent classes={{ root: classes.displaySectionCardContent }}>
           <SearchSection />
-          {/* <TaskList /> */}
+          <TaskList />
         </CardContent>
       </Card>
     </div>
