@@ -5,31 +5,31 @@ import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 
-const styles = theme => ({
-  appBar: {
-    // [theme.breakpoints.down("sm")]: {
-    //   boxShadow: "none"
-    // }
-  },
-  toolbar: {
-    [theme.breakpoints.down("sm")]: {
-      minHeight: "40px",
-      paddingLeft: "18px"
-    }
-  }
-});
-
 const Header = ({ classes }) => {
   return (
-    <AppBar className={classes.appBar} position="static" color="secondary">
+    <AppBar position="static" color="secondary">
       <Toolbar className={classes.toolbar}>
-        <Typography variant="title" color="inherit">
+        <Typography className={classes.title} variant="title" color="inherit">
           Time Tracker
         </Typography>
       </Toolbar>
     </AppBar>
   );
 };
+
+const styles = theme => ({
+  toolbar: {
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "20px",
+      paddingLeft: "16px"
+    }
+  },
+  title: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem"
+    }
+  }
+});
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired
