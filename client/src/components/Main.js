@@ -10,7 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import TimerSection from "./timer/TimerSection";
 import CalendarCard from "./calendar/CalendarCard";
 import SearchSection from "./search/SearchSection";
-import TaskList from "./TaskList";
+import TaskList from "./tasklist/TaskList";
 
 const Main = ({ classes }) => {
   return (
