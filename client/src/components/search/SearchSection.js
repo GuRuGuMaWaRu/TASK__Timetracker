@@ -8,10 +8,7 @@ import Button from "material-ui/Button";
 import Search from "@material-ui/icons/Search";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Hidden from "@material-ui/core/Hidden";
-import withWidth from "@material-ui/core/withWidth";
-import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 import * as actions from "../../actions";
 
