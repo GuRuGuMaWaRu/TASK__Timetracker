@@ -13,9 +13,21 @@ import IconButton from "@material-ui/core/IconButton";
 import * as actions from "../../actions";
 
 class SearchField extends Component {
-  state = {
-    searchQuery: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchQuery: ""
+    };
+    this.searchSection = React.createRef();
+  }
+
+  componentDidMount() {
+    const space =
+      window.innerHeight -
+      this.searchSection.current.getBoundingClientRect().bottom;
+
+    this.props.findListSpace(space);
+  }
 
   handleSearch = e => {
     e.preventDefault();
@@ -40,9 +52,8 @@ class SearchField extends Component {
   render() {
     const { classes, getAllTasks } = this.props;
     const { searchQuery } = this.state;
-
     return (
-      <section className={classes.section}>
+      <section ref={this.searchSection} className={classes.section}>
         <form className={classes.searchForm} onSubmit={this.handleSearch}>
           <TextField
             id="search-field"
@@ -132,7 +143,8 @@ const styles = theme => ({
 SearchField.propTypes = {
   classes: PropTypes.object.isRequired,
   searchTasks: PropTypes.func.isRequired,
-  getAllTasks: PropTypes.func.isRequired
+  getAllTasks: PropTypes.func.isRequired,
+  findListSpace: PropTypes.func.isRequired
 };
 
 export default compose(

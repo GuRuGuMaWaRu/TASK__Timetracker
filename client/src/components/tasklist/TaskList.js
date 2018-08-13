@@ -6,18 +6,30 @@ import { withStyles } from "material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 
 import { getAllTasks } from "../../actions";
+import Task from "./Task";
 
 class TaskList extends Component {
-  componentDidMount() {
-    this.props.getAllTasks();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tasksPerPage: 0
+    };
+
+    this.taskList = React.createRef();
   }
 
   render() {
-    const { tasks } = this.props;
+    const { tasks, listSpace } = this.props;
 
-    console.log(tasks);
+    const list = tasks.map(task => <Task key={task._id} task={task} />);
+    console.log(listSpace);
 
-    return <Typography component="div">TaskList</Typography>;
+    return (
+      <Typography component="div" ref={this.taskList}>
+        {list}
+      </Typography>
+    );
   }
 }
 
@@ -29,7 +41,7 @@ TaskList.propTypes = {
   getAllTasks: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ tasks }) => ({ tasks });
+const mapStateToProps = ({ tasks, listSpace }) => ({ tasks, listSpace });
 
 export default compose(
   withStyles(styles),

@@ -9,6 +9,7 @@ import tasksReducer from "./tasksReducer";
 import flashMessagesReducer from "./flashMessagesReducer";
 import timerRunningReducer from "./timerRunningReducer";
 import timeEditReducer from "./timeEditReducer";
+import listSpace from "./listSpace";
 
 export default combineReducers({
   currentDate: currentDateReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   tasks: tasksReducer,
   flashMessages: flashMessagesReducer,
   timerIsRunning: timerRunningReducer,
-  editTime: timeEditReducer
+  editTime: timeEditReducer,
+  listSpace: listSpace
 });
