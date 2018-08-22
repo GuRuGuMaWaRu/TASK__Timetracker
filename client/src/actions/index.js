@@ -196,8 +196,3 @@ export const updateEdit = time => ({
   type: types.UPDATE_EDIT,
   payload: time
 });
-
-export const findListSpace = space => ({
-  type: types.LIST_SPACE,
-  payload: space
-});

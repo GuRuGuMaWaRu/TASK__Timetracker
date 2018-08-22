@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, forwardRef } from "react";
 import PropTypes from "prop-types";
 import compose from "recompose/compose";
 import { connect } from "react-redux";
@@ -12,21 +12,13 @@ import IconButton from "@material-ui/core/IconButton";
 
 import * as actions from "../../actions";
 
-class SearchField extends Component {
+class SearchSection extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       searchQuery: ""
     };
-    this.searchSection = React.createRef();
-  }
-
-  componentDidMount() {
-    const space =
-      window.innerHeight -
-      this.searchSection.current.getBoundingClientRect().bottom;
-
-    this.props.findListSpace(space);
   }
 
   handleSearch = e => {
@@ -52,8 +44,9 @@ class SearchField extends Component {
   render() {
     const { classes, getAllTasks } = this.props;
     const { searchQuery } = this.state;
+
     return (
-      <section ref={this.searchSection} className={classes.section}>
+      <section className={classes.section}>
         <form className={classes.searchForm} onSubmit={this.handleSearch}>
           <TextField
             id="search-field"
@@ -140,17 +133,16 @@ const styles = theme => ({
   }
 });
 
-SearchField.propTypes = {
+SearchSection.propTypes = {
   classes: PropTypes.object.isRequired,
   searchTasks: PropTypes.func.isRequired,
-  getAllTasks: PropTypes.func.isRequired,
-  findListSpace: PropTypes.func.isRequired
+  getAllTasks: PropTypes.func.isRequired
 };
 
 export default compose(
-  withStyles(styles),
   connect(
     null,
     actions
-  )
-)(SearchField);
+  ),
+  withStyles(styles)
+)(SearchSection);

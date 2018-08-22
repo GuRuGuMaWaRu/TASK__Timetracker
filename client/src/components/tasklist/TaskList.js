@@ -13,17 +13,42 @@ class TaskList extends Component {
     super(props);
 
     this.state = {
-      tasksPerPage: 0
+      // tasksPerPage: 0,
+      maxTasksPerPage: 0,
+      currentlyDisplayedTasks: [],
+      firstDisplayedTaskID: null,
+      lastDisplayedTaskID: null,
+      topCurrentTask: null
     };
+  }
 
-    this.taskList = React.createRef();
+  componentDidMount() {
+    const isDesktop = window.innerHeight > 1000 ? true : false,
+      listHeight = isDesktop
+        ? window.innerHeight - 160
+        : window.innerHeight - 166;
+
+    this.props.getAllTasks();
+
+    this.setState(
+      {
+        maxTasksPerPage: isDesktop
+          ? Math.floor(listHeight / 100)
+          : Math.floor(listHeight / 60)
+      },
+      () => {
+        this.setState({
+          firstDisplayedTaskID: 0,
+          lastDisplayedTaskID: this.state.maxTasksPerPage - 1
+        });
+      }
+    );
   }
 
   render() {
-    const { tasks, listSpace } = this.props;
+    const { tasks } = this.props;
 
     const list = tasks.map(task => <Task key={task._id} task={task} />);
-    console.log(listSpace);
 
     return (
       <Typography component="div" ref={this.taskList}>
@@ -41,7 +66,7 @@ TaskList.propTypes = {
   getAllTasks: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ tasks, listSpace }) => ({ tasks, listSpace });
+const mapStateToProps = ({ tasks }) => ({ tasks });
 
 export default compose(
   withStyles(styles),
