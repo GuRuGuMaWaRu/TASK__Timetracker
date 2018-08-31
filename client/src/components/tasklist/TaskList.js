@@ -23,12 +23,14 @@ class TaskList extends Component {
   }
 
   componentDidMount() {
-    const isDesktop = window.innerHeight > 1000 ? true : false,
-      listHeight = isDesktop
-        ? window.innerHeight - 160
-        : window.innerHeight - 166;
-
-    this.props.getAllTasks();
+    // 1. Find if our screen is small or large (different layout for each)
+    const isDesktop = window.innerHeight > 1000 ? true : false;
+    // 2. Set different Task List height depending on layout
+    const listHeight = isDesktop
+      ? window.innerHeight - 136
+      : window.innerHeight - 166;
+    // 3. Fetch all tasks from database
+    // this.props.getAllTasks();
 
     this.setState(
       {
