@@ -10,7 +10,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import "./App.css";
-import { getAllTasks } from "../actions";
+import { getAllTasks, getTasksPage } from "../actions";
 import { maxTasksPerPage } from "../utils/tasks";
 
 const styles = theme => ({
@@ -28,6 +28,9 @@ class App extends Component {
     // 1. Find max number of tasks per page
     const tasksPerPage = maxTasksPerPage();
     console.log("tasksPerPage:", tasksPerPage);
+
+    // 2. Get tasks page
+    this.props.getTasksPage(2);
   }
 
   render() {
@@ -44,13 +47,15 @@ class App extends Component {
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  getAllTasks: PropTypes.func.isRequired,
+  getTasksPage: PropTypes.func.isRequired
 };
 
 export default compose(
   withStyles(styles),
   connect(
     null,
-    { getAllTasks }
+    { getAllTasks, getTasksPage }
   )
 )(App);

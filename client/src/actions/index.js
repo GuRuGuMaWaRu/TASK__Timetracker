@@ -196,3 +196,11 @@ export const updateEdit = time => ({
   type: types.UPDATE_EDIT,
   payload: time
 });
+
+export const getTasksPage = page => async (dispatch, getState) => {
+  const tasks = await axios.get(
+    `http://localhost:5000/tasks/getTasksPage/${page}`
+  );
+
+  console.log("tasks:", tasks.data);
+};

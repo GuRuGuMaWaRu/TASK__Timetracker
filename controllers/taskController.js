@@ -47,3 +47,9 @@ exports.searchTasks = async (req, res) => {
 
   res.send(tasks);
 };
+
+exports.getTasksPage = async (req, res) => {
+  const tasks = await Task.paginate({}, { page: req.params.page, limit: 10 });
+
+  res.send(tasks);
+};

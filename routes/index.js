@@ -12,5 +12,9 @@ router.get(
   catchErrors(taskController.searchTasks)
 );
 router.post("/tasks/addTask", catchErrors(taskController.addTask));
+router.get(
+  "/tasks/getTasksPage/:page",
+  catchErrors(taskController.getTasksPage)
+);
 
 module.exports = router;
