@@ -24,13 +24,11 @@ const styles = theme => ({
 class App extends Component {
   componentDidMount() {
     // Fetch all tasks from database
-    this.props.getAllTasks();
+    // this.props.getAllTasks();
     // 1. Find max number of tasks per page
-    const tasksPerPage = maxTasksPerPage();
-    console.log("tasksPerPage:", tasksPerPage);
-
-    // 2. Get tasks page
-    this.props.getTasksPage(2);
+    const limit = maxTasksPerPage();
+    // 2. Get the 1st page with tasks per page depending on screen size
+    this.props.getTasksPage(1, limit);
   }
 
   render() {

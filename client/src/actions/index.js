@@ -197,9 +197,9 @@ export const updateEdit = time => ({
   payload: time
 });
 
-export const getTasksPage = page => async (dispatch, getState) => {
+export const getTasksPage = (page, limit) => async (dispatch, getState) => {
   const tasks = await axios.get(
-    `http://localhost:5000/tasks/getTasksPage/${page}`
+    `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
   );
 
   console.log("tasks:", tasks.data);

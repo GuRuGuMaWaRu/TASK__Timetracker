@@ -13,7 +13,7 @@ router.get(
 );
 router.post("/tasks/addTask", catchErrors(taskController.addTask));
 router.get(
-  "/tasks/getTasksPage/:page",
+  "/tasks/getTasksPage/:pageData",
   catchErrors(taskController.getTasksPage)
 );
 
