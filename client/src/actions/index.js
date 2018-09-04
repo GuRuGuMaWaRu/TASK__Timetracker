@@ -202,5 +202,8 @@ export const getTasksPage = (page, limit) => async (dispatch, getState) => {
     `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
   );
 
-  console.log("tasks:", tasks.data);
+  dispatch({
+    type: types.GET_TASKS,
+    payload: tasks.data.docs
+  });
 };
