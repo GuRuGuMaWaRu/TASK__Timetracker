@@ -58,6 +58,7 @@ const styles = theme => ({
     // boxShadow: "none!important"
   },
   displaySectionCardContent: {
+    height: "100%",
     paddingTop: "0!important"
   }
 });

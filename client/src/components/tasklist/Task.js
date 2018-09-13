@@ -26,7 +26,7 @@ const styles = theme => ({
   },
   taskDesktop: {
     color: "blue",
-    flex: "1 1 100px"
+    flex: "1 1 90px"
   }
 });
 
