@@ -1,16 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
+
+import { isDesktop } from "../../utils/tasks";
 
 const Task = ({ classes, task }) => {
   const { description } = task;
 
-  return <div className={classes.task}>{description}</div>;
+  return (
+    <div
+      className={classnames(classes.task, {
+        [classes.taskDesktop]: isDesktop()
+      })}
+    >
+      {description}
+    </div>
+  );
 };
 
 const styles = theme => ({
   task: {
-    color: "red"
+    color: "red",
+    flex: "1 1 60px"
+  },
+  taskDesktop: {
+    color: "blue",
+    flex: "1 1 100px"
   }
 });
 

@@ -12,13 +12,19 @@ const TaskList = ({ classes, tasks }) => {
   const list = tasks.map(task => <Task key={task._id} task={task} />);
 
   return (
-    <Typography component="div" ref={this.taskList}>
+    <Typography component="div" classes={{ root: classes.taskList }}>
       {list}
     </Typography>
   );
 };
 
-const styles = theme => ({});
+const styles = theme => ({
+  taskList: {
+    display: "flex !important",
+    flexDirection: "column"
+    // justifyItems: "space-between"
+  }
+});
 
 TaskList.propTypes = {
   classes: PropTypes.object.isRequired,
