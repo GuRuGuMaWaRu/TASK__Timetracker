@@ -106,7 +106,8 @@ class SearchSection extends Component {
 const styles = theme => ({
   section: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: "10px"
   },
   searchForm: {
     display: "flex",
