@@ -49,6 +49,8 @@ const styles = theme => ({
     flex: "1 1"
   },
   displaySection: {
+    display: "flex",
+    flexDirection: "column",
     flex: "2 1",
     [theme.breakpoints.down("sm")]: {
       flex: "7 1"
@@ -58,8 +60,12 @@ const styles = theme => ({
     // boxShadow: "none!important"
   },
   displaySectionCardContent: {
-    height: "100%",
-    paddingTop: "0!important"
+    display: "flex",
+    flexDirection: "column",
+    flex: "2 1",
+    // height: "100%",
+    paddingTop: "0!important",
+    paddingBottom: "0!important"
   }
 });
 

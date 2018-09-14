@@ -21,7 +21,7 @@ const TaskList = ({ classes, tasks }) => {
 
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
-      {list}
+      <div className={classes.list}>{list}</div>
       <div
         className={classnames(classes.controls, {
           [classes.controlsDesktop]: isDesktop()
@@ -65,8 +65,11 @@ const styles = theme => ({
   taskList: {
     display: "flex !important",
     flexDirection: "column",
-    height: "100%"
-    // justifyItems: "space-between"
+    justifyContent: "space-between",
+    flex: "2 1"
+  },
+  list: {
+    flex: "2 1"
   },
   controls: {
     display: "flex",
