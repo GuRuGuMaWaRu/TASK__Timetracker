@@ -69,6 +69,8 @@ const styles = theme => ({
     flex: "2 1"
   },
   list: {
+    display: "flex",
+    flexDirection: "column",
     flex: "2 1"
   },
   controls: {
