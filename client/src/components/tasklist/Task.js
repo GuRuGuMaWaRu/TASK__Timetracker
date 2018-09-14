@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
 const Task = ({ classes, task, desktop }) => {
-  const { description } = task;
+  const { description, year, month, day, time } = task;
 
   return (
     <div
@@ -12,19 +12,30 @@ const Task = ({ classes, task, desktop }) => {
         [classes.taskDesktop]: desktop
       })}
     >
-      {description}
+      <div>{description}</div>
+      <div className={classes.taskDetails}>
+        <div>{`${year}-${month}-${day}`}</div>
+        <div>{time}</div>
+      </div>
     </div>
   );
 };
 
 const styles = theme => ({
   task: {
+    display: "flex",
+    justifyContent: "space-between",
     color: "red",
     flex: "1 1 60px"
   },
   taskDesktop: {
     color: "blue",
     flex: "1 1 90px"
+  },
+  taskDetails: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end"
   }
 });
 
