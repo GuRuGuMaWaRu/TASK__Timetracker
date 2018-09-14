@@ -6,7 +6,6 @@ import classnames from "classnames";
 import { withStyles } from "material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import PlayArrow from "@material-ui/icons/PlayArrow";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
@@ -17,14 +16,17 @@ import { isDesktop } from "../../utils/tasks";
 import Task from "./Task";
 
 const TaskList = ({ classes, tasks }) => {
-  const list = tasks.map(task => <Task key={task._id} task={task} />);
+  const desktop = isDesktop();
+  const list = tasks.map(task => (
+    <Task key={task._id} task={task} desktop={desktop} />
+  ));
 
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
       <div className={classes.list}>{list}</div>
       <div
         className={classnames(classes.controls, {
-          [classes.controlsDesktop]: isDesktop()
+          [classes.controlsDesktop]: desktop
         })}
       >
         <IconButton

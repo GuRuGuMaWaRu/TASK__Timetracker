@@ -3,15 +3,13 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
-import { isDesktop } from "../../utils/tasks";
-
-const Task = ({ classes, task }) => {
+const Task = ({ classes, task, desktop }) => {
   const { description } = task;
 
   return (
     <div
       className={classnames(classes.task, {
-        [classes.taskDesktop]: isDesktop()
+        [classes.taskDesktop]: desktop
       })}
     >
       {description}
@@ -40,7 +38,8 @@ Task.propTypes = {
     time: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired
-  })
+  }),
+  desktop: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(Task);
