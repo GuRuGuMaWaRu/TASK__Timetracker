@@ -25,15 +25,19 @@ const styles = theme => ({
   task: {
     display: "flex",
     justifyContent: "space-between",
-    color: "red",
+    alignItems: "center",
     flex: "1 1 60px",
+    padding: ".6rem",
+    "&:nth-child(odd)": {
+      backgroundColor: "#f4f4f4"
+    },
     "&:nth-child(even)": {
-      backgroundColor: "#edeaea"
+      backgroundColor: "#dbdbdb"
     }
   },
   taskDesktop: {
-    color: "blue",
-    flex: "1 1 90px"
+    flex: "1 1 90px",
+    padding: "1rem"
   },
   taskDetails: {
     display: "flex",
