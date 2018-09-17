@@ -26,7 +26,10 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-between",
     color: "red",
-    flex: "1 1 60px"
+    flex: "1 1 60px",
+    "&:nth-child(even)": {
+      backgroundColor: "#edeaea"
+    }
   },
   taskDesktop: {
     color: "blue",
