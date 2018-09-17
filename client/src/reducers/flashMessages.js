@@ -1,6 +1,8 @@
 import { ADD_TASK, HIDE_ADD_MSG } from "../actions/types";
 
-export default function(state = false, action) {
+const INIT = false;
+
+export default function(state = INIT, action) {
   switch (action.type) {
     case ADD_TASK:
       return true;

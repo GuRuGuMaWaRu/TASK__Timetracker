@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
@@ -28,5 +29,7 @@ const taskSchema = new Schema({
 taskSchema.index({
   description: "text"
 });
+
+taskSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Task", taskSchema);

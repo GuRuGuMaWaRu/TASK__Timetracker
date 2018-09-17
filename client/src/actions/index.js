@@ -196,3 +196,19 @@ export const updateEdit = time => ({
   type: types.UPDATE_EDIT,
   payload: time
 });
+
+export const getTasksPage = (page, limit) => async (dispatch, getState) => {
+  const tasks = await axios.get(
+    `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
+  );
+
+  dispatch({
+    type: types.GET_TASKS,
+    payload: tasks.data.docs
+  });
+};
+
+export const changePage = page => ({
+  type: types.CHANGE_PAGE,
+  page
+});

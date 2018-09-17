@@ -1,6 +1,8 @@
 import { UPDATE_TIMER, CLEAR_TIMER } from "../actions/types";
 
-export default function(state = 0, action) {
+const INIT = 0;
+
+export default function(state = INIT, action) {
   switch (action.type) {
     case UPDATE_TIMER:
       return action.payload;

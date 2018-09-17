@@ -8,17 +8,18 @@ import Button from "material-ui/Button";
 import Search from "@material-ui/icons/Search";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Hidden from "@material-ui/core/Hidden";
-import withWidth from "@material-ui/core/withWidth";
-import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 import * as actions from "../../actions";
 
-class SearchField extends Component {
-  state = {
-    searchQuery: ""
-  };
+class SearchSection extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchQuery: ""
+    };
+  }
 
   handleSearch = e => {
     e.preventDefault();
@@ -105,7 +106,8 @@ class SearchField extends Component {
 const styles = theme => ({
   section: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: "10px"
   },
   searchForm: {
     display: "flex",
@@ -132,16 +134,16 @@ const styles = theme => ({
   }
 });
 
-SearchField.propTypes = {
+SearchSection.propTypes = {
   classes: PropTypes.object.isRequired,
   searchTasks: PropTypes.func.isRequired,
   getAllTasks: PropTypes.func.isRequired
 };
 
 export default compose(
-  withStyles(styles),
   connect(
     null,
     actions
-  )
-)(SearchField);
+  ),
+  withStyles(styles)
+)(SearchSection);

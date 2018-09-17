@@ -1,24 +1,26 @@
 import { combineReducers } from "redux";
-import currentDateReducer from "./currentDateReducer";
-import displayedDateReducer from "./displayedDateReducer";
-import minDateReducer from "./minDateReducer";
-import displayedMonthReducer from "./displayedMonthReducer";
-import timeReducer from "./timeReducer";
-import idReducer from "./idReducer";
-import tasksReducer from "./tasksReducer";
-import flashMessagesReducer from "./flashMessagesReducer";
-import timerRunningReducer from "./timerRunningReducer";
-import timeEditReducer from "./timeEditReducer";
+import currentDate from "./currentDate";
+import displayedDate from "./displayedDate";
+import minDate from "./minDate";
+import displayedMonth from "./displayedMonth";
+import time from "./time";
+import id from "./id";
+import tasks from "./tasks";
+import taskList from "./taskList";
+import flashMessages from "./flashMessages";
+import timerRunning from "./timerRunning";
+import timeEdit from "./timeEdit";
 
 export default combineReducers({
-  currentDate: currentDateReducer,
-  displayedDate: displayedDateReducer,
-  minDate: minDateReducer,
-  displayedMonth: displayedMonthReducer,
-  time: timeReducer,
-  timerID: idReducer,
-  tasks: tasksReducer,
-  flashMessages: flashMessagesReducer,
-  timerIsRunning: timerRunningReducer,
-  editTime: timeEditReducer
+  currentDate: currentDate,
+  displayedDate: displayedDate,
+  minDate: minDate,
+  displayedMonth: displayedMonth,
+  time: time,
+  timerID: id,
+  tasks: tasks,
+  flashMessages: flashMessages,
+  timerIsRunning: timerRunning,
+  editTime: timeEdit,
+  taskList: taskList
 });

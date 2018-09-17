@@ -1,12 +1,11 @@
 import { CHANGE_DATE } from "../actions/types";
 
-export default function(
-  state = {
-    year: "2015",
-    month: "June"
-  },
-  action
-) {
+const INIT = {
+  year: "2015",
+  month: "June"
+};
+
+export default function(state = INIT, action) {
   switch (action.type) {
     case CHANGE_DATE:
     default:

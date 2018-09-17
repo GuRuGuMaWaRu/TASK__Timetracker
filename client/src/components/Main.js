@@ -9,8 +9,8 @@ import CardContent from "@material-ui/core/CardContent";
 
 import TimerSection from "./timer/TimerSection";
 import CalendarCard from "./calendar/CalendarCard";
-import SearchSection from "./Temp/SearchSection";
-import TaskList from "./TaskList";
+import SearchSection from "./search/SearchSection";
+import TaskList from "./tasklist/TaskList";
 
 const Main = ({ classes }) => {
   return (
@@ -27,7 +27,7 @@ const Main = ({ classes }) => {
       >
         <CardContent classes={{ root: classes.displaySectionCardContent }}>
           <SearchSection />
-          {/* <TaskList /> */}
+          <TaskList />
         </CardContent>
       </Card>
     </div>
@@ -49,6 +49,8 @@ const styles = theme => ({
     flex: "1 1"
   },
   displaySection: {
+    display: "flex",
+    flexDirection: "column",
     flex: "2 1",
     [theme.breakpoints.down("sm")]: {
       flex: "7 1"
@@ -58,7 +60,12 @@ const styles = theme => ({
     // boxShadow: "none!important"
   },
   displaySectionCardContent: {
-    paddingTop: "0!important"
+    display: "flex",
+    flexDirection: "column",
+    flex: "2 1",
+    // height: "100%",
+    paddingTop: "0!important",
+    paddingBottom: "0!important"
   }
 });
 
