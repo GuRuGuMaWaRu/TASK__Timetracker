@@ -14,3 +14,5 @@ export const HIDE_ADD_MSG = "hide_add_msg";
 export const START_EDIT = "start_edit";
 export const UPDATE_EDIT = "update_edit";
 export const END_EDIT = "end_edit";
+
+export const CHANGE_PAGE = "change_page";

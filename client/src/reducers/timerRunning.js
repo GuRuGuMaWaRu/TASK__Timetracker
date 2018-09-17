@@ -1,6 +1,8 @@
 import { CLEAR_TIMER, STOP_TIMER, SET_TIMER_ID } from "../actions/types";
 
-export default function(state = false, action) {
+const INIT = false;
+
+export default function(state = INIT, action) {
   switch (action.type) {
     case CLEAR_TIMER:
       return false;

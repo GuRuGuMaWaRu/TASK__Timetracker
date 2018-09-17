@@ -1,6 +1,8 @@
 import { START_EDIT, UPDATE_EDIT } from "../actions/types";
 
-export default function(state = "00:00", action) {
+const INIT = "00:00";
+
+export default function(state = INIT, action) {
   switch (action.type) {
     case START_EDIT:
       return action.payload;

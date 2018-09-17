@@ -1,6 +1,8 @@
 import { ADD_TASK, CHANGE_DATE, SET_DATE } from "../actions/types";
 
-export default function(state = [], action) {
+const INIT = [];
+
+export default function(state = INIT, action) {
   switch (action.type) {
     case SET_DATE:
     case CHANGE_DATE:

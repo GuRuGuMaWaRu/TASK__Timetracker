@@ -207,3 +207,8 @@ export const getTasksPage = (page, limit) => async (dispatch, getState) => {
     payload: tasks.data.docs
   });
 };
+
+export const changePage = page => ({
+  type: types.CHANGE_PAGE,
+  page
+});
