@@ -11,8 +11,9 @@ import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
 
-import { getAllTasks } from "../../actions";
-import { isDesktop } from "../../utils/tasks";
+import { getTasksPage, changePage } from "../../actions";
+import { isDesktop, maxTasksPerPage } from "../../utils/tasks";
+
 import Task from "./Task";
 
 const TaskList = ({ classes, tasks, page }) => {
@@ -20,6 +21,14 @@ const TaskList = ({ classes, tasks, page }) => {
   const list = tasks.map(task => (
     <Task key={task._id} task={task} desktop={desktop} />
   ));
+
+  const nextPage = () => {
+    const limit = maxTasksPerPage();
+    const newPage = page + 1;
+
+    getTasksPage(newPage, limit);
+    changePage(newPage);
+  };
 
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
@@ -48,6 +57,7 @@ const TaskList = ({ classes, tasks, page }) => {
           className={classes.button}
           color="secondary"
           aria-label="Next page"
+          onClick={nextPage}
         >
           <ChevronRight />
         </IconButton>
@@ -99,7 +109,8 @@ TaskList.propTypes = {
   classes: PropTypes.object.isRequired,
   tasks: PropTypes.array.isRequired,
   page: PropTypes.number.isRequired,
-  getAllTasks: PropTypes.func.isRequired
+  getTasksPage: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ tasks, taskList }) => ({
@@ -111,6 +122,6 @@ export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    { getAllTasks }
+    { getTasksPage, changePage }
   )
 )(TaskList);
