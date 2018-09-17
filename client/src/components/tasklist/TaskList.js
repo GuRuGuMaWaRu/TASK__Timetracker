@@ -15,7 +15,7 @@ import { getAllTasks } from "../../actions";
 import { isDesktop } from "../../utils/tasks";
 import Task from "./Task";
 
-const TaskList = ({ classes, tasks }) => {
+const TaskList = ({ classes, tasks, page }) => {
   const desktop = isDesktop();
   const list = tasks.map(task => (
     <Task key={task._id} task={task} desktop={desktop} />
@@ -43,7 +43,7 @@ const TaskList = ({ classes, tasks }) => {
         >
           <ChevronLeft />
         </IconButton>
-        <div className={classes.pageNumber}>5</div>
+        <div className={classes.pageNumber}>{page}</div>
         <IconButton
           className={classes.button}
           color="secondary"
@@ -98,10 +98,14 @@ const styles = theme => ({
 TaskList.propTypes = {
   classes: PropTypes.object.isRequired,
   tasks: PropTypes.array.isRequired,
+  page: PropTypes.number.isRequired,
   getAllTasks: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ tasks }) => ({ tasks });
+const mapStateToProps = ({ tasks, taskList }) => ({
+  tasks,
+  page: taskList.page
+});
 
 export default compose(
   withStyles(styles),
