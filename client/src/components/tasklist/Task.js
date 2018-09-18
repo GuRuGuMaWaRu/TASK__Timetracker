@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const Task = ({ classes, task, desktop }) => {
   const { description, year, month, day, time } = task;
+  console.log(task);
 
   return (
     <div
@@ -14,7 +15,7 @@ const Task = ({ classes, task, desktop }) => {
     >
       <div>{description}</div>
       <div className={classes.taskDetails}>
-        <div>{`${year}-${month}-${day}`}</div>
+        <div>{`${year}-${month + 1}-${day}`}</div>
         <div>{time}</div>
       </div>
     </div>
