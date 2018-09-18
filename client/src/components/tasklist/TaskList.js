@@ -16,15 +16,18 @@ import { isDesktop, maxTasksPerPage } from "../../utils/tasks";
 
 import Task from "./Task";
 
-const TaskList = ({ classes, tasks, page }) => {
+const TaskList = ({ classes, tasks, page, getTasksPage, changePage }) => {
   const desktop = isDesktop();
   const list = tasks.map(task => (
     <Task key={task._id} task={task} desktop={desktop} />
   ));
 
   const nextPage = () => {
+    console.log("nextPage function");
     const limit = maxTasksPerPage();
     const newPage = page + 1;
+    console.log("limit:", limit);
+    console.log("newPage:", newPage);
 
     getTasksPage(newPage, limit);
     changePage(newPage);
