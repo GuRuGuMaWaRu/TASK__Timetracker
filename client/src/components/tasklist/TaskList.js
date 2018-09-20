@@ -11,26 +11,27 @@ import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
 
-import { getTasksPage, changePage } from "../../actions";
+import { getTasksPage } from "../../actions";
 import { isDesktop, maxTasksPerPage } from "../../utils/tasks";
 
 import Task from "./Task";
 
-const TaskList = ({ classes, tasks, page, getTasksPage, changePage }) => {
+const TaskList = ({
+  classes,
+  tasks,
+  taskList: { page, maxPage },
+  getTasksPage
+}) => {
   const desktop = isDesktop();
   const list = tasks.map(task => (
     <Task key={task._id} task={task} desktop={desktop} />
   ));
 
   const nextPage = () => {
-    console.log("nextPage function");
     const limit = maxTasksPerPage();
     const newPage = page + 1;
-    console.log("limit:", limit);
-    console.log("newPage:", newPage);
 
     getTasksPage(newPage, limit);
-    changePage(newPage);
   };
 
   return (
@@ -45,6 +46,7 @@ const TaskList = ({ classes, tasks, page, getTasksPage, changePage }) => {
           className={classes.button}
           color="secondary"
           aria-label="First page"
+          disabled={page === 1}
         >
           <FirstPage />
         </IconButton>
@@ -52,6 +54,7 @@ const TaskList = ({ classes, tasks, page, getTasksPage, changePage }) => {
           className={classes.button}
           color="secondary"
           aria-label="Prev page"
+          disabled={page === 1}
         >
           <ChevronLeft />
         </IconButton>
@@ -61,6 +64,7 @@ const TaskList = ({ classes, tasks, page, getTasksPage, changePage }) => {
           color="secondary"
           aria-label="Next page"
           onClick={nextPage}
+          disabled={page === maxPage}
         >
           <ChevronRight />
         </IconButton>
@@ -68,6 +72,7 @@ const TaskList = ({ classes, tasks, page, getTasksPage, changePage }) => {
           className={classes.button}
           color="secondary"
           aria-label="Last page"
+          disabled={page === maxPage}
         >
           <LastPage />
         </IconButton>
@@ -111,20 +116,19 @@ const styles = theme => ({
 TaskList.propTypes = {
   classes: PropTypes.object.isRequired,
   tasks: PropTypes.array.isRequired,
-  page: PropTypes.number.isRequired,
-  getTasksPage: PropTypes.func.isRequired,
-  changePage: PropTypes.func.isRequired
+  taskList: PropTypes.objectOf(PropTypes.number.isRequired),
+  getTasksPage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ tasks, taskList }) => ({
   tasks,
-  page: taskList.page
+  taskList
 });
 
 export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    { getTasksPage, changePage }
+    { getTasksPage }
   )
 )(TaskList);

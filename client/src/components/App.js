@@ -10,7 +10,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import "./App.css";
-import { getAllTasks, getTasksPage, changePage } from "../actions";
+import { getAllTasks, getTasksPage } from "../actions";
 import { maxTasksPerPage } from "../utils/tasks";
 
 const styles = theme => ({
@@ -29,7 +29,6 @@ class App extends Component {
     const limit = maxTasksPerPage();
     // 2. Get the 1st page with tasks per page depending on screen size
     this.props.getTasksPage(1, limit);
-    this.props.changePage(1);
   }
 
   render() {
@@ -55,6 +54,6 @@ export default compose(
   withStyles(styles),
   connect(
     null,
-    { getAllTasks, getTasksPage, changePage }
+    { getAllTasks, getTasksPage }
   )
 )(App);

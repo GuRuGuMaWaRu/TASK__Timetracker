@@ -1,17 +1,17 @@
-import { CHANGE_PAGE } from "../actions/types";
+import { GET_TASKS } from "../actions/types";
 
 const INIT = {
-  page: 1
+  page: 1,
+  maxPage: 1
 };
 
 export default function(state = INIT, action) {
   switch (action.type) {
-    case CHANGE_PAGE: {
+    case GET_TASKS:
       return {
-        ...state,
-        page: action.page
+        page: action.payload.page,
+        maxPage: action.payload.pages
       };
-    }
     default:
       return state;
   }
