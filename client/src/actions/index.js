@@ -25,6 +25,7 @@ const createMonthArray = async (year, month) => {
 export const bookTime = data => async (dispatch, getState) => {
   let { time } = data;
   const { description } = data;
+  const { page, limit } = getState().taskList;
 
   if (time.length === 7) {
     time = `0${time}`;
@@ -46,17 +47,22 @@ export const bookTime = data => async (dispatch, getState) => {
   // save new task
   await axios.post("/tasks/addTask", taskData);
   // get updated tasks
-  const allTasksResponse = await axios.get(
-    `http://localhost:5000/tasks/getAllTasks`
+  const tasks = await axios.get(
+    `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
   );
+
+  // const allTasksResponse = await axios.get(
+  //   `http://localhost:5000/tasks/getAllTasks`
+  // );
   // get updated month representation
   const monthArray = await createMonthArray(year, months[month]);
 
   dispatch({
     type: types.ADD_TASK,
     payload: {
-      allTasks: allTasksResponse.data,
-      monthArray
+      // allTasks: allTasksResponse.data,
+      monthArray,
+      tasks: tasks.data
     }
   });
 };
