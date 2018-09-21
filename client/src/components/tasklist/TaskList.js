@@ -43,6 +43,10 @@ const TaskList = ({
     getTasksPage(newPage, limit);
   };
 
+  const firstPage = () => {
+    getTasksPage(1, limit);
+  };
+
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
       <div className={classes.list}>{list}</div>
@@ -55,6 +59,7 @@ const TaskList = ({
           className={classes.button}
           color="secondary"
           aria-label="First page"
+          onClick={firstPage}
           disabled={page === 1}
         >
           <FirstPage />
