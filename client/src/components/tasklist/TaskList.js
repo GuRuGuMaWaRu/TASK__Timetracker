@@ -37,6 +37,12 @@ const TaskList = ({
     getTasksPage(maxPage, limit);
   };
 
+  const prevPage = () => {
+    const newPage = page - 1;
+
+    getTasksPage(newPage, limit);
+  };
+
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
       <div className={classes.list}>{list}</div>
@@ -57,6 +63,7 @@ const TaskList = ({
           className={classes.button}
           color="secondary"
           aria-label="Prev page"
+          onClick={prevPage}
           disabled={page === 1}
         >
           <ChevronLeft />
