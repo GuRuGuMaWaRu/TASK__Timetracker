@@ -1,4 +1,4 @@
-import { GET_TASKS, SET_LIMIT } from "../actions/types";
+import { ADD_TASK, GET_TASKS, SET_LIMIT } from "../actions/types";
 
 const INIT = {
   page: 1,
@@ -8,6 +8,12 @@ const INIT = {
 
 export default function(state = INIT, action) {
   switch (action.type) {
+    case ADD_TASK:
+      return {
+        ...state,
+        page: action.payload.tasks.page,
+        maxPage: action.payload.tasks.pages
+      };
     case GET_TASKS:
       return {
         ...state,

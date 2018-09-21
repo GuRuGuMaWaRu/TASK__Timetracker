@@ -7,7 +7,7 @@ export default function(state = INIT, action) {
     case GET_TASKS:
       return action.payload.docs;
     case ADD_TASK:
-      return action.payload.allTasks;
+      return action.payload.tasks.docs;
     default:
       return state;
   }
