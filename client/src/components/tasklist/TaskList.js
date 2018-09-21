@@ -33,7 +33,9 @@ const TaskList = ({
     getTasksPage(newPage, limit);
   };
 
-  const lastPage = () => {};
+  const lastPage = () => {
+    getTasksPage(maxPage, limit);
+  };
 
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
