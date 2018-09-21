@@ -5,7 +5,6 @@ import { withStyles } from "@material-ui/core/styles";
 
 const Task = ({ classes, task, desktop }) => {
   const { description, year, month, day, time } = task;
-  console.log(task);
 
   return (
     <div

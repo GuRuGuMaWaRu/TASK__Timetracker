@@ -12,14 +12,14 @@ import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
 
 import { getTasksPage } from "../../actions";
-import { isDesktop, maxTasksPerPage } from "../../utils/tasks";
+import { isDesktop } from "../../utils/tasks";
 
 import Task from "./Task";
 
 const TaskList = ({
   classes,
   tasks,
-  taskList: { page, maxPage },
+  taskList: { page, maxPage, limit },
   getTasksPage
 }) => {
   const desktop = isDesktop();
@@ -28,11 +28,12 @@ const TaskList = ({
   ));
 
   const nextPage = () => {
-    const limit = maxTasksPerPage();
     const newPage = page + 1;
 
     getTasksPage(newPage, limit);
   };
+
+  const lastPage = () => {};
 
   return (
     <Typography component="div" classes={{ root: classes.taskList }}>
@@ -72,6 +73,7 @@ const TaskList = ({
           className={classes.button}
           color="secondary"
           aria-label="Last page"
+          onClick={lastPage}
           disabled={page === maxPage}
         >
           <LastPage />

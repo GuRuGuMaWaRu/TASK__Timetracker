@@ -207,3 +207,8 @@ export const getTasksPage = (page, limit) => async (dispatch, getState) => {
     payload: tasks.data
   });
 };
+
+export const setPageLimit = limit => ({
+  type: types.SET_LIMIT,
+  limit
+});
