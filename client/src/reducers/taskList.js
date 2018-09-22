@@ -3,7 +3,8 @@ import { ADD_TASK, GET_TASKS, SET_LIMIT } from "../actions/types";
 const INIT = {
   page: 1,
   maxPage: 1,
-  limit: 0
+  limit: 0,
+  search: false
 };
 
 export default function(state = INIT, action) {
@@ -23,7 +24,8 @@ export default function(state = INIT, action) {
     case SET_LIMIT:
       return {
         ...state,
-        limit: action.limit
+        limit: action.limit,
+        search: false
       };
     default:
       return state;

@@ -132,7 +132,12 @@ const styles = theme => ({
 TaskList.propTypes = {
   classes: PropTypes.object.isRequired,
   tasks: PropTypes.array.isRequired,
-  taskList: PropTypes.objectOf(PropTypes.number.isRequired),
+  taskList: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    maxPage: PropTypes.number.isRequired,
+    limit: PropTypes.number.isRequired,
+    search: PropTypes.bool.isRequired
+  }),
   getTasksPage: PropTypes.func.isRequired
 };
 
