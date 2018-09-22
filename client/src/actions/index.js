@@ -116,11 +116,11 @@ export const searchTasks = searchQuery => async dispatch => {
   dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
-export const getAllTasks = () => async dispatch => {
-  const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
+// export const getAllTasks = () => async dispatch => {
+//   const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
 
-  dispatch({ type: types.GET_TASKS, payload: res.data });
-};
+//   dispatch({ type: types.GET_TASKS, payload: res.data });
+// };
 
 // export const getMonthTasks = date => async dispatch => {
 //   const res = await axios.get(`http://localhost:5000/tasks/getMonth/${date}`);
