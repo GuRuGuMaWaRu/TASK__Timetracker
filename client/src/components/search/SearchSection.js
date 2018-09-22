@@ -41,6 +41,10 @@ class SearchSection extends Component {
     });
   };
 
+  showAll = () => {
+    this.props.getTasksPage(1, this.props.limit);
+  };
+
   render() {
     const { classes, getAllTasks } = this.props;
     const { searchQuery } = this.state;
@@ -82,7 +86,7 @@ class SearchSection extends Component {
           <Button
             className={classes.button}
             variant="raised"
-            onClick={getAllTasks}
+            onClick={this.showAll}
             aria-label="Show All"
           >
             Show All
@@ -137,12 +141,16 @@ const styles = theme => ({
 SearchSection.propTypes = {
   classes: PropTypes.object.isRequired,
   searchTasks: PropTypes.func.isRequired,
-  getAllTasks: PropTypes.func.isRequired
+  getTasksPage: PropTypes.func.isRequired
 };
+
+const mapStateToProps = ({ taskList: { limit } }) => ({
+  limit
+});
 
 export default compose(
   connect(
-    null,
+    mapStateToProps,
     actions
   ),
   withStyles(styles)
