@@ -38,16 +38,6 @@ exports.getAllTasks = async (req, res) => {
   res.send(tasks);
 };
 
-exports.searchTasks = async (req, res) => {
-  const tasks = await Task.find({
-    $text: { $search: req.params.query }
-  }).sort({
-    date: -1
-  });
-
-  res.send(tasks);
-};
-
 exports.getTasksPage = async (req, res) => {
   const [page, limit] = req.params.pageData.split(",");
 
@@ -63,7 +53,7 @@ exports.searchTasksPaged = async (req, res) => {
     {
       $text: { $search: searchQuery }
     },
-    { page: +page, limit: +limit }
+    { page: +page, limit: +limit, sort: { date: -1 } }
   );
 
   res.send(tasks);
