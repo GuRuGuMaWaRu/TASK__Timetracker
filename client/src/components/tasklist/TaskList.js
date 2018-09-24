@@ -136,7 +136,8 @@ TaskList.propTypes = {
     page: PropTypes.number.isRequired,
     maxPage: PropTypes.number.isRequired,
     limit: PropTypes.number.isRequired,
-    search: PropTypes.bool.isRequired
+    isSearching: PropTypes.bool.isRequired,
+    searchQuery: PropTypes.string.isRequired
   }),
   getTasksPage: PropTypes.func.isRequired
 };

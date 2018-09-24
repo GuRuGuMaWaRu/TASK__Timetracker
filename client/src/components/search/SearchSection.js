@@ -25,7 +25,8 @@ class SearchSection extends Component {
     e.preventDefault();
 
     if (this.state.searchQuery.length > 0) {
-      this.props.searchTasks(this.state.searchQuery);
+      this.props.searchOn(this.state.searchQuery);
+      this.props.getTasksPage(1, this.props.limit);
     }
   };
 
@@ -46,7 +47,7 @@ class SearchSection extends Component {
   };
 
   render() {
-    const { classes, getAllTasks } = this.props;
+    const { classes } = this.props;
     const { searchQuery } = this.state;
 
     return (
@@ -96,7 +97,7 @@ class SearchSection extends Component {
         <Hidden mdUp>
           <IconButton
             className={classes.button}
-            onClick={getAllTasks}
+            onClick={this.showAll}
             aria-label="Show All"
           >
             <ArrowDownward className={classes.arrowDownwardIcon} />
@@ -140,7 +141,7 @@ const styles = theme => ({
 
 SearchSection.propTypes = {
   classes: PropTypes.object.isRequired,
-  searchTasks: PropTypes.func.isRequired,
+  searchOn: PropTypes.func.isRequired,
   getTasksPage: PropTypes.func.isRequired
 };
 

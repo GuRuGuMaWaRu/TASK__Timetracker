@@ -1,10 +1,17 @@
-import { ADD_TASK, GET_TASKS, SET_LIMIT } from "../actions/types";
+import {
+  ADD_TASK,
+  GET_TASKS,
+  SET_LIMIT,
+  SEARCH_ON,
+  SEARCH_OFF
+} from "../actions/types";
 
 const INIT = {
   page: 1,
   maxPage: 1,
   limit: 0,
-  search: false
+  isSearching: false,
+  searchQuery: ""
 };
 
 export default function(state = INIT, action) {
@@ -25,7 +32,19 @@ export default function(state = INIT, action) {
       return {
         ...state,
         limit: action.limit,
-        search: false
+        isSearching: false
+      };
+    case SEARCH_ON:
+      return {
+        ...state,
+        searchQuery: action.payload,
+        isSearching: true
+      };
+    case SEARCH_OFF:
+      return {
+        ...state,
+        searchQuery: "",
+        isSearching: false
       };
     default:
       return state;

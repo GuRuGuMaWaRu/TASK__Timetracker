@@ -16,3 +16,5 @@ export const UPDATE_EDIT = "update_edit";
 export const END_EDIT = "end_edit";
 
 export const SET_LIMIT = "set_limit";
+export const SEARCH_ON = "search_on";
+export const SEARCH_OFF = "search_off";

@@ -38,20 +38,23 @@ exports.getAllTasks = async (req, res) => {
   res.send(tasks);
 };
 
-exports.searchTasks = async (req, res) => {
-  const tasks = await Task.find({
-    $text: { $search: req.params.query }
-  }).sort({
-    date: -1
-  });
-
-  res.send(tasks);
-};
-
 exports.getTasksPage = async (req, res) => {
   const [page, limit] = req.params.pageData.split(",");
 
   const tasks = await Task.paginate({}, { page: +page, limit: +limit });
+
+  res.send(tasks);
+};
+
+exports.searchTasksPaged = async (req, res) => {
+  const [page, limit, searchQuery] = req.params.pageData.split(",");
+
+  const tasks = await Task.paginate(
+    {
+      $text: { $search: searchQuery }
+    },
+    { page: +page, limit: +limit, sort: { date: -1 } }
+  );
 
   res.send(tasks);
 };
