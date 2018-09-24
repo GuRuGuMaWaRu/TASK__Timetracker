@@ -55,3 +55,16 @@ exports.getTasksPage = async (req, res) => {
 
   res.send(tasks);
 };
+
+exports.searchTasksPaged = async (req, res) => {
+  const [page, limit, searchQuery] = req.params.pageData.split(",");
+
+  const tasks = await Task.paginate(
+    {
+      $text: { $search: searchQuery }
+    },
+    { page: +page, limit: +limit }
+  );
+
+  res.send(tasks);
+};

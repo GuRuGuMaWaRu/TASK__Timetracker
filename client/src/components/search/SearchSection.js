@@ -25,7 +25,8 @@ class SearchSection extends Component {
     e.preventDefault();
 
     if (this.state.searchQuery.length > 0) {
-      this.props.searchTasks(this.state.searchQuery);
+      this.props.searchOn();
+      this.props.getTasksPage(1, this.props.limit, this.state.searchQuery);
     }
   };
 
@@ -140,7 +141,7 @@ const styles = theme => ({
 
 SearchSection.propTypes = {
   classes: PropTypes.object.isRequired,
-  searchTasks: PropTypes.func.isRequired,
+  searchOn: PropTypes.func.isRequired,
   getTasksPage: PropTypes.func.isRequired
 };
 

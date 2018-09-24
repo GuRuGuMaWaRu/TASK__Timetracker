@@ -16,5 +16,9 @@ router.get(
   "/tasks/getTasksPage/:pageData",
   catchErrors(taskController.getTasksPage)
 );
+router.get(
+  "/tasks/searchTasksPaged/:pageData",
+  catchErrors(taskController.searchTasksPaged)
+);
 
 module.exports = router;

@@ -112,8 +112,8 @@ export const searchTasks = searchQuery => async dispatch => {
   const res = await axios.get(
     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
   );
-
-  dispatch({ type: types.GET_TASKS, payload: res.data });
+  console.log(res.data);
+  // dispatch({ type: types.GET_TASKS, payload: res.data });
 };
 
 // export const getAllTasks = () => async dispatch => {
@@ -199,10 +199,22 @@ export const updateEdit = time => ({
   payload: time
 });
 
-export const getTasksPage = (page, limit) => async (dispatch, getState) => {
-  const tasks = await axios.get(
-    `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
-  );
+export const getTasksPage = (page, limit, searchQuery) => async (
+  dispatch,
+  getState
+) => {
+  const { isSearching } = getState().taskList;
+  let tasks;
+
+  if (!isSearching) {
+    tasks = await axios.get(
+      `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
+    );
+  } else {
+    tasks = await axios.get(
+      `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${searchQuery}`
+    );
+  }
 
   dispatch({
     type: types.GET_TASKS,
@@ -213,4 +225,12 @@ export const getTasksPage = (page, limit) => async (dispatch, getState) => {
 export const setPageLimit = limit => ({
   type: types.SET_LIMIT,
   limit
+});
+
+export const searchOn = () => ({
+  type: types.SEARCH_ON
+});
+
+export const searchOff = () => ({
+  type: types.SEARCH_OFF
 });
