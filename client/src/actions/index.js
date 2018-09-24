@@ -199,11 +199,8 @@ export const updateEdit = time => ({
   payload: time
 });
 
-export const getTasksPage = (page, limit, searchQuery) => async (
-  dispatch,
-  getState
-) => {
-  const { isSearching } = getState().taskList;
+export const getTasksPage = (page, limit) => async (dispatch, getState) => {
+  const { isSearching, searchQuery } = getState().taskList;
   let tasks;
 
   if (!isSearching) {
@@ -227,8 +224,9 @@ export const setPageLimit = limit => ({
   limit
 });
 
-export const searchOn = () => ({
-  type: types.SEARCH_ON
+export const searchOn = searchQuery => ({
+  type: types.SEARCH_ON,
+  payload: searchQuery
 });
 
 export const searchOff = () => ({

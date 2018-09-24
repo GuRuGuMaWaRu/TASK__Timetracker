@@ -25,8 +25,8 @@ class SearchSection extends Component {
     e.preventDefault();
 
     if (this.state.searchQuery.length > 0) {
-      this.props.searchOn();
-      this.props.getTasksPage(1, this.props.limit, this.state.searchQuery);
+      this.props.searchOn(this.state.searchQuery);
+      this.props.getTasksPage(1, this.props.limit);
     }
   };
 

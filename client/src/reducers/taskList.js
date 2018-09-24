@@ -10,7 +10,8 @@ const INIT = {
   page: 1,
   maxPage: 1,
   limit: 0,
-  isSearching: false
+  isSearching: false,
+  searchQuery: ""
 };
 
 export default function(state = INIT, action) {
@@ -36,11 +37,13 @@ export default function(state = INIT, action) {
     case SEARCH_ON:
       return {
         ...state,
+        searchQuery: action.payload,
         isSearching: true
       };
     case SEARCH_OFF:
       return {
         ...state,
+        searchQuery: "",
         isSearching: false
       };
     default:
