@@ -46,7 +46,7 @@ class SearchSection extends Component {
   };
 
   render() {
-    const { classes, getAllTasks } = this.props;
+    const { classes } = this.props;
     const { searchQuery } = this.state;
 
     return (
@@ -96,7 +96,7 @@ class SearchSection extends Component {
         <Hidden mdUp>
           <IconButton
             className={classes.button}
-            onClick={getAllTasks}
+            onClick={this.showAll}
             aria-label="Show All"
           >
             <ArrowDownward className={classes.arrowDownwardIcon} />
