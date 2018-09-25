@@ -126,9 +126,9 @@ class CustomPaginationActionsTable extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getAllTasks();
-  }
+  // componentDidMount() {
+  //   this.props.getAllTasks();
+  // }
 
   handleChangePage = (event, page) => {
     this.setState({ page });

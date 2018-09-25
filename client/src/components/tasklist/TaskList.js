@@ -16,12 +16,7 @@ import { isDesktop } from "../../utils/tasks";
 
 import Task from "./Task";
 
-const TaskList = ({
-  classes,
-  tasks,
-  taskList: { page, maxPage, limit },
-  getTasksPage
-}) => {
+const TaskList = ({ classes, tasks, page, maxPage, getTasksPage }) => {
   const desktop = isDesktop();
   const list = tasks.map(task => (
     <Task key={task._id} task={task} desktop={desktop} />
@@ -30,21 +25,21 @@ const TaskList = ({
   const nextPage = () => {
     const newPage = page + 1;
 
-    getTasksPage(newPage, limit);
+    getTasksPage(newPage);
   };
 
   const lastPage = () => {
-    getTasksPage(maxPage, limit);
+    getTasksPage(maxPage);
   };
 
   const prevPage = () => {
     const newPage = page - 1;
 
-    getTasksPage(newPage, limit);
+    getTasksPage(newPage);
   };
 
   const firstPage = () => {
-    getTasksPage(1, limit);
+    getTasksPage(1);
   };
 
   return (
@@ -136,15 +131,16 @@ TaskList.propTypes = {
     page: PropTypes.number.isRequired,
     maxPage: PropTypes.number.isRequired,
     limit: PropTypes.number.isRequired,
-    isSearching: PropTypes.bool.isRequired,
-    searchQuery: PropTypes.string.isRequired
+    taskListType: PropTypes.string.isRequired,
+    query: PropTypes.string.isRequired
   }),
   getTasksPage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ tasks, taskList }) => ({
+const mapStateToProps = ({ tasks, taskList: { page, maxPage } }) => ({
   tasks,
-  taskList
+  page,
+  maxPage
 });
 
 export default compose(

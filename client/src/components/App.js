@@ -30,7 +30,7 @@ class App extends Component {
     // 2. Save max number of tasks in state store
     this.props.setPageLimit(limit);
     // 3. Get the 1st page with tasks per page depending on screen size
-    this.props.getTasksPage(1, limit);
+    this.props.getTasksPage(1);
   }
 
   render() {

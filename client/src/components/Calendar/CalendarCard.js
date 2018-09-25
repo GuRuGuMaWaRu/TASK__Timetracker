@@ -19,8 +19,9 @@ class CalendarCard extends React.Component {
     currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
     minDate: PropTypes.objectOf(PropTypes.string).isRequired,
     displayedMonth: PropTypes.array.isRequired,
-    getDateTasks: PropTypes.func.isRequired,
-    getDate: PropTypes.func.isRequired
+    getDate: PropTypes.func.isRequired,
+    changeListType: PropTypes.func.isRequired,
+    getTasksPage: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -42,15 +43,13 @@ class CalendarCard extends React.Component {
 
   handleDateSelect = e => {
     const element = e.target;
+    const date = `${this.props.displayedDate.year},${months.indexOf(
+      this.props.displayedDate.month
+    )},${element.textContent}`;
 
     if (element.classList.contains("with-tasks")) {
-      this.props.getDateTasks(
-        `
-          ${this.props.displayedDate.year},
-          ${months.indexOf(this.props.displayedDate.month)},
-          ${element.textContent}
-        `
-      );
+      this.props.changeListType("date", date);
+      this.props.getTasksPage(1);
     }
   };
 
