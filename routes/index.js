@@ -6,7 +6,7 @@ const { catchErrors } = require("../handlers/errorHandlers");
 
 router.get("/tasks/getMonth/:date", catchErrors(taskController.getMonth));
 router.get("/tasks/getDay/:date", catchErrors(taskController.getDay));
-router.get("/tasks/getAllTasks", catchErrors(taskController.getAllTasks));
+// router.get("/tasks/getAllTasks", catchErrors(taskController.getAllTasks));
 router.post("/tasks/addTask", catchErrors(taskController.addTask));
 router.get(
   "/tasks/getTasksPage/:pageData",

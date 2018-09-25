@@ -30,13 +30,13 @@ exports.getDay = async (req, res) => {
   res.send(dayTasks);
 };
 
-exports.getAllTasks = async (req, res) => {
-  const tasks = await Task.find().sort({
-    date: -1
-  });
+// exports.getAllTasks = async (req, res) => {
+//   const tasks = await Task.find().sort({
+//     date: -1
+//   });
 
-  res.send(tasks);
-};
+//   res.send(tasks);
+// };
 
 exports.getTasksPage = async (req, res) => {
   const [page, limit] = req.params.pageData.split(",");

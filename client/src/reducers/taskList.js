@@ -3,7 +3,9 @@ import {
   GET_TASKS,
   SET_LIMIT,
   SEARCH_ON,
-  SEARCH_OFF
+  SEARCH_OFF,
+  DATE_ON,
+  DATE_OFF
 } from "../actions/types";
 
 const INIT = {
@@ -11,7 +13,9 @@ const INIT = {
   maxPage: 1,
   limit: 0,
   isSearching: false,
-  searchQuery: ""
+  searchQuery: "",
+  isShowingByDate: false,
+  date: ""
 };
 
 export default function(state = INIT, action) {
@@ -32,7 +36,8 @@ export default function(state = INIT, action) {
       return {
         ...state,
         limit: action.limit,
-        isSearching: false
+        isSearching: false,
+        isShowingByDate: false
       };
     case SEARCH_ON:
       return {
@@ -45,6 +50,18 @@ export default function(state = INIT, action) {
         ...state,
         searchQuery: "",
         isSearching: false
+      };
+    case DATE_ON:
+      return {
+        ...state,
+        date: action.payload,
+        isShowingByDate: true
+      };
+    case DATE_OFF:
+      return {
+        ...state,
+        date: "",
+        isShowingByDate: false
       };
     default:
       return state;
