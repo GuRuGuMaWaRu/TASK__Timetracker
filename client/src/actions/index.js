@@ -64,7 +64,7 @@ export const bookTime = data => async (dispatch, getState) => {
   await axios.post("/tasks/addTask", taskData);
   // get updated tasks
   const tasks = await axios.get(
-    `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
+    `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`
   );
 
   // get updated month representation
@@ -231,14 +231,14 @@ export const getTasksPage = page => async (dispatch, getState) => {
 
   switch (taskListType) {
     case "search":
-      route = `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${query}`;
+      route = `http://localhost:5000/tasks/getTasksSearch/${page},${limit},${query}`;
       break;
     case "date":
-      route = `http://localhost:5000/tasks/getDayPaged/${page},${limit},${query}`;
+      route = `http://localhost:5000/tasks/getTasksDate/${page},${limit},${query}`;
       break;
     case "general":
     default:
-      route = `http://localhost:5000/tasks/getTasksPage/${page},${limit}`;
+      route = `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`;
   }
 
   const tasks = await axios.get(route);

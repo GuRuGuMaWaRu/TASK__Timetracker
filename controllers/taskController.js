@@ -38,7 +38,7 @@ exports.getMonth = async (req, res) => {
 //   res.send(tasks);
 // };
 
-exports.getTasksPage = async (req, res) => {
+exports.getTasksGeneral = async (req, res) => {
   const [page, limit] = req.params.pageData.split(",");
 
   const tasks = await Task.paginate({}, { page: +page, limit: +limit });
@@ -46,7 +46,7 @@ exports.getTasksPage = async (req, res) => {
   res.send(tasks);
 };
 
-exports.searchTasksPaged = async (req, res) => {
+exports.getTasksGeneralSearch = async (req, res) => {
   const [page, limit, searchQuery] = req.params.pageData.split(",");
 
   const tasks = await Task.paginate(
@@ -59,7 +59,7 @@ exports.searchTasksPaged = async (req, res) => {
   res.send(tasks);
 };
 
-exports.getDayPaged = async (req, res) => {
+exports.getTasksDate = async (req, res) => {
   const [page, limit, year, month, day] = req.params.pageData
     .split(",")
     .map(parseFloat);

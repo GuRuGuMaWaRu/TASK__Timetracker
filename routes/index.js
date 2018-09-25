@@ -9,16 +9,16 @@ router.get("/tasks/getMonth/:date", catchErrors(taskController.getMonth));
 // router.get("/tasks/getAllTasks", catchErrors(taskController.getAllTasks));
 router.post("/tasks/addTask", catchErrors(taskController.addTask));
 router.get(
-  "/tasks/getTasksPage/:pageData",
-  catchErrors(taskController.getTasksPage)
+  "/tasks/getTasksGeneral/:pageData",
+  catchErrors(taskController.getTasksGeneral)
 );
 router.get(
-  "/tasks/searchTasksPaged/:pageData",
-  catchErrors(taskController.searchTasksPaged)
+  "/tasks/getTasksSearch/:pageData",
+  catchErrors(taskController.getTasksSearch)
 );
 router.get(
-  "/tasks/getDayPaged/:pageData",
-  catchErrors(taskController.getDayPaged)
+  "/tasks/getTasksDate/:pageData",
+  catchErrors(taskController.getTasksDate)
 );
 
 module.exports = router;
