@@ -232,3 +232,12 @@ export const searchOn = searchQuery => ({
 export const searchOff = () => ({
   type: types.SEARCH_OFF
 });
+
+export const showTasksByDateOn = date => ({
+  type: types.DATE_ON,
+  payload: date
+});
+
+export const showTasksByDateOff = () => ({
+  type: types.DATE_OFF
+});
