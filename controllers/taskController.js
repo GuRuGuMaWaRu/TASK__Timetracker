@@ -46,7 +46,7 @@ exports.getTasksGeneral = async (req, res) => {
   res.send(tasks);
 };
 
-exports.getTasksGeneralSearch = async (req, res) => {
+exports.getTasksSearch = async (req, res) => {
   const [page, limit, searchQuery] = req.params.pageData.split(",");
 
   const tasks = await Task.paginate(

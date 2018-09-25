@@ -22,26 +22,28 @@ const createMonthArray = async (year, month) => {
   return createMonthArrayHelper(datesWithTasks, year, month);
 };
 
-// const getPage = async (page, limit, listType, queryData) => {
-//   switch (listType) {
-//     case "search":
-//       query = `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${queryData}`;
-//       break;
-//     case "date":
-//       query = `http://localhost:5000/tasks/getDayPaged/${page},${limit},${queryData}`;
-//       break;
-//     case "general":
-//     default:
-//       query = `http://localhost:5000/tasks/getTasksPage/${page},${limit}`;
-//   }
+const getPage = async (page, limit, listType, queryData) => {
+  let route = "";
 
-//   return await axios.get(query);
-// };
+  switch (listType) {
+    case "search":
+      route = `http://localhost:5000/tasks/getTasksSearch/${page},${limit},${queryData}`;
+      break;
+    case "date":
+      route = `http://localhost:5000/tasks/getTasksDate/${page},${limit},${queryData}`;
+      break;
+    case "general":
+    default:
+      route = `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`;
+  }
+
+  return await axios.get(route);
+};
 
 export const bookTime = data => async (dispatch, getState) => {
   let { time } = data;
   const { description } = data;
-  const { page, limit } = getState().taskList;
+  const { page, limit, taskListType, query } = getState().taskList;
 
   if (time.length === 7) {
     time = `0${time}`;
@@ -63,10 +65,10 @@ export const bookTime = data => async (dispatch, getState) => {
   // save new task
   await axios.post("/tasks/addTask", taskData);
   // get updated tasks
-  const tasks = await axios.get(
-    `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`
-  );
-
+  // const tasks = await axios.get(
+  //   `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`
+  // );
+  const tasks = await getPage(page, limit, taskListType, query);
   // get updated month representation
   const monthArray = await createMonthArray(year, months[month]);
 
@@ -227,21 +229,21 @@ export const updateEdit = time => ({
 
 export const getTasksPage = page => async (dispatch, getState) => {
   const { limit, taskListType, query } = getState().taskList;
-  let route = "";
+  const tasks = await getPage(page, limit, taskListType, query);
 
-  switch (taskListType) {
-    case "search":
-      route = `http://localhost:5000/tasks/getTasksSearch/${page},${limit},${query}`;
-      break;
-    case "date":
-      route = `http://localhost:5000/tasks/getTasksDate/${page},${limit},${query}`;
-      break;
-    case "general":
-    default:
-      route = `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`;
-  }
+  // switch (taskListType) {
+  //   case "search":
+  //     route = `http://localhost:5000/tasks/getTasksSearch/${page},${limit},${query}`;
+  //     break;
+  //   case "date":
+  //     route = `http://localhost:5000/tasks/getTasksDate/${page},${limit},${query}`;
+  //     break;
+  //   case "general":
+  //   default:
+  //     route = `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`;
+  // }
 
-  const tasks = await axios.get(route);
+  // const tasks = await axios.get(route);
 
   dispatch({
     type: types.GET_TASKS,
