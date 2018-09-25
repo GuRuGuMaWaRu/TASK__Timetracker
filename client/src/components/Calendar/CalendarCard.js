@@ -19,9 +19,10 @@ class CalendarCard extends React.Component {
     currentDate: PropTypes.objectOf(PropTypes.string).isRequired,
     minDate: PropTypes.objectOf(PropTypes.string).isRequired,
     displayedMonth: PropTypes.array.isRequired,
-    getDateTasks: PropTypes.func.isRequired,
+    limit: PropTypes.number.isRequired,
     getDate: PropTypes.func.isRequired,
-    showTasksByDateOn: PropTypes.func.isRequired
+    showTasksByDateOn: PropTypes.func.isRequired,
+    getTasksPage: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -49,6 +50,7 @@ class CalendarCard extends React.Component {
 
     if (element.classList.contains("with-tasks")) {
       this.props.showTasksByDateOn(date);
+      this.props.getTasksPage(1, this.props.limit);
     }
   };
 
@@ -103,12 +105,14 @@ const mapStateToProps = ({
   displayedDate,
   currentDate,
   minDate,
-  displayedMonth
+  displayedMonth,
+  taskList: { limit }
 }) => ({
   displayedDate,
   currentDate,
   minDate,
-  displayedMonth
+  displayedMonth,
+  limit
 });
 
 export default compose(

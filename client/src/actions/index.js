@@ -135,11 +135,11 @@ export const searchTasks = searchQuery => async dispatch => {
 //   dispatch({ type: types.GET_MONTH, payload: datesWithTasks });
 // };
 
-export const getDateTasks = date => async dispatch => {
-  const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
+// export const getDateTasks = date => async dispatch => {
+//   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
 
-  dispatch({ type: types.GET_TASKS, payload: res.data });
-};
+//   dispatch({ type: types.GET_TASKS, payload: res.data });
+// };
 
 export const getDate = () => async dispatch => {
   const year = moment().format("YYYY");
@@ -200,16 +200,26 @@ export const updateEdit = time => ({
 });
 
 export const getTasksPage = (page, limit) => async (dispatch, getState) => {
-  const { isSearching, searchQuery } = getState().taskList;
+  const {
+    isSearching,
+    searchQuery,
+    isShowingByDate,
+    dateQuery
+  } = getState().taskList;
   let tasks;
 
-  if (!isSearching) {
+  if (isSearching) {
     tasks = await axios.get(
-      `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
+      `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${searchQuery}`
+    );
+  } else if (isShowingByDate) {
+    console.log("isShowingByDate");
+    tasks = await axios.get(
+      `http://localhost:5000/tasks/getDayPaged/${page},${limit},${dateQuery}`
     );
   } else {
     tasks = await axios.get(
-      `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${searchQuery}`
+      `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
     );
   }
 

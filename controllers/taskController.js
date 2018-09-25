@@ -18,17 +18,17 @@ exports.getMonth = async (req, res) => {
   res.send(activeDays);
 };
 
-exports.getDay = async (req, res) => {
-  const [year, month, day] = req.params.date.split(",").map(parseFloat);
+// exports.getDay = async (req, res) => {
+//   const [year, month, day] = req.params.date.split(",").map(parseFloat);
 
-  const dayTasks = await Task.find({
-    year,
-    month,
-    day
-  });
+//   const dayTasks = await Task.find({
+//     year,
+//     month,
+//     day
+//   });
 
-  res.send(dayTasks);
-};
+//   res.send(dayTasks);
+// };
 
 // exports.getAllTasks = async (req, res) => {
 //   const tasks = await Task.find().sort({
@@ -54,6 +54,23 @@ exports.searchTasksPaged = async (req, res) => {
       $text: { $search: searchQuery }
     },
     { page: +page, limit: +limit, sort: { date: -1 } }
+  );
+
+  res.send(tasks);
+};
+
+exports.getDayPaged = async (req, res) => {
+  const [page, limit, year, month, day] = req.params.pageData
+    .split(",")
+    .map(parseFloat);
+
+  const tasks = await Task.paginate(
+    {
+      year: year,
+      month: month + 1,
+      day: day
+    },
+    { page, limit }
   );
 
   res.send(tasks);

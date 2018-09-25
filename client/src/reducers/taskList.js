@@ -15,7 +15,7 @@ const INIT = {
   isSearching: false,
   searchQuery: "",
   isShowingByDate: false,
-  date: ""
+  dateQuery: ""
 };
 
 export default function(state = INIT, action) {
@@ -43,7 +43,8 @@ export default function(state = INIT, action) {
       return {
         ...state,
         searchQuery: action.payload,
-        isSearching: true
+        isSearching: true,
+        isShowingByDate: false
       };
     case SEARCH_OFF:
       return {
@@ -54,13 +55,14 @@ export default function(state = INIT, action) {
     case DATE_ON:
       return {
         ...state,
-        date: action.payload,
-        isShowingByDate: true
+        dateQuery: action.payload,
+        isShowingByDate: true,
+        isSearching: false
       };
     case DATE_OFF:
       return {
         ...state,
-        date: "",
+        dateQuery: "",
         isShowingByDate: false
       };
     default:
