@@ -25,8 +25,8 @@ class SearchSection extends Component {
     e.preventDefault();
 
     if (this.state.searchQuery.length > 0) {
-      this.props.searchOn(this.state.searchQuery);
-      this.props.getTasksPage(1, this.props.limit);
+      this.props.changeListType("search", this.state.searchQuery);
+      this.props.getTasksPage(1);
     }
   };
 
@@ -43,7 +43,8 @@ class SearchSection extends Component {
   };
 
   showAll = () => {
-    this.props.getTasksPage(1, this.props.limit);
+    this.props.changeListType("general", "");
+    this.props.getTasksPage(1);
   };
 
   render() {
@@ -141,17 +142,12 @@ const styles = theme => ({
 
 SearchSection.propTypes = {
   classes: PropTypes.object.isRequired,
-  searchOn: PropTypes.func.isRequired,
   getTasksPage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ taskList: { limit } }) => ({
-  limit
-});
-
 export default compose(
   connect(
-    mapStateToProps,
+    null,
     actions
   ),
   withStyles(styles)

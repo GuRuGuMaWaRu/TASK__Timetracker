@@ -22,6 +22,22 @@ const createMonthArray = async (year, month) => {
   return createMonthArrayHelper(datesWithTasks, year, month);
 };
 
+// const getPage = async (page, limit, listType, queryData) => {
+//   switch (listType) {
+//     case "search":
+//       query = `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${queryData}`;
+//       break;
+//     case "date":
+//       query = `http://localhost:5000/tasks/getDayPaged/${page},${limit},${queryData}`;
+//       break;
+//     case "general":
+//     default:
+//       query = `http://localhost:5000/tasks/getTasksPage/${page},${limit}`;
+//   }
+
+//   return await axios.get(query);
+// };
+
 export const bookTime = data => async (dispatch, getState) => {
   let { time } = data;
   const { description } = data;
@@ -108,13 +124,13 @@ export const stopTimer = () => async (dispatch, getState) => {
   dispatch({ type: types.STOP_TIMER });
 };
 
-export const searchTasks = searchQuery => async dispatch => {
-  const res = await axios.get(
-    `http://localhost:5000/tasks/searchTasks/${searchQuery}`
-  );
-  console.log(res.data);
-  // dispatch({ type: types.GET_TASKS, payload: res.data });
-};
+// export const searchTasks = searchQuery => async dispatch => {
+//   const res = await axios.get(
+//     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
+//   );
+//   console.log(res.data);
+//   dispatch({ type: types.GET_TASKS, payload: res.data });
+// };
 
 // export const getAllTasks = () => async dispatch => {
 //   const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
@@ -199,29 +215,33 @@ export const updateEdit = time => ({
   payload: time
 });
 
-export const getTasksPage = (page, limit) => async (dispatch, getState) => {
-  const {
-    isSearching,
-    searchQuery,
-    isShowingByDate,
-    dateQuery
-  } = getState().taskList;
-  let tasks;
+// export const getFirstPage = listType => (dispatch, getState) => {
+//   const { limit } = getState().taskList;
+//   const tasks = getPage(1, limit, listType);
 
-  if (isSearching) {
-    tasks = await axios.get(
-      `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${searchQuery}`
-    );
-  } else if (isShowingByDate) {
-    console.log("isShowingByDate");
-    tasks = await axios.get(
-      `http://localhost:5000/tasks/getDayPaged/${page},${limit},${dateQuery}`
-    );
-  } else {
-    tasks = await axios.get(
-      `http://localhost:5000/tasks/getTasksPage/${page},${limit}`
-    );
+//   dispatch({
+//     type: types.GET_TASKS,
+//     payload: tasks.data
+//   });
+// };
+
+export const getTasksPage = page => async (dispatch, getState) => {
+  const { limit, taskListType, query } = getState().taskList;
+  let route = "";
+
+  switch (taskListType) {
+    case "search":
+      route = `http://localhost:5000/tasks/searchTasksPaged/${page},${limit},${query}`;
+      break;
+    case "date":
+      route = `http://localhost:5000/tasks/getDayPaged/${page},${limit},${query}`;
+      break;
+    case "general":
+    default:
+      route = `http://localhost:5000/tasks/getTasksPage/${page},${limit}`;
   }
+
+  const tasks = await axios.get(route);
 
   dispatch({
     type: types.GET_TASKS,
@@ -231,23 +251,28 @@ export const getTasksPage = (page, limit) => async (dispatch, getState) => {
 
 export const setPageLimit = limit => ({
   type: types.SET_LIMIT,
-  limit
+  payload: limit
 });
 
-export const searchOn = searchQuery => ({
-  type: types.SEARCH_ON,
-  payload: searchQuery
-});
+// export const searchOn = searchQuery => ({
+//   type: types.SEARCH_ON,
+//   payload: searchQuery
+// });
 
-export const searchOff = () => ({
-  type: types.SEARCH_OFF
-});
+// export const searchOff = () => ({
+//   type: types.SEARCH_OFF
+// });
 
-export const showTasksByDateOn = date => ({
-  type: types.DATE_ON,
-  payload: date
-});
+// export const showTasksByDateOn = date => ({
+//   type: types.DATE_ON,
+//   payload: date
+// });
 
-export const showTasksByDateOff = () => ({
-  type: types.DATE_OFF
+// export const showTasksByDateOff = () => ({
+//   type: types.DATE_OFF
+// });
+
+export const changeListType = (listType, query) => ({
+  type: types.SET_LIST_TYPE,
+  payload: { listType, query }
 });

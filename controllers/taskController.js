@@ -66,9 +66,7 @@ exports.getDayPaged = async (req, res) => {
 
   const tasks = await Task.paginate(
     {
-      year: year,
-      month: month + 1,
-      day: day
+      day
     },
     { page, limit }
   );
