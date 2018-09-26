@@ -14,7 +14,9 @@ const Task = ({ classes, task, desktop }) => {
     >
       <div>{description}</div>
       <div className={classes.taskDetails}>
-        <div>{`${year}-${month + 1}-${day}`}</div>
+        <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
+          day < 10 ? "0" : ""
+        }${day}`}</div>
         <div>{time}</div>
       </div>
     </div>
