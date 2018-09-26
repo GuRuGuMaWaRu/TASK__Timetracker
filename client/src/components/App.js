@@ -5,8 +5,6 @@ import compose from "recompose/compose";
 import { withStyles } from "material-ui/styles";
 
 import Header from "./Header";
-// import TimerSection from "./TimerSection";
-// import DataSection from "./DataSection";
 import Main from "./Main";
 import Footer from "./Footer";
 import "./App.css";
@@ -23,8 +21,6 @@ const styles = theme => ({
 
 class App extends Component {
   componentDidMount() {
-    // Fetch all tasks from database
-    // this.props.getAllTasks();
     // 1. Find max number of tasks per page
     const limit = maxTasksPerPage();
     // 2. Save max number of tasks in state store

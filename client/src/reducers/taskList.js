@@ -3,10 +3,6 @@ import {
   GET_TASKS,
   SET_LIMIT,
   SET_LIST_TYPE
-  //   SEARCH_ON,
-  //   SEARCH_OFF,
-  //   DATE_ON,
-  //   DATE_OFF
 } from "../actions/types";
 
 const INIT = {
@@ -43,32 +39,6 @@ export default function(state = INIT, action) {
         taskListType: action.payload.listType,
         query: action.payload.query
       };
-    // case SEARCH_ON:
-    //   return {
-    //     ...state,
-    //     searchQuery: action.payload,
-    //     isSearching: true,
-    //     isShowingByDate: false
-    //   };
-    // case SEARCH_OFF:
-    //   return {
-    //     ...state,
-    //     searchQuery: "",
-    //     isSearching: false
-    //   };
-    // case DATE_ON:
-    //   return {
-    //     ...state,
-    //     dateQuery: action.payload,
-    //     isShowingByDate: true,
-    //     isSearching: false
-    //   };
-    // case DATE_OFF:
-    //   return {
-    //     ...state,
-    //     dateQuery: "",
-    //     isShowingByDate: false
-    //   };
     default:
       return state;
   }

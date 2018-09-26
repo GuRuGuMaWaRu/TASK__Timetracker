@@ -62,14 +62,8 @@ export const bookTime = data => async (dispatch, getState) => {
     description
   };
 
-  // save new task
   await axios.post("/tasks/addTask", taskData);
-  // get updated tasks
-  // const tasks = await axios.get(
-  //   `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`
-  // );
   const tasks = await getPage(page, limit, taskListType, query);
-  // get updated month representation
   const monthArray = await createMonthArray(year, months[month]);
 
   dispatch({
@@ -125,39 +119,6 @@ export const stopTimer = () => async (dispatch, getState) => {
 
   dispatch({ type: types.STOP_TIMER });
 };
-
-// export const searchTasks = searchQuery => async dispatch => {
-//   const res = await axios.get(
-//     `http://localhost:5000/tasks/searchTasks/${searchQuery}`
-//   );
-//   console.log(res.data);
-//   dispatch({ type: types.GET_TASKS, payload: res.data });
-// };
-
-// export const getAllTasks = () => async dispatch => {
-//   const res = await axios.get(`http://localhost:5000/tasks/getAllTasks`);
-
-//   dispatch({ type: types.GET_TASKS, payload: res.data });
-// };
-
-// export const getMonthTasks = date => async dispatch => {
-//   const res = await axios.get(`http://localhost:5000/tasks/getMonth/${date}`);
-
-//   const datesWithTasks = res.data.reduce((dates, task) => {
-//     if (!dates.includes(task.day)) {
-//       return [...dates, task.day];
-//     }
-//     return dates;
-//   }, []);
-
-//   dispatch({ type: types.GET_MONTH, payload: datesWithTasks });
-// };
-
-// export const getDateTasks = date => async dispatch => {
-//   const res = await axios.get(`http://localhost:5000/tasks/getDay/${date}`);
-
-//   dispatch({ type: types.GET_TASKS, payload: res.data });
-// };
 
 export const getDate = () => async dispatch => {
   const year = moment().format("YYYY");
@@ -217,33 +178,9 @@ export const updateEdit = time => ({
   payload: time
 });
 
-// export const getFirstPage = listType => (dispatch, getState) => {
-//   const { limit } = getState().taskList;
-//   const tasks = getPage(1, limit, listType);
-
-//   dispatch({
-//     type: types.GET_TASKS,
-//     payload: tasks.data
-//   });
-// };
-
 export const getTasksPage = page => async (dispatch, getState) => {
   const { limit, taskListType, query } = getState().taskList;
   const tasks = await getPage(page, limit, taskListType, query);
-
-  // switch (taskListType) {
-  //   case "search":
-  //     route = `http://localhost:5000/tasks/getTasksSearch/${page},${limit},${query}`;
-  //     break;
-  //   case "date":
-  //     route = `http://localhost:5000/tasks/getTasksDate/${page},${limit},${query}`;
-  //     break;
-  //   case "general":
-  //   default:
-  //     route = `http://localhost:5000/tasks/getTasksGeneral/${page},${limit}`;
-  // }
-
-  // const tasks = await axios.get(route);
 
   dispatch({
     type: types.GET_TASKS,
@@ -255,24 +192,6 @@ export const setPageLimit = limit => ({
   type: types.SET_LIMIT,
   payload: limit
 });
-
-// export const searchOn = searchQuery => ({
-//   type: types.SEARCH_ON,
-//   payload: searchQuery
-// });
-
-// export const searchOff = () => ({
-//   type: types.SEARCH_OFF
-// });
-
-// export const showTasksByDateOn = date => ({
-//   type: types.DATE_ON,
-//   payload: date
-// });
-
-// export const showTasksByDateOff = () => ({
-//   type: types.DATE_OFF
-// });
 
 export const changeListType = (listType, query) => ({
   type: types.SET_LIST_TYPE,
