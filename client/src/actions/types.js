@@ -16,8 +16,4 @@ export const UPDATE_EDIT = "update_edit";
 export const END_EDIT = "end_edit";
 
 export const SET_LIMIT = "set_limit";
-// export const SEARCH_ON = "search_on";
-// export const SEARCH_OFF = "search_off";
-// export const DATE_ON = "date_on";
-// export const DATE_OFF = "date_off";
 export const SET_LIST_TYPE = "set_list_type";
