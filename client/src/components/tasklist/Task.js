@@ -14,7 +14,12 @@ const Task = ({ classes, task, desktop }) => {
         [classes.taskDesktop]: desktop
       })}
     >
-      <Tooltip title={description}>
+      <Tooltip
+        title={description}
+        classes={{
+          tooltip: classes.tooltip
+        }}
+      >
         <Typography noWrap={true}>{description}</Typography>
       </Tooltip>
       <div className={classes.taskDetails}>
@@ -50,6 +55,9 @@ const styles = theme => ({
     flexDirection: "column",
     alignItems: "flex-end",
     flex: "0 0 auto"
+  },
+  tooltip: {
+    fontSize: "1rem"
   }
 });
 
