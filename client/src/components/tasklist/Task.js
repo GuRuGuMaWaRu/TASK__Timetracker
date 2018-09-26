@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const Task = ({ classes, task, desktop }) => {
   const { description, year, month, day, time } = task;
@@ -12,7 +14,14 @@ const Task = ({ classes, task, desktop }) => {
         [classes.taskDesktop]: desktop
       })}
     >
-      <div>{description}</div>
+      <Tooltip
+        title={description}
+        classes={{
+          tooltip: classes.tooltip
+        }}
+      >
+        <Typography noWrap={true}>{description}</Typography>
+      </Tooltip>
       <div className={classes.taskDetails}>
         <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
           day < 10 ? "0" : ""
@@ -44,7 +53,11 @@ const styles = theme => ({
   taskDetails: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
+    flex: "0 0 auto"
+  },
+  tooltip: {
+    fontSize: "1rem"
   }
 });
 
