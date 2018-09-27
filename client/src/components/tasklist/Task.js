@@ -9,26 +9,26 @@ const Task = ({ classes, task, desktop }) => {
   const { description, year, month, day, time } = task;
 
   return (
-    <div
-      className={classnames(classes.task, {
-        [classes.taskDesktop]: desktop
-      })}
+    <Tooltip
+      title={description}
+      classes={{
+        tooltip: desktop ? classes.tooltipDesktop : classes.tooltip
+      }}
     >
-      <Tooltip
-        title={description}
-        classes={{
-          tooltip: classes.tooltip
-        }}
+      <div
+        className={classnames(classes.task, {
+          [classes.taskDesktop]: desktop
+        })}
       >
         <Typography noWrap={true}>{description}</Typography>
-      </Tooltip>
-      <div className={classes.taskDetails}>
-        <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
-          day < 10 ? "0" : ""
-        }${day}`}</div>
-        <div>{time}</div>
+        <div className={classes.taskDetails}>
+          <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
+            day < 10 ? "0" : ""
+          }${day}`}</div>
+          <div>{time}</div>
+        </div>
       </div>
-    </div>
+    </Tooltip>
   );
 };
 
@@ -57,7 +57,15 @@ const styles = theme => ({
     flex: "0 0 auto"
   },
   tooltip: {
-    fontSize: "1rem"
+    position: "relative",
+    top: "-100px",
+    fontSize: ".8rem"
+  },
+  tooltipDesktop: {
+    position: "relative",
+    top: "-100px",
+    fontSize: ".8rem",
+    maxWidth: "500px"
   }
 });
 
