@@ -41,7 +41,10 @@ exports.getMonth = async (req, res) => {
 exports.getTasksGeneral = async (req, res) => {
   const [page, limit] = req.params.pageData.split(",");
 
-  const tasks = await Task.paginate({}, { page: +page, limit: +limit });
+  const tasks = await Task.paginate(
+    {},
+    { page: +page, limit: +limit, sort: { date: -1 } }
+  );
 
   res.send(tasks);
 };
