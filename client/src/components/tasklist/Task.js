@@ -12,7 +12,7 @@ const Task = ({ classes, task, desktop }) => {
     <Tooltip
       title={description}
       classes={{
-        tooltip: classes.tooltip
+        tooltip: desktop ? classes.tooltipDesktop : classes.tooltip
       }}
     >
       <div
@@ -57,7 +57,15 @@ const styles = theme => ({
     flex: "0 0 auto"
   },
   tooltip: {
+    position: "relative",
+    top: "-100px",
     fontSize: ".8rem"
+  },
+  tooltipDesktop: {
+    position: "relative",
+    top: "-100px",
+    fontSize: ".8rem",
+    maxWidth: "500px"
   }
 });
 
