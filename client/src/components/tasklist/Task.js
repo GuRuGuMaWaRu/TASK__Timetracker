@@ -22,7 +22,7 @@ const Task = ({ classes, task, desktop }) => {
       >
         <Typography noWrap={true}>{description}</Typography>
         <div className={classes.taskDetails}>
-          <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
+          <div>{`${year}-${month < 9 ? "0" : ""}${month + 1}-${
             day < 10 ? "0" : ""
           }${day}`}</div>
           <div>{time}</div>
