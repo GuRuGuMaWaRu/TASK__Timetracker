@@ -62,9 +62,6 @@ export const bookTime = data => async (dispatch, getState) => {
     description
   };
 
-  console.log("taskListType:", taskListType);
-  console.log("query:", query);
-
   await axios.post("/tasks/addTask", taskData);
   const tasks = await getPage(page, limit, taskListType, query);
   const monthArray = await createMonthArray(year, months[month]);
