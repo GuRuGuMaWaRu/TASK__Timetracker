@@ -18,26 +18,6 @@ exports.getMonth = async (req, res) => {
   res.send(activeDays);
 };
 
-// exports.getDay = async (req, res) => {
-//   const [year, month, day] = req.params.date.split(",").map(parseFloat);
-
-//   const dayTasks = await Task.find({
-//     year,
-//     month,
-//     day
-//   });
-
-//   res.send(dayTasks);
-// };
-
-// exports.getAllTasks = async (req, res) => {
-//   const tasks = await Task.find().sort({
-//     date: -1
-//   });
-
-//   res.send(tasks);
-// };
-
 exports.getTasksGeneral = async (req, res) => {
   const [page, limit] = req.params.pageData.split(",");
 
