@@ -1,42 +1,73 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
-const Task = ({ classes, task, desktop }) => {
-  const { description, year, month, day, time } = task;
+class Task extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <Tooltip
-      title={description}
-      classes={{
-        tooltip: desktop ? classes.tooltipDesktop : classes.tooltip
-      }}
-    >
-      <div
-        className={classnames(classes.task, {
-          [classes.taskDesktop]: desktop
-        })}
-      >
-        <Typography noWrap={true}>{description}</Typography>
-        <div className={classes.taskDetails}>
-          <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
-            day < 10 ? "0" : ""
-          }${day}`}</div>
-          <div>{time}</div>
+    this.state = {
+      open: false
+    };
+  }
+
+  handleTooltipClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleTooltipOpen = () => {
+    this.setState({ open: true });
+  };
+
+  render() {
+    const {
+      classes,
+      task: { description, year, month, day, time },
+      desktop
+    } = this.props;
+
+    return (
+      <ClickAwayListener onClickAway={this.handleTooltipClose}>
+        <div
+          className={classnames(classes.taskShell, {
+            [classes.taskShellDesktop]: desktop
+          })}
+        >
+          <Tooltip
+            PopperProps={{
+              disablePortal: true
+            }}
+            onClose={this.handleTooltipClose}
+            open={this.state.open}
+            disableFocusListener
+            disableHoverListener
+            title={description}
+            classes={{
+              tooltip: desktop ? classes.tooltipDesktop : classes.tooltip
+            }}
+          >
+            <div className={classes.task} onClick={this.handleTooltipOpen}>
+              <Typography noWrap={true}>{description}</Typography>
+              <div className={classes.taskDetails}>
+                <div>{`${year}-${month < 10 ? "0" : ""}${month + 1}-${
+                  day < 10 ? "0" : ""
+                }${day}`}</div>
+                <div>{time}</div>
+              </div>
+            </div>
+          </Tooltip>
         </div>
-      </div>
-    </Tooltip>
-  );
-};
+      </ClickAwayListener>
+    );
+  }
+}
 
 const styles = theme => ({
-  task: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+  taskShell: {
     flex: "1 1 60px",
     padding: ".6rem",
     "&:nth-child(odd)": {
@@ -46,9 +77,14 @@ const styles = theme => ({
       backgroundColor: "#dbdbdb"
     }
   },
-  taskDesktop: {
+  taskShellDesktop: {
     flex: "1 1 90px",
     padding: "1rem"
+  },
+  task: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   taskDetails: {
     display: "flex",
