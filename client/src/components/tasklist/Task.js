@@ -3,32 +3,24 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
 
 const Task = ({ classes, task, desktop }) => {
   const { description, year, month, day, time } = task;
 
   return (
-    <Tooltip
-      title={description}
-      classes={{
-        tooltip: desktop ? classes.tooltipDesktop : classes.tooltip
-      }}
+    <div
+      className={classnames(classes.task, {
+        [classes.taskDesktop]: desktop
+      })}
     >
-      <div
-        className={classnames(classes.task, {
-          [classes.taskDesktop]: desktop
-        })}
-      >
-        <Typography noWrap={true}>{description}</Typography>
-        <div className={classes.taskDetails}>
-          <div>{`${year}-${month < 9 ? "0" : ""}${month + 1}-${
-            day < 10 ? "0" : ""
-          }${day}`}</div>
-          <div>{time}</div>
-        </div>
+      <Typography noWrap={true}>{description}</Typography>
+      <div className={classes.taskDetails}>
+        <div>{`${year}-${month < 9 ? "0" : ""}${month + 1}-${
+          day < 10 ? "0" : ""
+        }${day}`}</div>
+        <div>{time}</div>
       </div>
-    </Tooltip>
+    </div>
   );
 };
 
@@ -55,17 +47,6 @@ const styles = theme => ({
     flexDirection: "column",
     alignItems: "flex-end",
     flex: "0 0 auto"
-  },
-  tooltip: {
-    position: "relative",
-    top: "-100px",
-    fontSize: ".8rem"
-  },
-  tooltipDesktop: {
-    position: "relative",
-    top: "-100px",
-    fontSize: ".8rem",
-    maxWidth: "500px"
   }
 });
 

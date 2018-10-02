@@ -1,8 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
-import classnames from "classnames";
 import { withStyles } from "material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,81 +15,82 @@ import { isDesktop } from "../../utils/tasks";
 
 import Task from "./Task";
 
-const TaskList = ({ classes, tasks, page, maxPage, getTasksPage }) => {
-  const desktop = isDesktop();
-  const list = tasks.map(task => (
-    <Task key={task._id} task={task} desktop={desktop} />
-  ));
-
-  const nextPage = () => {
-    const newPage = page + 1;
+class TaskList extends Component {
+  nextPage = () => {
+    const newPage = this.props.page + 1;
 
     getTasksPage(newPage);
   };
 
-  const lastPage = () => {
-    getTasksPage(maxPage);
+  lastPage = () => {
+    getTasksPage(this.props.maxPage);
   };
 
-  const prevPage = () => {
-    const newPage = page - 1;
+  prevPage = () => {
+    const newPage = this.props.page - 1;
 
     getTasksPage(newPage);
   };
 
-  const firstPage = () => {
+  firstPage = () => {
     getTasksPage(1);
   };
 
-  return (
-    <Typography component="div" classes={{ root: classes.taskList }}>
-      <div className={classes.list}>{list}</div>
-      <div
-        className={classnames(classes.controls, {
-          [classes.controlsDesktop]: desktop
-        })}
-      >
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="First page"
-          onClick={firstPage}
-          disabled={page === 1}
-        >
-          <FirstPage />
-        </IconButton>
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="Prev page"
-          onClick={prevPage}
-          disabled={page === 1}
-        >
-          <ChevronLeft />
-        </IconButton>
-        <div className={classes.pageNumber}>{page}</div>
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="Next page"
-          onClick={nextPage}
-          disabled={page === maxPage}
-        >
-          <ChevronRight />
-        </IconButton>
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="Last page"
-          onClick={lastPage}
-          disabled={page === maxPage}
-        >
-          <LastPage />
-        </IconButton>
-      </div>
-    </Typography>
-  );
-};
+  render() {
+    const { classes, tasks, page, maxPage } = this.props;
+
+    const desktop = isDesktop();
+
+    const list = tasks.map(task => (
+      <Task key={task._id} task={task} desktop={desktop} />
+    ));
+
+    return (
+      <Typography component="div" classes={{ root: classes.taskList }}>
+        <div className={classes.list}>{list}</div>
+        <div className={classes.controls}>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="First page"
+            onClick={this.firstPage}
+            disabled={page === 1}
+          >
+            <FirstPage />
+          </IconButton>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="Prev page"
+            onClick={this.prevPage}
+            disabled={page === 1}
+          >
+            <ChevronLeft />
+          </IconButton>
+          <div className={classes.pageNumber}>{page}</div>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="Next page"
+            onClick={this.nextPage}
+            disabled={page === maxPage}
+          >
+            <ChevronRight />
+          </IconButton>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="Last page"
+            onClick={this.lastPage}
+            disabled={page === maxPage}
+          >
+            <LastPage />
+          </IconButton>
+        </div>
+      </Typography>
+    );
+  }
+}
 
 const styles = theme => ({
   taskList: {
@@ -108,9 +108,6 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
-  },
-  controlsDesktop: {
-    // paddingBottom: "10px"
   },
   pageNumber: {
     fontSize: "1.2rem",
