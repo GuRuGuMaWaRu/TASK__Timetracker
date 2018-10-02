@@ -1,4 +1,4 @@
-import { CHANGE_DATE, SET_DATE } from "../actions/types";
+import { CHANGE_DATE, SET_DATE, ADD_TASK } from "../actions/types";
 
 const INIT = {
   year: "---",
@@ -11,6 +11,11 @@ export default function(state = INIT, action) {
     case CHANGE_DATE:
       return {
         year: action.payload.year,
+        month: action.payload.month
+      };
+    case ADD_TASK:
+      return {
+        year: `${action.payload.year}`,
         month: action.payload.month
       };
     default:
