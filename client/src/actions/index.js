@@ -198,3 +198,8 @@ export const changeListType = (listType, query) => ({
   type: types.SET_LIST_TYPE,
   payload: { listType, query }
 });
+
+export const showTask = (description, date, duration) => ({
+  type: types.SHOW_TASK,
+  payload: { description, date, duration }
+});

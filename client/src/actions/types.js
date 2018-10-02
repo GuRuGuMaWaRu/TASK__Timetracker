@@ -17,3 +17,5 @@ export const END_EDIT = "end_edit";
 
 export const SET_LIMIT = "set_limit";
 export const SET_LIST_TYPE = "set_list_type";
+
+export const SHOW_TASK = "show_task";
