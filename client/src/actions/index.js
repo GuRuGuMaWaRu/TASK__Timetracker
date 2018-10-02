@@ -1,5 +1,5 @@
 import axios from "axios";
-import moment from "moment";
+import format from "date-fns/format";
 
 import * as types from "./types";
 import { showTime, roundUpSeconds } from "../utils/timer";
@@ -123,8 +123,7 @@ export const stopTimer = () => async (dispatch, getState) => {
 };
 
 export const getDate = () => async dispatch => {
-  const year = moment().format("YYYY");
-  const month = moment().format("MMMM");
+  const [year, month] = format(new Date(), "YYYY MMMM").split(" ");
 
   const monthArray = await createMonthArray(year, month);
 
