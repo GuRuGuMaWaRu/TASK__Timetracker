@@ -70,7 +70,9 @@ export const bookTime = data => async (dispatch, getState) => {
     type: types.ADD_TASK,
     payload: {
       monthArray,
-      tasks: tasks.data
+      tasks: tasks.data,
+      year: year,
+      month: months[month]
     }
   });
 };
