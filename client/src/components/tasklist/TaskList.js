@@ -5,6 +5,7 @@ import compose from "recompose/compose";
 import { withStyles } from "material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
+import Modal from "@material-ui/core/Modal";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
@@ -16,38 +17,56 @@ import { isDesktop } from "../../utils/tasks";
 import Task from "./Task";
 
 class TaskList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false
+    };
+  }
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   nextPage = () => {
     const newPage = this.props.page + 1;
 
-    getTasksPage(newPage);
+    this.props.getTasksPage(newPage);
   };
 
   lastPage = () => {
-    getTasksPage(this.props.maxPage);
+    this.props.getTasksPage(this.props.maxPage);
   };
 
   prevPage = () => {
     const newPage = this.props.page - 1;
 
-    getTasksPage(newPage);
+    this.props.getTasksPage(newPage);
   };
 
   firstPage = () => {
-    getTasksPage(1);
+    this.props.getTasksPage(1);
+  };
+
+  renderTaskList = () => {
+    const desktop = isDesktop();
+
+    return this.props.tasks.map(task => (
+      <Task key={task._id} task={task} desktop={desktop} />
+    ));
   };
 
   render() {
-    const { classes, tasks, page, maxPage } = this.props;
-
-    const desktop = isDesktop();
-
-    const list = tasks.map(task => (
-      <Task key={task._id} task={task} desktop={desktop} />
-    ));
+    const { classes, page, maxPage } = this.props;
 
     return (
       <Typography component="div" classes={{ root: classes.taskList }}>
-        <div className={classes.list}>{list}</div>
+        <div className={classes.list}>{this.renderTaskList()}</div>
         <div className={classes.controls}>
           <IconButton
             className={classes.button}
