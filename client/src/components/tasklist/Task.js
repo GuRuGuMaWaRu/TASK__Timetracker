@@ -1,23 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import compose from "recompose/compose";
 import classnames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-const Task = ({ classes, task, desktop }) => {
+import { showTask } from "../../actions";
+
+const Task = ({ classes, task, desktop, showTask }) => {
   const { description, year, month, day, time } = task;
+  const date = `${year}-${month < 9 ? "0" : ""}${month + 1}-${
+    day < 10 ? "0" : ""
+  }${day}`;
+
+  const handleOpen = () => {
+    showTask(description, date, time);
+  };
 
   return (
     <div
       className={classnames(classes.task, {
         [classes.taskDesktop]: desktop
       })}
+      onClick={handleOpen}
     >
       <Typography noWrap={true}>{description}</Typography>
       <div className={classes.taskDetails}>
-        <div>{`${year}-${month < 9 ? "0" : ""}${month + 1}-${
-          day < 10 ? "0" : ""
-        }${day}`}</div>
+        <div>{date}</div>
         <div>{time}</div>
       </div>
     </div>
@@ -61,7 +71,14 @@ Task.propTypes = {
     description: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired
   }),
-  desktop: PropTypes.bool.isRequired
+  desktop: PropTypes.bool.isRequired,
+  showTask: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Task);
+export default compose(
+  withStyles(styles),
+  connect(
+    null,
+    { showTask }
+  )
+)(Task);
