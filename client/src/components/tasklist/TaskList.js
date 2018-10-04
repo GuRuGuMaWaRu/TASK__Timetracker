@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
+import classnames from "classnames";
+
 import { withStyles } from "material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -114,14 +116,18 @@ class TaskList extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <div className={classes.paper}>
-            <Typography variant="title" id="modal-title">
-              {selectedTask.date}
-            </Typography>
-            <Typography variant="subheading" id="modal-description">
-              {selectedTask.duration}
-            </Typography>
-          </div>
+          <Typography
+            component="div"
+            className={classnames(classes.paper, {
+              [classes.mobileModal]: !isDesktop()
+            })}
+          >
+            <div className={classes.modalTime}>
+              <div>{selectedTask.date}</div>
+              <div>{selectedTask.duration}</div>
+            </div>
+            <div>{selectedTask.description}</div>
+          </Typography>
         </Modal>
       </Typography>
     );
@@ -164,6 +170,15 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4
+  },
+  modalTime: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "1rem"
+  },
+  mobileModal: {
+    width: "80%",
+    padding: theme.spacing.unit * 2
   }
 });
 
