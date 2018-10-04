@@ -62,11 +62,13 @@ class TaskList extends Component {
   };
 
   render() {
-    const { classes, page, maxPage } = this.props;
+    const { classes, page, maxPage, selectedTask } = this.props;
 
     return (
       <Typography component="div" classes={{ root: classes.taskList }}>
-        <div className={classes.list}>{this.renderTaskList()}</div>
+        <div className={classes.list} onClick={this.handleOpen}>
+          {this.renderTaskList()}
+        </div>
         <div className={classes.controls}>
           <IconButton
             className={classes.button}
@@ -106,6 +108,21 @@ class TaskList extends Component {
             <LastPage />
           </IconButton>
         </div>
+        <Modal
+          aria-labelledby={selectedTask.date}
+          aria-describedby={selectedTask.description}
+          open={this.state.open}
+          onClose={this.handleClose}
+        >
+          <div className={classes.paper}>
+            <Typography variant="title" id="modal-title">
+              {selectedTask.date}
+            </Typography>
+            <Typography variant="subheading" id="modal-description">
+              {selectedTask.duration}
+            </Typography>
+          </div>
+        </Modal>
       </Typography>
     );
   }
@@ -137,6 +154,16 @@ const styles = theme => ({
     [theme.breakpoints.down("xs")]: {
       margin: 0
     }
+  },
+  paper: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4
   }
 });
 
@@ -150,13 +177,23 @@ TaskList.propTypes = {
     taskListType: PropTypes.string.isRequired,
     query: PropTypes.string.isRequired
   }),
+  selectedTask: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired
+  }),
   getTasksPage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ tasks, taskList: { page, maxPage } }) => ({
+const mapStateToProps = ({
+  tasks,
+  taskList: { page, maxPage },
+  selectedTask
+}) => ({
   tasks,
   page,
-  maxPage
+  maxPage,
+  selectedTask
 });
 
 export default compose(
