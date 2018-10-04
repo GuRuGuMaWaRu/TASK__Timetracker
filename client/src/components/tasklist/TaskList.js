@@ -12,6 +12,7 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
+import Close from "@material-ui/icons/Close";
 
 import { getTasksPage } from "../../actions";
 import { isDesktop } from "../../utils/tasks";
@@ -122,6 +123,13 @@ class TaskList extends Component {
               [classes.mobileModal]: !isDesktop()
             })}
           >
+            <IconButton
+              classes={{ root: classes.modalButton }}
+              aria-label="Close"
+              onClick={this.handleClose}
+            >
+              <Close />
+            </IconButton>
             <div className={classes.modalTime}>
               <div>{selectedTask.date}</div>
               <div>{selectedTask.duration}</div>
@@ -178,7 +186,16 @@ const styles = theme => ({
   },
   mobileModal: {
     width: "80%",
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit * 4
+  },
+  modalButton: {
+    position: "absolute !important",
+    top: 0,
+    right: 0,
+    height: "24px !important",
+    width: "24px !important",
+    fontSize: "1rem !important"
   }
 });
 
