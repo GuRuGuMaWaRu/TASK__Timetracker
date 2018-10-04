@@ -175,9 +175,11 @@ const styles = theme => ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: theme.spacing.unit * 50,
+    height: "100px",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 4,
+    overflowY: "auto"
   },
   modalTime: {
     display: "flex",
