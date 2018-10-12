@@ -66,6 +66,7 @@ class TaskList extends Component {
 
   render() {
     const { classes, page, maxPage, selectedTask } = this.props;
+    console.log(selectedTask.description.length);
 
     return (
       <Typography component="div" classes={{ root: classes.taskList }}>
@@ -120,7 +121,8 @@ class TaskList extends Component {
           <Typography
             component="div"
             className={classnames(classes.paper, {
-              [classes.mobileModal]: !isDesktop()
+              [classes.mobilePaper]: !isDesktop(),
+              [classes.longPaper]: selectedTask.description.length > 800
             })}
           >
             <IconButton
@@ -170,26 +172,29 @@ const styles = theme => ({
     }
   },
   paper: {
+    boxSizing: "border-box",
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: theme.spacing.unit * 50,
-    height: "100px",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     overflowY: "auto"
   },
+  mobilePaper: {
+    width: "80%",
+    padding: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit * 4
+  },
+  longPaper: {
+    height: "500px"
+  },
   modalTime: {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "1rem"
-  },
-  mobileModal: {
-    width: "80%",
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit * 4
   },
   modalButton: {
     position: "absolute !important",
