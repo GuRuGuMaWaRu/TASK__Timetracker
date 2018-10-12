@@ -177,7 +177,7 @@ const styles = theme => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: theme.spacing.unit * 50,
+    width: theme.spacing.unit * 70,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
