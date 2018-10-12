@@ -10,17 +10,19 @@ import taskList from "./taskList";
 import flashMessages from "./flashMessages";
 import timerRunning from "./timerRunning";
 import timeEdit from "./timeEdit";
+import selectedTask from "./selectedTask";
 
 export default combineReducers({
-  currentDate: currentDate,
-  displayedDate: displayedDate,
-  minDate: minDate,
-  displayedMonth: displayedMonth,
-  time: time,
+  currentDate,
+  displayedDate,
+  minDate,
+  displayedMonth,
+  time,
   timerID: id,
-  tasks: tasks,
-  flashMessages: flashMessages,
+  tasks,
+  flashMessages,
   timerIsRunning: timerRunning,
   editTime: timeEdit,
-  taskList: taskList
+  taskList,
+  selectedTask
 });

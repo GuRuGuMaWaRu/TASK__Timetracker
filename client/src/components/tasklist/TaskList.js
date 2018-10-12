@@ -1,96 +1,148 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import classnames from "classnames";
+
 import { withStyles } from "material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
+import Modal from "@material-ui/core/Modal";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
+import Close from "@material-ui/icons/Close";
 
 import { getTasksPage } from "../../actions";
 import { isDesktop } from "../../utils/tasks";
 
 import Task from "./Task";
 
-const TaskList = ({ classes, tasks, page, maxPage, getTasksPage }) => {
-  const desktop = isDesktop();
-  const list = tasks.map(task => (
-    <Task key={task._id} task={task} desktop={desktop} />
-  ));
+class TaskList extends Component {
+  constructor(props) {
+    super(props);
 
-  const nextPage = () => {
-    const newPage = page + 1;
+    this.state = {
+      open: false
+    };
+  }
 
-    getTasksPage(newPage);
+  handleOpen = () => {
+    this.setState({ open: true });
   };
 
-  const lastPage = () => {
-    getTasksPage(maxPage);
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
-  const prevPage = () => {
-    const newPage = page - 1;
+  nextPage = () => {
+    const newPage = this.props.page + 1;
 
-    getTasksPage(newPage);
+    this.props.getTasksPage(newPage);
   };
 
-  const firstPage = () => {
-    getTasksPage(1);
+  lastPage = () => {
+    this.props.getTasksPage(this.props.maxPage);
   };
 
-  return (
-    <Typography component="div" classes={{ root: classes.taskList }}>
-      <div className={classes.list}>{list}</div>
-      <div
-        className={classnames(classes.controls, {
-          [classes.controlsDesktop]: desktop
-        })}
-      >
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="First page"
-          onClick={firstPage}
-          disabled={page === 1}
+  prevPage = () => {
+    const newPage = this.props.page - 1;
+
+    this.props.getTasksPage(newPage);
+  };
+
+  firstPage = () => {
+    this.props.getTasksPage(1);
+  };
+
+  renderTaskList = () => {
+    const desktop = isDesktop();
+
+    return this.props.tasks.map(task => (
+      <Task key={task._id} task={task} desktop={desktop} />
+    ));
+  };
+
+  render() {
+    const { classes, page, maxPage, selectedTask } = this.props;
+    console.log(selectedTask.description.length);
+
+    return (
+      <Typography component="div" classes={{ root: classes.taskList }}>
+        <div className={classes.list} onClick={this.handleOpen}>
+          {this.renderTaskList()}
+        </div>
+        <div className={classes.controls}>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="First page"
+            onClick={this.firstPage}
+            disabled={page === 1}
+          >
+            <FirstPage />
+          </IconButton>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="Prev page"
+            onClick={this.prevPage}
+            disabled={page === 1}
+          >
+            <ChevronLeft />
+          </IconButton>
+          <div className={classes.pageNumber}>{page}</div>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="Next page"
+            onClick={this.nextPage}
+            disabled={page === maxPage}
+          >
+            <ChevronRight />
+          </IconButton>
+          <IconButton
+            className={classes.button}
+            color="secondary"
+            aria-label="Last page"
+            onClick={this.lastPage}
+            disabled={page === maxPage}
+          >
+            <LastPage />
+          </IconButton>
+        </div>
+        <Modal
+          aria-labelledby={selectedTask.date}
+          aria-describedby={selectedTask.description}
+          open={this.state.open}
+          onClose={this.handleClose}
         >
-          <FirstPage />
-        </IconButton>
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="Prev page"
-          onClick={prevPage}
-          disabled={page === 1}
-        >
-          <ChevronLeft />
-        </IconButton>
-        <div className={classes.pageNumber}>{page}</div>
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="Next page"
-          onClick={nextPage}
-          disabled={page === maxPage}
-        >
-          <ChevronRight />
-        </IconButton>
-        <IconButton
-          className={classes.button}
-          color="secondary"
-          aria-label="Last page"
-          onClick={lastPage}
-          disabled={page === maxPage}
-        >
-          <LastPage />
-        </IconButton>
-      </div>
-    </Typography>
-  );
-};
+          <Typography
+            component="div"
+            className={classnames(classes.paper, {
+              [classes.mobilePaper]: !isDesktop(),
+              [classes.longPaper]: selectedTask.description.length > 800
+            })}
+          >
+            <IconButton
+              classes={{ root: classes.modalButton }}
+              aria-label="Close"
+              onClick={this.handleClose}
+            >
+              <Close />
+            </IconButton>
+            <div className={classes.modalTime}>
+              <div>{selectedTask.date}</div>
+              <div>{selectedTask.duration}</div>
+            </div>
+            <div>{selectedTask.description}</div>
+          </Typography>
+        </Modal>
+      </Typography>
+    );
+  }
+}
 
 const styles = theme => ({
   taskList: {
@@ -109,9 +161,6 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center"
   },
-  controlsDesktop: {
-    // paddingBottom: "10px"
-  },
   pageNumber: {
     fontSize: "1.2rem",
     margin: "0 14px"
@@ -121,6 +170,39 @@ const styles = theme => ({
     [theme.breakpoints.down("xs")]: {
       margin: 0
     }
+  },
+  paper: {
+    boxSizing: "border-box",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: theme.spacing.unit * 70,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    overflowY: "auto"
+  },
+  mobilePaper: {
+    width: "80%",
+    padding: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit * 4
+  },
+  longPaper: {
+    height: "500px"
+  },
+  modalTime: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "1rem"
+  },
+  modalButton: {
+    position: "absolute !important",
+    top: 0,
+    right: 0,
+    height: "24px !important",
+    width: "24px !important",
+    fontSize: "1rem !important"
   }
 });
 
@@ -134,13 +216,23 @@ TaskList.propTypes = {
     taskListType: PropTypes.string.isRequired,
     query: PropTypes.string.isRequired
   }),
+  selectedTask: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired
+  }),
   getTasksPage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ tasks, taskList: { page, maxPage } }) => ({
+const mapStateToProps = ({
+  tasks,
+  taskList: { page, maxPage },
+  selectedTask
+}) => ({
   tasks,
   page,
-  maxPage
+  maxPage,
+  selectedTask
 });
 
 export default compose(

@@ -1,34 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import compose from "recompose/compose";
 import classnames from "classnames";
+
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
 
-const Task = ({ classes, task, desktop }) => {
+import { showTask } from "../../actions";
+
+const Task = ({ classes, task, desktop, showTask }) => {
   const { description, year, month, day, time } = task;
+  const date = `${year}-${month < 9 ? "0" : ""}${month + 1}-${
+    day < 10 ? "0" : ""
+  }${day}`;
+
+  const handleOpen = () => {
+    showTask(description, date, time);
+  };
 
   return (
-    <Tooltip
-      title={description}
-      classes={{
-        tooltip: desktop ? classes.tooltipDesktop : classes.tooltip
-      }}
+    <div
+      className={classnames(classes.task, {
+        [classes.taskDesktop]: desktop
+      })}
+      onClick={handleOpen}
     >
-      <div
-        className={classnames(classes.task, {
-          [classes.taskDesktop]: desktop
-        })}
-      >
-        <Typography noWrap={true}>{description}</Typography>
-        <div className={classes.taskDetails}>
-          <div>{`${year}-${month < 9 ? "0" : ""}${month + 1}-${
-            day < 10 ? "0" : ""
-          }${day}`}</div>
-          <div>{time}</div>
-        </div>
+      <Typography noWrap={true}>{description}</Typography>
+      <div className={classes.taskDetails}>
+        <div>{date}</div>
+        <div>{time}</div>
       </div>
-    </Tooltip>
+    </div>
   );
 };
 
@@ -55,17 +58,6 @@ const styles = theme => ({
     flexDirection: "column",
     alignItems: "flex-end",
     flex: "0 0 auto"
-  },
-  tooltip: {
-    position: "relative",
-    top: "-100px",
-    fontSize: ".8rem"
-  },
-  tooltipDesktop: {
-    position: "relative",
-    top: "-100px",
-    fontSize: ".8rem",
-    maxWidth: "500px"
   }
 });
 
@@ -80,7 +72,14 @@ Task.propTypes = {
     description: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired
   }),
-  desktop: PropTypes.bool.isRequired
+  desktop: PropTypes.bool.isRequired,
+  showTask: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Task);
+export default compose(
+  withStyles(styles),
+  connect(
+    null,
+    { showTask }
+  )
+)(Task);
