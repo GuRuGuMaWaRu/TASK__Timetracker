@@ -29,9 +29,9 @@
   transition: transform 0.3s;
 }
 
-.with-tasks:hover {
+/* .with-tasks:hover {
   transform: translateX(10%);
-}
+} */
 
 /* @media screen and (max-width: 599px) {
   .month-dates {
