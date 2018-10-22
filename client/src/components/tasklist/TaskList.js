@@ -12,7 +12,6 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
-import Close from "@material-ui/icons/Close";
 
 import { getTasksPage } from "../../actions";
 import { isDesktop } from "../../utils/tasks";
@@ -125,13 +124,6 @@ class TaskList extends Component {
               [classes.longPaper]: selectedTask.description.length > 800
             })}
           >
-            <IconButton
-              classes={{ root: classes.modalButton }}
-              aria-label="Close"
-              onClick={this.handleClose}
-            >
-              <Close />
-            </IconButton>
             <div className={classes.modalTime}>
               <div>{selectedTask.date}</div>
               <div>{selectedTask.duration}</div>
@@ -185,24 +177,20 @@ const styles = theme => ({
   },
   mobilePaper: {
     width: "80%",
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 2
   },
   longPaper: {
-    height: "500px"
+    height: "350px"
+  },
+  modalButton: {
+    height: "24px !important",
+    width: "24px !important",
+    fontSize: "1rem !important"
   },
   modalTime: {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "1rem"
-  },
-  modalButton: {
-    position: "absolute !important",
-    top: 0,
-    right: 0,
-    height: "24px !important",
-    width: "24px !important",
-    fontSize: "1rem !important"
   }
 });
 
