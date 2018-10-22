@@ -49,6 +49,8 @@ exports.getTasksDate = async (req, res) => {
 
   const tasks = await Task.paginate(
     {
+      year,
+      month,
       day
     },
     { page, limit }
