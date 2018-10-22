@@ -177,11 +177,10 @@ const styles = theme => ({
   },
   mobilePaper: {
     width: "80%",
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 2
   },
   longPaper: {
-    height: "500px"
+    height: "350px"
   },
   modalButton: {
     height: "24px !important",
