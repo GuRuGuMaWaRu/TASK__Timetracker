@@ -37,6 +37,10 @@ class CalendarCard extends React.Component {
             key={`${cell.className}-${cell.value}`}
             placement="top"
             title={cell.tasks}
+            PopperProps={{ style: { pointerEvents: "none" } }}
+            classes={{
+              tooltip: this.props.classes.tooltip
+            }}
           >
             <div className={`${cell.className} with-tasks`}>{cell.value}</div>
           </Tooltip>
@@ -107,6 +111,10 @@ const styles = theme => ({
     flexDirection: "column",
     height: "100%",
     userSelect: "none"
+  },
+  tooltip: {
+    position: "relative",
+    top: "2rem !important"
   }
 });
 
