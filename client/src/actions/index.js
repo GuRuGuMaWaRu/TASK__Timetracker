@@ -12,12 +12,15 @@ const createMonthArray = async (year, month) => {
     `http://localhost:5000/tasks/getMonth/${year},${months.indexOf(month)}`
   );
 
-  const datesWithTasks = res.data.reduce((dates, task) => {
-    if (!dates.includes(task.day)) {
-      return [...dates, task.day];
+  const datesWithTasks = {};
+
+  res.data.forEach(task => {
+    if (datesWithTasks[task.day]) {
+      datesWithTasks[task.day] = datesWithTasks[task.day] + 1;
+    } else {
+      datesWithTasks[task.day] = 1;
     }
-    return dates;
-  }, []);
+  });
 
   return createMonthArrayHelper(datesWithTasks, year, month);
 };

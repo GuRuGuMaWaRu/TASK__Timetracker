@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import "../calendar/Calendar.css";
 import * as actions from "../../actions";
@@ -30,11 +31,24 @@ class CalendarCard extends React.Component {
 
   constructMonth = () => {
     return this.props.displayedMonth.map(cell => {
+      if (cell.withTasks) {
+        return (
+          <Tooltip
+            key={`${cell.className}-${cell.value}`}
+            placement="top"
+            title={cell.tasks}
+            PopperProps={{ style: { pointerEvents: "none" } }}
+            classes={{
+              tooltip: this.props.classes.tooltip
+            }}
+          >
+            <div className={`${cell.className} with-tasks`}>{cell.value}</div>
+          </Tooltip>
+        );
+      }
+
       return (
-        <div
-          key={`${cell.className}-${cell.value}`}
-          className={`${cell.className} ${cell.withTasks ? "with-tasks" : ""}`}
-        >
+        <div key={`${cell.className}-${cell.value}`} className={cell.className}>
           {cell.value}
         </div>
       );
@@ -97,6 +111,10 @@ const styles = theme => ({
     flexDirection: "column",
     height: "100%",
     userSelect: "none"
+  },
+  tooltip: {
+    position: "relative",
+    top: "2rem !important"
   }
 });
 
