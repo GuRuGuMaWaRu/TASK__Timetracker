@@ -44,7 +44,8 @@ const createMonthArrayHelper = (datesWithTasks, newYear, newMonth) => {
   const currMonthArray = [...Array(daysInCurrentMonth)].map((day, index) => ({
     value: index + 1,
     className: "month-dates--curr",
-    withTasks: datesWithTasks.includes(index + 1) ? true : false
+    withTasks: datesWithTasks[index + 1] ? true : false,
+    tasks: datesWithTasks[index + 1]
   }));
 
   const nextMonthArray = [...Array(nextMonthEndingDay)].map((day, index) => ({

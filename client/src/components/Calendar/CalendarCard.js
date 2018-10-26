@@ -36,7 +36,7 @@ class CalendarCard extends React.Component {
           <Tooltip
             key={`${cell.className}-${cell.value}`}
             placement="top"
-            title="wow"
+            title={cell.tasks}
           >
             <div className={`${cell.className} with-tasks`}>{cell.value}</div>
           </Tooltip>
