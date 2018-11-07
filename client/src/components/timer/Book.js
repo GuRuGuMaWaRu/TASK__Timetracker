@@ -9,22 +9,23 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 
 import BookDialog from "./BookDialog";
 import { stopTimer, startEdit } from "../../actions";
+import { isDesktop } from "../../utils/tasks";
 
 class Book extends Component {
   state = {
-    open: false
+    openBook: false
   };
 
-  handleClickOpen = () => {
+  handleOpenBook = () => {
     if (this.props.timerIsRunning) {
       this.props.stopTimer();
     }
     this.props.startEdit();
-    this.setState({ open: true });
+    this.setState({ openBook: true });
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
+  handleCloseBook = () => {
+    this.setState({ openBook: false });
   };
 
   render() {
@@ -32,19 +33,24 @@ class Book extends Component {
 
     return (
       <div className={classes.view}>
-        <IconButton className={classes.calendarButton} aria-label="Calendar">
-          <DateRangeIcon />
-        </IconButton>
+        {!isDesktop() && (
+          <IconButton className={classes.calendarButton} aria-label="Calendar">
+            <DateRangeIcon />
+          </IconButton>
+        )}
 
         <Button
           variant="outlined"
           color="secondary"
           className={classes.button}
-          onClick={this.handleClickOpen}
+          onClick={this.handleOpenBook}
         >
           book
         </Button>
-        <BookDialog isOpen={this.state.open} handleClose={this.handleClose} />
+        <BookDialog
+          isOpen={this.state.openBook}
+          handleClose={this.handleCloseBook}
+        />
       </div>
     );
   }
@@ -62,13 +68,13 @@ const styles = theme => ({
       padding: 0,
       minWidth: "60px"
     }
-  },
-  calendarButton: {
-    display: "none",
-    [theme.breakpoints.down("sm")]: {
-      display: "block"
-    }
   }
+  // calendarButton: {
+  //   display: "none",
+  //   [theme.breakpoints.down("sm")]: {
+  //     display: "block"
+  //   }
+  // }
 });
 
 Book.propTypes = {
