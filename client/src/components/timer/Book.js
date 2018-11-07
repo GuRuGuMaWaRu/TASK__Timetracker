@@ -48,7 +48,9 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     [theme.breakpoints.down("xs")]: {
-      margin: 0
+      margin: 0,
+      padding: 0,
+      minWidth: "60px"
     }
   }
 });
