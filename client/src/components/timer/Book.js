@@ -52,7 +52,8 @@ class Book extends Component {
 
 const styles = theme => ({
   view: {
-    display: "flex"
+    display: "flex",
+    alignItems: "center"
   },
   button: {
     margin: theme.spacing.unit,
