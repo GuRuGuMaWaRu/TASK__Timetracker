@@ -10,10 +10,11 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 import BookDialog from "./BookDialog";
 import { stopTimer, startEdit } from "../../actions";
 import { isDesktop } from "../../utils/tasks";
-
+import CalendarDialog from "./CalendarDialog";
 class Book extends Component {
   state = {
-    openBook: false
+    openBook: false,
+    openCalendar: false
   };
 
   handleOpenBook = () => {
@@ -24,8 +25,16 @@ class Book extends Component {
     this.setState({ openBook: true });
   };
 
+  handleOpenCalendar = () => {
+    this.setState({ openCalendar: true });
+  };
+
   handleCloseBook = () => {
     this.setState({ openBook: false });
+  };
+
+  handleCloseCalendar = () => {
+    this.setState({ openCalendar: false });
   };
 
   render() {
@@ -34,7 +43,11 @@ class Book extends Component {
     return (
       <div className={classes.view}>
         {!isDesktop() && (
-          <IconButton className={classes.calendarButton} aria-label="Calendar">
+          <IconButton
+            className={classes.calendarButton}
+            aria-label="Calendar"
+            onClick={this.handleOpenCalendar}
+          >
             <DateRangeIcon />
           </IconButton>
         )}
@@ -51,6 +64,12 @@ class Book extends Component {
           isOpen={this.state.openBook}
           handleClose={this.handleCloseBook}
         />
+        {!isDesktop() && (
+          <CalendarDialog
+            isOpen={this.state.openCalendar}
+            handleClose={this.handleCloseCalendar}
+          />
+        )}
       </div>
     );
   }
