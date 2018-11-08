@@ -88,12 +88,6 @@ const styles = theme => ({
       minWidth: "60px"
     }
   }
-  // calendarButton: {
-  //   display: "none",
-  //   [theme.breakpoints.down("sm")]: {
-  //     display: "block"
-  //   }
-  // }
 });
 
 Book.propTypes = {
