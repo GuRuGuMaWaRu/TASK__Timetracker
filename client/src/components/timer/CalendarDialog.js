@@ -6,10 +6,10 @@ import CalendarCard from "../calendar/CalendarCard";
 
 class CalendarDialog extends Component {
   render() {
-    const { isOpen } = this.props;
+    const { isOpen, handleClose } = this.props;
 
     return (
-      <Dialog open={isOpen} aria-labelledby="calendar">
+      <Dialog open={isOpen} onClose={handleClose} aria-labelledby="calendar">
         <DialogContent>
           <CalendarCard />
         </DialogContent>
