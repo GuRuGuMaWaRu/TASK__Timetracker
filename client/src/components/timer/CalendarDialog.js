@@ -10,9 +10,9 @@ class CalendarDialog extends Component {
 
     return (
       <Dialog open={isOpen} onClose={handleClose} aria-labelledby="calendar">
-        <DialogContent>
+        <div>
           <CalendarCard />
-        </DialogContent>
+        </div>
       </Dialog>
     );
   }
