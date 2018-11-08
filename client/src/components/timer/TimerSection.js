@@ -44,10 +44,6 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
-    // [theme.breakpoints.down("sm")]: {
-    //   justifyContent: "space-between",
-    //   alignItems: "center"
-    // }
   },
   timerComponents: {
     display: "flex",

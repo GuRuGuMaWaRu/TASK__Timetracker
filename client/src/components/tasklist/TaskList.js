@@ -65,7 +65,6 @@ class TaskList extends Component {
 
   render() {
     const { classes, page, maxPage, selectedTask } = this.props;
-    console.log(selectedTask.description.length);
 
     return (
       <Typography component="div" classes={{ root: classes.taskList }}>
