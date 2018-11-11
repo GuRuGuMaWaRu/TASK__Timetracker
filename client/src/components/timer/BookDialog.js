@@ -14,9 +14,9 @@ import Typography from "@material-ui/core/Typography";
 
 import * as actions from "../../actions";
 
-function TabContainer(props) {
-  return <Typography component="div">{props.children}</Typography>;
-}
+const TabContainer = props => (
+  <Typography component="div">{props.children}</Typography>;
+);
 
 class BookDialog extends Component {
   state = {
@@ -28,10 +28,11 @@ class BookDialog extends Component {
   };
 
   validateTime = () => {
-    const time =
-      this.state.selectedTab === 1 ? this.state.time : this.props.editTime;
-
+    const time = this.state.selectedTab === 1
+      ? this.state.time
+      : this.props.editTime;
     const timeToArr = time.split(":").map(parseFloat);
+
     return timeToArr.every(time => time === 0);
   };
 
@@ -84,8 +85,9 @@ class BookDialog extends Component {
       }
 
       this.props.bookTime({
-        time:
-          this.state.selectedTab === 0 ? this.props.editTime : this.state.time,
+        time: this.state.selectedTab === 0
+          ? this.props.editTime
+          : this.state.time,
         description: this.state.description
       });
 

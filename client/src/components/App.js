@@ -11,14 +11,6 @@ import "./App.css";
 import { getTasksPage, setPageLimit } from "../actions";
 import { maxTasksPerPage } from "../utils/tasks";
 
-const styles = theme => ({
-  app: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%"
-  }
-});
-
 class App extends Component {
   componentDidMount() {
     // 1. Find max number of tasks per page
@@ -27,6 +19,14 @@ class App extends Component {
     this.props.setPageLimit(limit);
     // 3. Get the 1st page with tasks per page depending on screen size
     this.props.getTasksPage(1);
+
+    // window.onresize = event => {
+    //   if (window.innerHeight > window.innerWidth) {
+    //     alert("You are now in portrait");
+    //   } else {
+    //     alert("You are now in landscape");
+    //   }
+    // };
   }
 
   render() {
@@ -41,6 +41,14 @@ class App extends Component {
     );
   }
 }
+
+const styles = theme => ({
+  app: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%"
+  }
+});
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,

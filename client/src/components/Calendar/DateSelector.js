@@ -1,35 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+
 import { withStyles } from "material-ui/styles";
 import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 import * as actions from "../../actions";
-
-const DateSelectorStyles = theme => ({
-  selector: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "90%",
-    padding: "15px",
-    margin: "0 auto",
-    fontSize: 18,
-    [theme.breakpoints.down("xs")]: {
-      padding: "2px",
-      fontSize: 16
-    }
-  },
-  enabled: {
-    cursor: "pointer",
-    color: "#0E0E0E"
-  },
-  disabled: {
-    cursor: "not-allowed",
-    color: "#cdd1d6"
-  }
-});
 
 let DateSelector = ({
   classes,
@@ -73,6 +50,30 @@ let DateSelector = ({
   );
 };
 
+const DateSelectorStyles = theme => ({
+  selector: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "90%",
+    padding: "15px",
+    margin: "0 auto",
+    fontSize: 18,
+    [theme.breakpoints.down("xs")]: {
+      padding: "2px",
+      fontSize: 16
+    }
+  },
+  enabled: {
+    cursor: "pointer",
+    color: "#0E0E0E"
+  },
+  disabled: {
+    cursor: "not-allowed",
+    color: "#cdd1d6"
+  }
+});
+
 DateSelector.propTypes = {
   classes: PropTypes.object.isRequired,
   dateType: PropTypes.string.isRequired,
@@ -88,6 +89,7 @@ const mapStateToProps = ({ currentDate, displayedDate, minDate }) => ({
   minDate
 });
 
-export default connect(mapStateToProps, actions)(
-  withStyles(DateSelectorStyles)(DateSelector)
-);
+export default connect(
+  mapStateToProps,
+  actions
+)(withStyles(DateSelectorStyles)(DateSelector));
