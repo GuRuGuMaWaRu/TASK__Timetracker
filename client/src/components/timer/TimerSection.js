@@ -33,7 +33,7 @@ const styles = theme => ({
     }
   },
   cardContent: {
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       paddingTop: "5px",
       "&:last-child": {
         paddingBottom: "5px"

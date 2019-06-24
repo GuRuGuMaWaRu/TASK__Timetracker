@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import compose from "recompose/compose";
 import { withStyles } from "material-ui/styles";
 import Hidden from "@material-ui/core/Hidden";
-import withWidth from "@material-ui/core/withWidth";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
@@ -45,8 +44,7 @@ const styles = theme => ({
   },
   inputSection: {
     display: "flex",
-    flexDirection: "column",
-    flex: "1 1"
+    flexDirection: "column"
   },
   displaySection: {
     display: "flex",
@@ -56,14 +54,10 @@ const styles = theme => ({
       flex: "7 1"
     }
   },
-  displaySectionCard: {
-    // boxShadow: "none!important"
-  },
   displaySectionCardContent: {
     display: "flex",
     flexDirection: "column",
     flex: "2 1",
-    // height: "100%",
     paddingTop: "0!important",
     paddingBottom: "0!important"
   }
@@ -73,7 +67,4 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default compose(
-  withStyles(styles),
-  withWidth()
-)(Main);
+export default compose(withStyles(styles))(Main);

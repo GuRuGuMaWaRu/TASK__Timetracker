@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import classnames from "classnames";
-
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
@@ -14,7 +13,6 @@ const Task = ({ classes, task, desktop, showTask }) => {
   const date = `${year}-${month < 9 ? "0" : ""}${month + 1}-${
     day < 10 ? "0" : ""
   }${day}`;
-
   const handleOpen = () => {
     showTask(description, date, time);
   };
@@ -26,7 +24,9 @@ const Task = ({ classes, task, desktop, showTask }) => {
       })}
       onClick={handleOpen}
     >
-      <Typography noWrap={true}>{description}</Typography>
+      <Typography className={classes.taskDescription} noWrap={true}>
+        {description}
+      </Typography>
       <div className={classes.taskDetails}>
         <div>{date}</div>
         <div>{time}</div>
@@ -40,8 +40,8 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    flex: "1 1 60px",
-    padding: ".6rem",
+    flex: "1 1 44px",
+    padding: ".5rem",
     "&:nth-child(odd)": {
       backgroundColor: "#f4f4f4"
     },
@@ -50,8 +50,11 @@ const styles = theme => ({
     }
   },
   taskDesktop: {
-    flex: "1 1 90px",
+    flex: "1 1 55px",
     padding: "1rem"
+  },
+  taskDescription: {
+    marginRight: "2rem"
   },
   taskDetails: {
     display: "flex",
