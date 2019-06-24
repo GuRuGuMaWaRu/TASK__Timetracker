@@ -5,6 +5,7 @@ require("dotenv").config({ path: "variables.env" });
 
 // connect to database and handle any bad connections
 mongoose.connect(process.env.DATABASE, { useNewUrlParser: true });
+mongoose.set("useCreateIndex", true);
 mongoose.connection.on("error", err => {
   console.error(`There was an error: ${err.message}`);
 });

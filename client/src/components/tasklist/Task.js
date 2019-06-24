@@ -49,7 +49,7 @@ const styles = theme => ({
     }
   },
   taskDesktop: {
-    flex: "1 1 90px",
+    flex: "1 1 55px",
     padding: "1rem"
   },
   taskDetails: {

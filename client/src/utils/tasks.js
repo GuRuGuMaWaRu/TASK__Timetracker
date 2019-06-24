@@ -1,10 +1,13 @@
 export const isDesktop = () => {
-  return window.innerHeight > 1000 ? true : false;
+  return window.innerHeight > 900 ? true : false;
 };
 
 export const maxTasksPerPage = () => {
   // 1. Find if our screen is small or large (different layout for each)
   const desktop = isDesktop();
+  console.log("isDesktop: ", desktop);
+  console.log("window.innerHeight: ", window.innerHeight);
+
   // 2. Set different Task List height depending on layout
   const listHeight = desktop
     ? window.innerHeight - 136

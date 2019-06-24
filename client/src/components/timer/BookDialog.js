@@ -15,7 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import * as actions from "../../actions";
 
 const TabContainer = props => (
-  <Typography component="div">{props.children}</Typography>;
+  <Typography component="div">{props.children}</Typography>
 );
 
 class BookDialog extends Component {
