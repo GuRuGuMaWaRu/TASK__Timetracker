@@ -45,7 +45,6 @@ const styles = theme => ({
   inputSection: {
     display: "flex",
     flexDirection: "column"
-    // flex: "1 1"
   },
   displaySection: {
     display: "flex",

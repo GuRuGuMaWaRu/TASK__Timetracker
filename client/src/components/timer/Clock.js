@@ -15,7 +15,7 @@ const Clock = ({ classes, time }) => {
 const styles = theme => ({
   main: {
     fontSize: "2em",
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       fontSize: "1.4em"
     }
   }
