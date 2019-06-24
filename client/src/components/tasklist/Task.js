@@ -40,8 +40,8 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    flex: "1 1 60px",
-    padding: ".6rem",
+    flex: "1 1 44px",
+    padding: ".5rem",
     "&:nth-child(odd)": {
       backgroundColor: "#f4f4f4"
     },

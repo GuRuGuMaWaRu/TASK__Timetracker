@@ -44,8 +44,8 @@ const styles = theme => ({
   },
   inputSection: {
     display: "flex",
-    flexDirection: "column",
-    flex: "1 1"
+    flexDirection: "column"
+    // flex: "1 1"
   },
   displaySection: {
     display: "flex",
@@ -68,6 +68,4 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default compose(
-  withStyles(styles)
-)(Main);
+export default compose(withStyles(styles))(Main);

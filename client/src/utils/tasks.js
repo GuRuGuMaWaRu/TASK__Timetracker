@@ -11,7 +11,10 @@ export const maxTasksPerPage = () => {
   // 2. Set different Task List height depending on layout
   const listHeight = desktop
     ? window.innerHeight - 136
-    : window.innerHeight - 166;
+    : window.innerHeight - 212;
+
+  console.log("listHeight: ", listHeight);
+  console.log("mobile minus height:", 20 + 58 + 66 + 48 + 20);
 
   return desktop ? Math.floor(listHeight / 100) : Math.floor(listHeight / 60);
 };
