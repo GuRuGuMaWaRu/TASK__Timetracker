@@ -13,7 +13,6 @@ const Task = ({ classes, task, desktop, showTask }) => {
   const date = `${year}-${month < 9 ? "0" : ""}${month + 1}-${
     day < 10 ? "0" : ""
   }${day}`;
-
   const handleOpen = () => {
     showTask(description, date, time);
   };
@@ -25,7 +24,9 @@ const Task = ({ classes, task, desktop, showTask }) => {
       })}
       onClick={handleOpen}
     >
-      <Typography noWrap={true}>{description}</Typography>
+      <Typography className={classes.taskDescription} noWrap={true}>
+        {description}
+      </Typography>
       <div className={classes.taskDetails}>
         <div>{date}</div>
         <div>{time}</div>
@@ -51,6 +52,9 @@ const styles = theme => ({
   taskDesktop: {
     flex: "1 1 55px",
     padding: "1rem"
+  },
+  taskDescription: {
+    marginRight: "2rem"
   },
   taskDetails: {
     display: "flex",
