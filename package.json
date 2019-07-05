@@ -7,6 +7,9 @@
     "node": "8.1.1",
     "npm": "5.0.3"
   },
+  "now": {
+    "dotenv": "variables.env.now"
+  },
   "scripts": {
     "start": "node index.js",
     "server": "nodemon start.js",

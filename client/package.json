@@ -4,7 +4,7 @@
   "private": true,
   "proxy": {
     "/tasks/addTask": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:80"
     }
   },
   "devDependencies": {

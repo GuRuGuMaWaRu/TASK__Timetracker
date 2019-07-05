@@ -12,3 +12,5 @@ npm-debug.log
 variable.env
 variable.env.now
 tmp.js
+tmp2.js
+dev.js
