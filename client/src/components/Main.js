@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import compose from "recompose/compose";
 import { withStyles } from "material-ui/styles";
-import Hidden from "@material-ui/core/Hidden";
+// import Hidden from "@material-ui/core/Hidden";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
 import TimerSection from "./timer/TimerSection";
-import CalendarCard from "./calendar/CalendarCard";
+// import CalendarCard from "./calendar/CalendarCard";
 import SearchSection from "./search/SearchSection";
 import TaskList from "./tasklist/TaskList";
 
