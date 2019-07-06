@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import compose from "recompose/compose";
 import { withStyles } from "material-ui/styles";
-// import Hidden from "@material-ui/core/Hidden";
+import Hidden from "@material-ui/core/Hidden";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
@@ -16,9 +16,7 @@ const Main = ({ classes }) => {
     <div className={classes.main}>
       <section className={classes.inputSection}>
         <TimerSection />
-        {/* <Hidden smDown>
-          <CalendarCard />
-        </Hidden> */}
+        <Hidden smDown>{/* <CalendarCard /> */}</Hidden>
       </section>
       <Card
         className={classes.displaySection}
