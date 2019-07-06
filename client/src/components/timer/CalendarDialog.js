@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-// import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";
 
 // import CalendarCard from "../calendar/CalendarCard";
 
@@ -17,9 +17,10 @@ class CalendarDialog extends Component {
         aria-labelledby="calendar"
         aria-describedby="calendar"
       >
-        {/* <Typography component="div" className={classes.dialog}>
-          <CalendarCard />
-        </Typography> */}
+        <Typography component="div" className={classes.dialog}>
+          {/* <CalendarCard /> */}
+          Calendar
+        </Typography>
       </Modal>
     );
   }

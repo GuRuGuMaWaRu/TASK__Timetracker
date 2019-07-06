@@ -16,7 +16,7 @@ const Main = ({ classes }) => {
     <div className={classes.main}>
       <section className={classes.inputSection}>
         <TimerSection />
-        <Hidden smDown>{/* <CalendarCard /> */}</Hidden>
+        <Hidden smDown>Calendar{/* <CalendarCard /> */}</Hidden>
       </section>
       <Card
         className={classes.displaySection}
