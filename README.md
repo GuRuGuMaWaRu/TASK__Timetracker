@@ -76,10 +76,10 @@ Now the app should be running!
   * [ ] Some sort of statistics
 
 ## Video Walkthrough - Desktop
-![](https://github.com/gurugumawaru/FCC_game_of_life/blob/master/timetracker_desktop.gif)
+![](https://github.com/gurugumawaru/TASK__Timetracker/blob/master/timetracker_desktop.gif)
 
 ## Video Walkthrough - Mobile (portrait)
-![](https://github.com/gurugumawaru/FCC_game_of_life/blob/master/timetracker_mobile_portrait.gif)
+![](https://github.com/gurugumawaru/TASK__Timetracker/blob/master/timetracker_mobile_portrait.gif)
 
 ## Video Walkthrough - Mobile (landscape)
-![](https://github.com/gurugumawaru/FCC_game_of_life/blob/master/timetracker_mobile_landscape.gif)
+![](https://github.com/gurugumawaru/TASK__Timetracker/blob/master/timetracker_mobile_landscape.gif)
