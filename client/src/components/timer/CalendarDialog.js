@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 
-// import CalendarCard from "../calendar/CalendarCard";
+import CalendarCard from "../calendar/CalendarCard";
 
 class CalendarDialog extends Component {
   render() {
@@ -18,7 +18,7 @@ class CalendarDialog extends Component {
         aria-describedby="calendar"
       >
         <Typography component="div" className={classes.dialog}>
-          {/* <CalendarCard /> */}
+          <CalendarCard />
           Calendar
         </Typography>
       </Modal>

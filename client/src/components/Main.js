@@ -7,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
 import TimerSection from "./timer/TimerSection";
-// import CalendarCard from "./calendar/CalendarCard";
+import CalendarCard from "./calendar/CalendarCard";
 import SearchSection from "./search/SearchSection";
 import TaskList from "./tasklist/TaskList";
 
@@ -16,7 +16,9 @@ const Main = ({ classes }) => {
     <div className={classes.main}>
       <section className={classes.inputSection}>
         <TimerSection />
-        <Hidden smDown>Calendar{/* <CalendarCard /> */}</Hidden>
+        <Hidden smDown>
+          <CalendarCard />
+        </Hidden>
       </section>
       <Card
         className={classes.displaySection}
