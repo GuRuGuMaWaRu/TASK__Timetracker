@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import compose from "recompose/compose";
-import { withStyles } from "material-ui/styles";
+// import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import compose from "recompose/compose";
+// import { withStyles } from "material-ui/styles";
 
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import "./App.css";
-import { getTasksPage, setPageLimit } from "../actions";
-import { maxTasksPerPage } from "../utils/tasks";
+// import Header from "./Header";
+// import Main from "./Main";
+// import Footer from "./Footer";
+// import "./App.css";
+// import { getTasksPage, setPageLimit } from "../actions";
+// import { maxTasksPerPage } from "../utils/tasks";
 
 // class App extends Component {
 //   componentDidMount() {
@@ -44,24 +44,25 @@ import { maxTasksPerPage } from "../utils/tasks";
 
 const App = () => <div>App</div>;
 
-const styles = theme => ({
-  app: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%"
-  }
-});
+// const styles = theme => ({
+//   app: {
+//     display: "flex",
+//     flexDirection: "column",
+//     height: "100%"
+//   }
+// });
 
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
-  getTasksPage: PropTypes.func.isRequired,
-  setPageLimit: PropTypes.func.isRequired
-};
+// App.propTypes = {
+//   classes: PropTypes.object.isRequired,
+//   getTasksPage: PropTypes.func.isRequired,
+//   setPageLimit: PropTypes.func.isRequired
+// };
 
-export default compose(
-  withStyles(styles),
-  connect(
-    null,
-    { getTasksPage, setPageLimit }
-  )
-)(App);
+// export default compose(
+//   withStyles(styles),
+//   connect(
+//     null,
+//     { getTasksPage, setPageLimit }
+//   )
+// )(App);
+export default App;
